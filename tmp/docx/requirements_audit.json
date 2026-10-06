@@ -1,0 +1,30 @@
+{
+  "source": "HW1_Spec (1).pdf and HW1_Intro.pdf",
+  "final_pdf_pages": 6,
+  "preregistration_pdf_pages": 1,
+  "checked": [
+    "Assignment dataset only; 114000x20 source and original SHA256",
+    "Six ranked findings: evidence, impact, cleaning decision, trade-off, first-versus-second rationale",
+    "Cleaning implemented; cleaned unique tracks used in Sections 4-6; listing sensitivity exception stated",
+    "PCA 90 percent criterion, leading PC interpretation, raw-versus-standardized own-data variances and projection objective",
+    "Genre profiles, two distances by two linkages, quantitative comparisons, member changes and justified choice",
+    "Track k=2-10 inertia and silhouette, fixed sample explanation, all feature means and justified k",
+    "Three meaningfulness evidence items with stability and alternative interpretations",
+    "Two OLS targets, allowed inputs, training-mean baselines, preregistered RMSE comparisons",
+    "Recording-group split, training-only regression preprocessing, dataset-based explanation of performance differences",
+    "Artists as one additional column, controlled comparison and seen-versus-unseen limitation",
+    "Ridge 25 alphas across 12 orders, coefficients and held-out errors, validation-only alpha selection",
+    "Strongest available raw correlations explained; existing richer basis includes three mutually correlated columns",
+    "Small-training polynomial setting with same 80 training observations and exploratory limitation",
+    "All 16 notebook cells executed in fresh kernel; seven key tables reproduced within 1e-10",
+    "Detailed code/analysis AI-use log and checks, updated full-execution record",
+    "Correct required submission filenames; current six-page PDF matches visually checked Word export"
+  ],
+  "not_established_by_local_checks": [
+    "Rule 3: student-written final report. Current generated report remains a draft for student work.",
+    "Full accuracy and completeness of student final AI-use disclosure after their own work.",
+    "Pre-registration actual upload time and submission before full-data analysis.",
+    "eeclass final submission by deadline and student ability to explain/modify work at demo."
+  ],
+  "grading": "The rubric is qualitative; coverage and reproducibility cannot guarantee a score."
+}

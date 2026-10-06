@@ -1,0 +1,68 @@
+{
+  "student_id": "113062273",
+  "data_url": "https://github.com/nthu-cs-hmilab/I2ML-2026/releases/download/data/tracks.csv",
+  "dataset_sha256": "db8cd3670209db33285dbfa7ad08dc05446219e9c430e7750abfd17e99297c42",
+  "raw_shape": [
+    114000,
+    20
+  ],
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scipy": "1.16.1",
+    "matplotlib": "3.10.5",
+    "scikit-learn": "1.7.1"
+  },
+  "seed": 113062273,
+  "preregistered_rmse": {
+    "energy": 0.12,
+    "popularity": 18.0
+  },
+  "clean_rows": 88858,
+  "clean_genre_memberships": 111458,
+  "conflicting_ids_excluded": 720,
+  "chosen_k": 2,
+  "silhouette_sample_size": 2000,
+  "geometry_features": [
+    "danceability",
+    "energy",
+    "loudness",
+    "speechiness",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "valence",
+    "tempo"
+  ],
+  "splits": {
+    "train": {
+      "tracks": 56931,
+      "recording_groups": 51293,
+      "fraction": 0.6406963919962186
+    },
+    "validation": {
+      "tracks": 14158,
+      "recording_groups": 12824,
+      "fraction": 0.15933286817168965
+    },
+    "development": {
+      "tracks": 71089,
+      "recording_groups": 64117,
+      "fraction": 0.8000292601679083
+    },
+    "test": {
+      "tracks": 17769,
+      "recording_groups": 16030,
+      "fraction": 0.19997073983209165
+    }
+  },
+  "split_policy": "Connected recording groups; 20% test groups and 20% of remaining groups for validation",
+  "regularization_features": [
+    "loudness",
+    "acousticness",
+    "instrumentalness"
+  ],
+  "ridge_selected_alpha_full": 100.0,
+  "ridge_selected_alpha_small": 10.0
+}

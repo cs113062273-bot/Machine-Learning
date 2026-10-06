@@ -1,0 +1,4 @@
+﻿,basis_feature_1,basis_feature_2,training_pearson_r,absolute_r
+0,loudness^2,loudness^3,-0.9719329881242221,0.9719329881242221
+1,loudness^2,loudness^2 instrumentalness,0.9670901047799592,0.9670901047799592
+2,loudness^3,loudness^2 instrumentalness,-0.9754946504417497,0.9754946504417497
