@@ -1,0 +1,1012 @@
+=== PAGE 1 ===
+                                                                                                                                                       Overfitting    to
+                                     and
+                                                   Kuo                       Learning                                                                                                  Descent,                                                                                                                        Po-Chih460200
+                                                                                                              Gradient                                                                                                                                                                                             Instructor:CS                                              Regression                       Introduction                                                                                                              Squares,                    Machine
+                                                                    Least
+
+=== PAGE 2 ===
+                                             2
+
+                                        learning
+                                                  Supervised
+
+
+                                                                                                                                                                                   4602
+                                                                                         CS                                                               reduction
+                                    Concepts                                                                                                                                    Networks                                                                                                 Dimensionality
+       &                       Basic                                                                                                                                                                                    Learning                                                                                                   Neural              and                                                                                                                                                                                 learning                                                                                                                    Classifiers                                                           Trees                                                                                                                                  Classifier  Networks                                                                                                                           learning                                                                             Exploration                                                                                                                                                                                                                             Autoencoder Adversarial Transfer …
+
+
+                    • • • •                                                       Introduction  Regression Data  Clustering KNN  Bayesian  Decision Linear Neural Deep   Convolutional                                                        RNN/Transformer   ReinforcementRoadmap   • • • • • • • • • • •    • •
+
+=== PAGE 3 ===
+                                             3
+
+
+
+                                                                     Squares)
+                                                                                                                                                                                   4602                                                                                                                                                                                             classification)                                                                                         CS                                                  Problems Least
+                                                  like                                                                    descent
+                                                                              (Ordinary                    descent                                                               (more                                                                              Gradient                                                                                            descent                                                                                                                                                              regularization                                                                                                                   gradient                                                                                 Least-Squares                                                                              inversion                                                 regression                and                                                                                                         gradient                   for                                                                                                                              regressionweek                    regression                                                    matrix  optimization: Batch  Stochastic
+                 As As • •
+
+         • •                      Linear   Non-linear   Solutions                                            Overfitting  LogisticThis  • • •    • •
+
+=== PAGE 4 ===
+                                             4
+                                                                                                 studied                    Height
+          vs.                                                                     Hours
+                                         vs.
+                    Weight                                                                     Score
+
+
+
+                                                                                                                                                                                   4602
+                                                                                         CS
+examples                                                                                                               outbreak
+                Weather                                                                                                 Disease
+Regression
+
+=== PAGE 5 ===
+                                             5
+
+                                                                                                                                                   function
+U.S                                                                                    𝑓ሺ𝑥௜ሻ
+                                                                                                                                                                                        Predictionthe
+                                 price        𝑦௜in                                                221900   538000   180000   604000   510000   1230000
+
+                                                                                                                                                                                   4602
+                                                                                         CS        𝑥௜  sqft  5650  7242  10000  5000  8080                                                                                                                                                        learningprice                                                                                 101930           Machine                                                                                                                                                                                    algorithm
+
+
+
+
+        i 1 2 3 4 5 6
+House                       ௡௜ୀଵ                                                                         data
+                                                                   𝑦௜)}
+                                                                                    ሼሺ𝑥௜,                                                                                                                                                   TrainingExample:
+
+=== PAGE 6 ===
+                                              (x7,y7)                              sqft
+
+                                             6
+                                                      (x6,y6)
+
+
+                 X                                                                    (x4,y4)                                           (x5,y5)
+                                                       (x3,y3)                                                                                   (x1,y1)
+                                                                (x2,y2)
+
+
+
+
+        y
+                               price     to                                                    noise                                                                                                      variable)                                                                                                                                                                                  4602                 the                                                                 variables                                                                                         CS          like                                                                                                                                                                         (coefficient)                            assumewith                                                                                                      (response            would                                                                                                        predictor         we     wey                                                                                                         measurement                                                                               predict          f(x)=wx+                                        related
+     x,                       to =              parameter
+          y                     output    are      aregression
+      x                                                                    trying        is            input       an                    equation:                                                    regression,
+                                  are    w     an                 and      y     we                                               represents                            linearLinear                                                          where            Givencompute Inthatfollowing    What              and
+
+  • •
+
+=== PAGE 7 ===
+                                             E(w)                    7
+                    pairs                                                   function:        between                                                                                                        maximum                                                        Error                                                   squares):                              to                        <xi,yi>                      or                                                                                                 distance        of                                  (least                                             L(w)
+                data                                                     line
+        ?                            error                                                                                 equivalent                                                                                     squared                                                                                                    function:                                    the                                                                                                                                                                                   4602                               training
+                                                                                         CS                                             Loss                    predicted                                        squared                from                                        the
+            ௜
+  w                                                                                                                                                                                                                              interpretation:                                                                                                             Minimizes                                        and                                             minimize                                                                                                              pretty                                                                                                        argmin௪෍ሺ𝑦௜െ𝑤𝑥௜ሻଶ                                                                               estimation.   is                               estimate                            goal:
+        toregression                                                                       squares?                                                                                                                                                                                                probabilistic          math        is                                                    least          Straightforward! measurements  Has likelihood     (http://people.math.gatech.edu/~ecroot/3225/maximum_likelihood.pdf)  The                goal            Our         Optimization            Why •  •   •
+
+    • •    •Linear
+
+=== PAGE 8 ===
+                  0                   8
+                  >
+                     0
+                     =
+                                                                                          Slope
+                                                                                                          Slope
+               w
+        0:                L(w)
+        to
+           ௜                                                               ൌ෍ሺ𝑦௜െ𝑤𝑥௜ሻଶ            set          L(w)
+
+
+                   0
+                   <            and    L(w)                                                                   Lሺ𝑤ሻ ∂𝑤
+                  ∂    w                                             Slope
+        to                   minimize                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      mean(X)=mean(Y)=0
+                                                                 if 4602     to
+                                                                                         CS                        w.r.t.
+
+                                  ൌ0regression                                                                                                                                                             ௏஺ோሺ௑ሻ                  ൌ0   ൌ0                                                                                                                                                                                                                                                                                 ஼ை௏஺ோሺ௑,௒ሻ                   solution                            ൌ0
+                    ൌ
+
+
+
+
+                         ௜                                                                                           ෍𝑤𝑥௜𝑥௜    ௜                                        derivative
+                 2                                                                                                  ൌ෍𝑤𝑥௜ଶ    ௜
+                               ௜                                                                                ∑𝑥௜ଶlinear                                                                                       ∑𝑥௜𝑦௜            the
+              ௜            ൌ
+
+                  ௜   ௜       ௜
+                         ௜         ∂                                                                                                                           ෍െ𝑥௜ሺ𝑦௜െ𝑤𝑥௜ሻ                ෍𝑥௜ሺ𝑦௜െ𝑤𝑥௜ሻ                                                                                         ෍𝑥௜𝑦௜  w                                                                ∂𝑤෍ሺ𝑦௜െ𝑤𝑥௜ሻଶ                                                                                           ෍𝑥௜𝑦௜െ
+           2  2
+                 2                          closed-form  take
+  a   Let’sSolving    •Get •
+
+=== PAGE 9 ===
+                                 with                          9
+                                 mean                                                  dimension                         the
+                 one                                 from
+           in
+                                 vary                                 points
+                 for
+                      mean                 dimensions
+                                                                                                                                                                                   4602
+                 the     the                                                    CS
+                      from   of
+                                 eachCovariance                                 much                                                  deviation             other
+&                 the     how                                     each
+           of   of
+                  to
+                                       Measure            Measurerespect
+
+      •  •                                 Variance:              Covariance:Variance  • •
+
+=== PAGE 10 ===
+                                                                                            10
+               X
+
+
+
+
+
+                      w0       Y
+
+
+                  does                                                                                                                                                                                        4602                      passes
+                  line                                                                   CS                                                                                                  determine               line
+                      toterm         the    to:           theif
+                                   model w1x+               thatWhat                                                                            squaresBias       +
+/                the
+              w0                                                       least                                origin.   =                          assumed
+              the   y     use       we              change
+                     w1               far,
+                               w0,       Sothroughnot?  Simply         canWeIntercept  •  •   •
+
+=== PAGE 11 ===
+                                                                         11
+
+                             price    𝑌                                           221900   538000   180000   604000   510000   1230000
+
+
+
+       𝑋ସ                       sqft  5650  7242   10000  5000  8080   101930
+
+
+
+       3 3 3 5 3 3
+
+       𝑋ଷinputs?                                                    condition                                                                                           4602
+                                                                         CS
+       1  2.25 1 3 2 4.5       𝑋ଶseveral
+
+
+
+       3 3 2 4 3 4
+       𝑋ଵhave
+we                                                                                                  bedroomsbathrooms
+if
+       i 1 2 3 4 5 6
+What
+
+•
+
+=== PAGE 12 ===
+                                                                                         12
+
+
+                                                                                                                                                       condition
+                                   problem
+
+                                                                                                                                                                                   4602
+                                                                               sqft                CS                                                 regression                                                                                                                                                                𝑦ൌ𝑤଴൅𝑤ଵ𝑥ଵ൅⋯൅𝑤௞𝑥௞൅𝜀
+                                     model:                                       multiple            to                                                                                    price
+     aregression
+                         easy
+                         it's                                   becomes
+                    This  Again,Multiple   • •
+
+=== PAGE 13 ===
+                                                                                         13
+                  same                               each  a                   x1,x2,…
+             the   so
+         in                                                                   computed                   values                                         z=x1x2             remains
+            
+                                           applied                                                                   directly      2 k                                                               variable          kx         be                 be             w                         observed                                     problem
+                                    new             can                                                                                                                                                                                   4602        az canthe            the       values                                                                                   problem:                           CS
+                  ….        2 1functions                        add      x
+                        1                       x2,             used      these                           x1x2     w                       x1,        values,           of            0        w          functions             w             only   regressionbasis                                                                                                                   regression
+             y                               term
+        a                                          these             have  linear                  becomes:          observed                                                              linear                        add  as      we           functions
+                to                            the             far,  to        long                        Eg:example
+
+        •      So  However,way    AsfrommultipleNon-linear  • •   •
+
+=== PAGE 14 ===
+     in
+                                                                                         14
+          idea
+           SVM
+                 Similar
+
+                                                      ሺെ𝑎ሻ
+
+            1
+                                                      ൅exp
+              1
+                          𝑎ൌ
+         ሻ                                                                                           4602
+           ଶ    σ                                                                                         CSfunctions                             2𝑠ଶ
+             ሻ
+
+
+              𝑠                               ሺെ𝑥െ𝜇௝basis                              examples:                                                                                                                     𝑥ൌ𝑙𝑜𝑔ሺ𝑥൅1ሻ                              𝜙௝𝑥ൌ𝑥௝             𝜙௝𝑥ൌexp          𝜙௝𝑥ൌσሺ𝑥െ𝜇௝  𝜙
+                    common                                                         Polynomial:                       Gaussian:                    Sigmoid:             Logs:          few
+     •   •   •   •Non-linear  A
+
+   •
+
+=== PAGE 15 ===
+                                                                                         15
+
+                  or
+                   linear
+                                                                       defined                                                                                            regression                         functionproblem                  we
+                basis                                                                          multiple
+         the                            for                                                                                           functions                                                            4602                             jj(x)
+        as       xj                                  CS         for  w                                              term
+         n    j0                                                   basisregression                                 written y           either
+                  be        be                            notations                                                                 intercept
+                            canlinear        can                   the                                                                                                      non-linear         new
+                                  for                                    j(x)                              the         our
+                    of
+                              one 0(x)=1                Using                                         regression                    WhereGeneral   •         •           •
+
+=== PAGE 16 ===
+                                      Descent                                      Inversion
+                         MatrixLeast-Squares                             Gradient
+        1:           2:
+for        Problems                                  Approach                                            Approach
+Solutions
+
+=== PAGE 17 ===
+                                                                                             17
+
+
+
+                     zero
+          of
+
+
+
+                      2
+                                                                                                                                                                vectors                     mean
+                                                                                                          basis                                                                                       wjj(xi)Squares                                                          k+1                                                    population       j
+     a                                                                                            over        4602CS
+                has      yi                                                                                                                              function:                                                                sum            iLeast                     term                            loss  
+
+                       2                                     jj(xi)   
+       w                          error          n  j                   ˆyi                                                                                                                                  following                                                                                                                                                                         examples                  yi                The
+           i        n       ˆy              the
+            i                              over(Ordinary                         with:                                                                                                                minimize                                                                sum                                                          Assumption:                                                                                   JX,y(w)                                               predict                       Goal:OLSSolution)     OLS
+
+=== PAGE 18 ===
+                                                                                             18
+
+
+
+
+
+          2
+     
+
+                             i)
+                                          wjj(xi)                               jj(xSquares
+     j       w
+
+                      i                                                                                                                                                                                          4602           ˆy j i)                                                                                             CS
+                        j    j            yi
+                 2                                                     function:         i                        w   w          y                      j(x     iLeast                          ˆ   i    i   i                    loss  
+                 i  y  y  y
+           2   y            ˆ   ˆ   ˆ
+
+                      i    i   i
+             y  y  y                        ˆyi  i         
+
+                    j                                             following
+            yi    i i i                  the           w
+              -  -  -     i    2   2   2
+      (Ordinary                                        minimize                      J(w)
+          j                                        JX,y(w)                         Goal:           wOLSSolution)
+
+=== PAGE 19 ===
+            
+
+
+                               ..                        w0   wk                                                                                                19
+
+            
+              
+               w
+
+                                   n examples
+
+ 2 
+            
+
+
+
+
+
+                          jj(xi)                                                                k(x1) k(x2)       k(xn)  w
+ j                                                                                                               vectors 
+
+
+   i                                                                                                                                                                                                4602
+  y
+                                                                               CS                                                                  basis
+                                     j(xi)
+ i 
+
+       i                                        k+1        1(x1) 1(x2)       1(xn)     y
+
+  2   ˆ
+
+   i
+  y   i
+    y            
+     ˆ   i                                                     0(x1) 0(x2)       0(xn)  y i
+       i   
+      -       2 i                      
+
+                                                                                            consider                 J(w)                    n
+         j              y1 ... ... y
+                                                                          let’s   
+              see     JX,y(w)    w                                                                                                                       Notation:
+               yWe                                    Now,
+
+=== PAGE 20 ===
+  
+
+
+         ..     w0          wk        ௜ሻ       ௜ሻ
+
+                                                      20
+    
+    w                                                                      ௜െ𝑦ො௜∅଴                      ௜െ𝑦ො௜∅௞
+
+        n examples
+
+                   ௜      ௜                                                             ෍ሺ𝑦௜∅଴                   ෍ሺ𝑦௜∅௞
+                …  
+            ... ... n     1
+                                                        𝐽𝒘ൌ2                 𝐽𝒘ൌ2
+    
+             ∂    ∂                                     ∂𝑤଴           ∂𝑤௞                                                                                           j(xi)
+
+
+                            i
+               ൌ     j               k(x1) k(x2)       k(xn)
+                                                                                                                                                                               4602vectors                                                         CS                                                                                                                                                  notation:basis
+k+1                     1(x1) 1(x2)       1(xn)
+
+                   ௜      ௜                                                                                                                                    ෍ሺ𝑦௜െ𝑦௜෡ሻ∅଴ሺ𝒙௜ሻ …                ෍ሺ𝑦௜െ𝑦௜෡ሻ∅௞ሺ𝒙௜ሻ
+
+
+
+                      0(x1) 0(x2)       0(xn)                                                   𝐽𝒘ൌ2                𝐽𝒘ൌ2
+  
+             ∂    ∂                                   ∂𝑤଴           ∂𝑤௞         
+
+
+   
+      y1 ... ... ny
+                                                     𝐽𝒘ൌ
+    
+                ∂     y                         ∂𝑤௝
+
+=== PAGE 21 ===
+                      ௜ሻ             ௜ሻ
+                                                                                                   21                                                                         ௜𝜙௜𝐰ሻ                  ௜𝜙௜𝐰ሻ                                       ௜െ𝜙௜𝐰𝜙଴                      ௜െ𝜙௜𝐰𝜙௞                                                                             ௜𝑦௜െ𝜙଴                   ௜𝑦௜െ𝜙௞
+
+
+
+
+            ௜      ௜    ௜      ௜                                  ෍ሺ𝑦௜𝜙଴                   ෍ሺ𝑦௜𝜙௞          ෍ሺ𝜙଴              ෍ሺ𝜙௞
+                             𝐽𝒘ൌ2 …       𝐽𝒘ൌ2            𝐽𝒘ൌ2  …       𝐽𝒘ൌ2
+
+       ∂    ∂   ∂    ∂                     ∂𝑤଴           ∂𝑤௞        ∂𝑤଴           ∂𝑤௞
+  wjji        ൌ        ൌ                                4602
+n  j                                                                                     CS
+
+             ௜ሻ       ௜ሻ
+  ˆyi
+
+
+
+           iw          ௜െ𝑦ො௜𝜙଴                      ௜െ𝑦ො௜𝜙௞    recall 
+
+
+
+
+
+            ௜      ௜                                  ෍ሺ𝑦௜𝜙଴                   ෍ሺ𝑦௜𝜙௞
+                             𝐽𝒘ൌ2 …       𝐽𝒘ൌ2
+
+       ∂    ∂                     ∂𝑤଴           ∂𝑤௞
+
+=== PAGE 22 ===
+                                                                                                   22
+
+
+
+ 
+
+   y1  ... ... ... yn
+
+
+
+ 
+                                  ...
+     y
+
+       k+1                                                            2Ty
+  
+
+
+
+
+
+      
+                                                                                                                                                                                                       4602                                                                  ௜𝜙௜𝐰ሻ                  ௜𝜙௜𝐰ሻ           0(xn)             k(xn)                                                               CS
+
+                                                                             ௜𝑦௜െ𝜙଴                   ௜𝑦௜െ𝜙௞
+
+
+
+
+
+                      ௜      ௜                                 ෍ሺ𝜙଴              ෍ሺ𝜙௞examples
+                  …n           0(x2)             k(x2)
+                                                            𝐽𝒘ൌ2                 𝐽𝒘ൌ2
+
+      
+               ∂    ∂                                         ∂𝑤଴           ∂𝑤௞           0(x1)             k(x1)
+
+  
+    
+        T
+
+=== PAGE 23 ===
+  
+
+
+        ..    w0   wk                                                              23
+
+
+  
+
+                 Tw
+                      k(x1) k(x2)       k(xn)
+vectors                                                                                   ...2
+       basis
+k+1
+                      0(x1) 0(x2)       0(xn)                                                                                                                      4602                                                               ௜𝜙௜𝐰ሻ                  ௜𝜙௜𝐰ሻ                                                                                                CS
+  
+                                                                   ௜𝑦௜െ𝜙଴                   ௜𝑦௜െ𝜙௞
+
+
+  
+
+                     ௜      ௜                                                  ෍ሺ𝜙଴              ෍ሺ𝜙௞
+                 …
+                    0(xn) 1(xn)       k(xn)                                                         𝐽𝒘ൌ2                 𝐽𝒘ൌ2
+           ∂    ∂                                       ∂𝑤଴           ∂𝑤௞examples               ...
+n
+
+
+
+
+
+                    0(x1) 1(x1)       k(x1)
+
+  
+
+=== PAGE 24 ===
+   
+      y1 ... ... ny
+                                                               24
+                                                                                                                                                                                            vector
+     y
+                      0                                                                                                                                                                                                                      entries
+                               n        n examples                                               1Ty
+        
+
+
+
+                                                                                                                                                                                         matrix
+                k+1                                                 T
+                                                by
+              w   n               k(x1) k(x2)       k(xn)                                                                                                                          2Ty2Twvectors
+                                                                                                                      vector
+                                                                                                                                                                                                  4602basis                                                 ௜𝜙௜𝐰ሻ                  ௜𝜙௜𝐰ሻ                                                                                                 CS
+                                                                                                                                                                                                                             entriesk+1               1(x1) 1(x2)       1(xn)                                                                                            k+1                                                        ௜𝑦௜െ𝜙଴                   ௜𝑦௜െ𝜙௞
+
+
+
+       
+                  ௜      ௜                                          ෍ሺ𝜙଴              ෍ሺ𝜙௞               0(x1) 0(x2)       0(xn)               …
+  
+                              𝐽𝒘ൌ2                 𝐽𝒘ൌ2
+
+            ∂    ∂                                 ∂𝑤଴           ∂𝑤௞
+   
+
+
+          ..      w0   wk
+
+
+   
+    
+     w
+
+=== PAGE 25 ===
+                                      Descent                                      Inversion
+                         MatrixLeast-Squares                             Gradient
+        1:           2:
+for        Problems                                  Approach                                            Approach
+Solutions
+
+=== PAGE 26 ===
+                                                                                         26
+regression
+                    2
+                                                                                                                                                         vectors
+                                                                                                      basis                                                                                  wjj(xi)linear                                                             k+1
+           j
+                                                                                                                                                                                   4602           
+                                                                                         CSfor                     yi                  over
+                                                                                                                                function:                                                             sum           i
+                                                    loss  
+
+                      2                                jj(xi)   
+      w
+         n  j                   ˆyi                                                                                                                        following                                                                                                                                                                  examplesdescent                yi
+          i        n      ˆy              the
+           i                             over                             with:                                                                                                        minimize
+                                                                              JX,y(w)             sum                                         predict                       Goal:Gradient
+
+=== PAGE 27 ===
+                                                                                         27
+
+
+
+
+
+                                                                                                                                                                                   4602
+                               w2     CS
+          w
+                                                        J(w)
+
+
+
+                        w1
+                                J(w)descent
+Gradient
+
+=== PAGE 28 ===
+                                                         28
+
+
+
+
+
+                                                                                                                                                                                   4602
+                                                                                         CS                                                                                                                                                                                                 parameters
+                                                                                                 model                                                                                                                                                  function                                                                                      ratedescent                                                                                                                                       Current
+                   =                                                                                                                                                                    Loss/Cost                  Learning
+                  =  =                                                                                                                                                                   Gradient
+                    =                                                                                                                                                          position     sizeGradient                                                                                                                                                  Mountain Your Slope Step
+
+=== PAGE 29 ===
+                                                                                         29
+                                                             j(xi)
+
+       
+
+                      i
+                       ˆy
+
+
+                      i                                                   wjj(xi)
+             y
+             k       j0
+         i
+                       ˆyi  -                       2          rateregression
+                 w:                                                   J(w)
+            j                                                                                                                      learning                        w                                          usinglinear             xi                the
+                              is                                      4602                                                          loss:  α                   CSfor
+                       of       αg,                                                          example
+               –
+             g
+               w                                                                                                                                        wൌwെα∇𝐽ሺ𝑤ሻ                   w=0     each     =                                                                                            gradient                                                                                       convergence:                         for                    vector w
+             adescent                            until
+                         is                                           weights                                        algorithm:                       Predict                Compute                Update:                                    t=1,…                      *This
+                                          (2-1)           (2-2)           (2-3)                                                              Initialize For                                Learning   (1) (2)Gradient
+
+=== PAGE 30 ===
+                                                                                               30
+
+
+
+
+
+                             w                             optimum
+shaped)
+                         global(bowl  convex
+    a
+a
+                                             J(w)                                                                               4602
+                                                                                               CS is                     reach
+             can         problem
+
+
+
+
+
+                             w                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 (https://github.com/Shathra/gradient-descent-demonstration)                             descent    regression                                                                                                                                              general                                                                                                                                                                                                                                                                   optimization                                             in                                                                                                                                                                                              learning                                  Gradient                                                                                                                                                               NP-hard Deep  Linearoptimization                                                                                                                                                                                                                        Non-convex • •
+                                             J(w)
+
+=== PAGE 31 ===
+                                                                                         31
+                    the                                              large.
+                 set                               very                                 makes                                                                      training
+             itis                      data                       set                          one                                        hence,                               data                          use                                            training
+                       the                                   just                            whole  iteration,                      decent                               when
+                 the everydescent                        𝑦௜ሻ                                                                                                                                                                                  4602                                                                               gradient,             at                            using                                                               CS                             gradient                                                                             especially     full
+                                               dataset      the                               slow                         “Batch” computed                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            https://suniljangirblog.wordpress.com/2018/12/13/variants-of-gradient-descent/)                               very                                                                                                           wൌwെα∇𝐽ሺ𝑤;       is be whole           usinggradient                                                                                                                                                                           (Ref:
+                      will thevery,           see                                   than
+                           uses              just                                                   compute
+             it
+                         to                                            gradient       we                         rather                 The Sincecomputation                Fast
+
+      • •     •              What                     Idea:exampleStochastic  •    •
+
+=== PAGE 32 ===
+                                                                                         32
+
+                                           the
+                             is                                                matrix.
+                                                         what                                  largeDescent     a
+                    for
+                                                                                                                                                                            convergence?                                                             expensive                                                                                                              efficient                                                             4602Gradient              is
+                                                                                         CS                                                                                      decidevs                                                                  cases to                                  which                                                                         memory
+                                                                  other (how                                                 very                           to                                                               programming inverse,         is                                          solution:                                                                                         matrices         tune
+           in
+                             to                        GDInversion                               matrix                 large                                                                                Descent:                  extended       rate?)                                  simple                                          Inversion                for
+                       Very                                            Fast Stochastic Easily                                                                                                                                               Parameters                            Matrix + -Requires                  Gradient + + + - learningMatrix
+
+=== PAGE 33 ===
+                      dataset
+                small
+   a
+      on
+         1)
+         Ch                      vectorsRegularization
+                           Bishop                basis
+                       (Fromand                                polynomial
+                          example:
+      AnOverfitting
+
+=== PAGE 34 ===
+                                                                                         34
+
+
+                                                                                        n=10
+
+
+
+
+
+                                                                                                                                                                                   4602
+Polynomial                                                                                  CS
+Order
+0th
+
+=== PAGE 35 ===
+                                                                                         35
+
+
+
+
+
+                                                                                                                                                                                   4602
+Polynomial                                                                                  CS
+Order
+1st
+
+=== PAGE 36 ===
+                                                                                         36
+
+
+
+
+
+                                                                                                                                                                                   4602
+                                                                                         CS
+Polynomial
+Order
+3rd
+
+=== PAGE 37 ===
+                                                                                         37
+
+
+
+
+
+                                                                                                                                                                                   4602
+Polynomial                                                                                  CS
+Order
+9th
+
+=== PAGE 38 ===
+                                                                                         38
+
+
+
+
+
+                                                                                                                                                                                   4602
+                                                                                         CS
+
+Over-fitting
+
+=== PAGE 39 ===
+                                                                                          39
+
+
+
+
+
+                                                                                                                                                                                   4602
+                                                                                          CS
+Coefficients
+Polynomial
+
+=== PAGE 40 ===
+                                                                                              40
+
+
+
+
+
+                                                                                                                                                                                            4602
+                                                                                              CS
+
+
+           9
+           =
+           N
+Size:                                 PolynomialSet
+                OrderData      9th
+
+=== PAGE 41 ===
+                                                                                         41
+
+
+
+
+                                                                                         model
+                                                      the
+                                    of
+                                                                                                                                                                                  4602
+                                                                                         CS                   values                                                                                                                                                                                                    flexibility
+                                                      the
+                                                                                         Limit                                   coefficient
+                largeRegularization                         Penalize
+
+=== PAGE 42 ===
+                                                                                         42
+
+
+
+
+
+                                                                                                                                                                                   4602
+                                                                                         CS
+Regularization:
+
+=== PAGE 43 ===
+                                                                                          43
+
+
+
+        λ=1
+
+
+
+
+
+                                                                                                                                                                                   4602
+                                                                                          CS
+
+        λ=0Coefficients
+Polynomial
+
+=== PAGE 44 ===
+                                                                      44
+
+
+
+
+
+M=9
+
+
+                                                                                                                                            4602
+                                                                      CS           λ
+                      ln
+
+=== PAGE 45 ===
+                                                                                         45
+
+
+
+
+
+                                                                                                                                                                                   4602
+                                                                                         CS
+
+                                                                                                                                                                                 notebook:
+                                                                                                  colabRegularization:                                                                                                                      Google
+                                       inOver                                                                                                                                          Example                                            https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/maste             r/notebooks/05.06‐Linear‐Regression.ipynb#scrollTo=xW7yPbeMBvwy
+
+=== PAGE 46 ===
+                                                                                                 46
+
+
+
+
+
+                𝑤ூ
+                                         𝑤ଶ+…+                                                                             𝑤ଵଶ൅𝑤ଶଶ൅⋯൅𝑤ூଶ
+
+
+
+    ଵ௣
+   ሻ     ሻൌ      q       4                                ൌ𝑤ଵ+            =        𝑤௜௣  ூ ௜              p    simplicity
+
+      ௜                              ሺ෍𝑤௜ଶ ூ௜
+                                               𝒘ଵൌ∑𝑤௜               𝒘௣ൌሺ෍      𝒘ଶൌ                                                                                       Ridge
+                        2
+                        =
+                        p      Computational 𝒑
+                                                                                                                                                                                                4602
+                                                                                                CS
+                                                                              lasso      1
+                        =
+                        p            𝒙௜ሻଶ൅𝜆𝒘𝒑
+
+
+
+                                                                       0.5
+                        =
+    ௜                 p
+Regularization:Lp       𝐽𝒘ൌሺ෍𝑦௜െ𝒘୘
+
+=== PAGE 47 ===
+                                                                                         47
+
+                             problem.
+                                                   classification
+           for
+                                                                                                                                                                                   4602
+                                                                                         CSregression?                             suitable
+by      not
+       is
+                                    regression
+                      LinearClassification  •
+
+=== PAGE 48 ===
+                               the
+                 of  is                                                     48                         of
+                            the dots patients                                         linear                                         value                                                               value                     of of
+                                                  that                                 each                                                                                                                                                                                                          Regression: Standard regression              along [0,1]                                                                                              Observations: For SurvRate, number number with NewOut
+                                                                                                                right of
+                                             or                                                                                                                                                                    outside
+                                                                                          left
+                                                                                              fall
+                                                                                                                units                                                                                              that
+                                                                   few
+                      a      4602
+                                                                                          line   CS                                                                                                                                                                                                                                                                                                                 probabilities
+                                                                                                                                                                                                                                 regression                                                                                                                                                                                                                   predicted                                                                   the
+                                                                                                                                                                                            produces                                                                                                                                                                                                          extending
+                                                                                              axis
+
+                       X                                                                                                                                                                                                    Problem: theExample
+
+=== PAGE 49 ===
+                                                                                               49                                                                  y=1)
+                         code                                                  and                 binary                                                  y=0      is        might
+            wesolution!                                                                                                                                                                      asymptotes                       variable        where                                Curve:
+       0               by                                                                                                                                  function! function)
+              asbetter                                                             treatment,                                                      Regression Sigmoid (Logistic (bounded                                                  surviveA            dependent   to
+        the                                                                                                                                                           4602                                                                                               CS                                    don’t                                                 responsewho              which
+      in                                 Medicine                                           predictthose
+           data   to                     and
+       1      toRegression:                         want              as                                                  application:              curve                               might
+   a        fit   Wesurvivors      To  Typical •Logistic • •
+
+=== PAGE 50 ===
+                                                                                               50
+                                                              related
+                                                                       linearly                                                                                         (linear)
+                  be
+                  to
+                                                                                         ordinary
+                      an                              model:                                                              assumed     a  1X                                                                                                                       4602
+                  is                                                 CS
+          X                 0                                                                              solving                    seek
+         Y     on                                                              (logit)          we                                                        logit(p)                                                                               variable
+                                                        focus                                   oddsRegression                           log    can                                                      regression,
+                           the   we                                                                                                            independent                           is,                                 now                                       logistic            the          In            Thatto So,regression!Logistic   •   • •
+
+=== PAGE 51 ===
+                                                                                               51
+
+
+                              p(Y=1)                                         1X
+                                              0
+                                   occurs,
+     Y                                                                                                                                                          logit(p)
+                                                                                                                                                                                               4602
+                                                                                               CS                         event
+               the                         "logit“                                                                                                                    (p/(1-p))
+                   or                          ln                                                                                                                                                                                                                                            Regression:                    that             =
+                                     +∞]              1]  "odds" ∞]  odds,                         to                                                                Logistic              to   to log                      the                                     ln(odds)Transform                                     probability              is     =
+               the                                                         [range=0              [range=0               [range=-∞
+          is
+       •  •  •     p         p/(1-p)                ln[p/(1-p)]:                  logit(p)Logit   • • •  •
+
+=== PAGE 52 ===
+                                                                                         52
+
+
+
+                                                                     Squares)
+                                                                                                                                                                                   4602                                                                                                                                                                                             classification)                                                                                         CS                                                  Problems Least
+                                                  like                                                                    descent
+                                                                              (Ordinary                    descent                                                               (more                                                                              Gradient                                                                                            descent                                                                                                                                                              regularization                                                                                                                   gradient                                                                                 Least-Squares                                                                              inversion                                                 regression                and                                                                                                         gradientlearned              for                                                                                                                              regression                                    regression                                                    matrix  optimization: Batch  Stochastic
+                 As As • •
+
+         • •                      Linear   Non-linear   Solutions                                            Overfitting  LogisticWe’ve  • • •    • •
+
+=== PAGE 53 ===
+                                                                                         53
+
+
+
+
+
+                                                                                                                                                                                   4602
+                                                                                         CS
+
+Questions?

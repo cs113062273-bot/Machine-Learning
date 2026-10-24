@@ -1,0 +1,33 @@
+﻿,configuration,group,n_genres,genres
+0,euclidean_average,1,3,"black-metal, death-metal, grindcore"
+1,euclidean_average,2,94,"acoustic, afrobeat, alt-rock, alternative, anime, bluegrass, blues, brazil, breakbeat, british, cantopop, children, chill, club, country, dance, dancehall, deep-house, disco, drum-and-bass, dub, dubstep, edm, electro, electronic, emo, folk, forro, french, funk, garage, german, gospel, goth, groove, grunge, happy, hard-rock, hardcore, hardstyle, heavy-metal, hip-hop, honky-tonk, house, indian, indie, indie-pop, industrial, j-dance, j-idol, j-pop, j-rock, jazz, k-pop, kids, latin, latino, malay, mandopop, metal, metalcore, mpb, pagode, party, pop, pop-film, power-pop, progressive-house, psych-rock, punk, punk-rock, r-n-b, reggae, reggaeton, rock, rock-n-roll, rockabilly, sad, salsa, samba, sertanejo, show-tunes, singer-songwriter, ska, songwriter, soul, spanish, swedish, synth-pop, tango, trance, trip-hop, turkish, world-music"
+2,euclidean_average,3,4,"chicago-house, detroit-techno, minimal-techno, techno"
+3,euclidean_average,4,2,"idm, study"
+4,euclidean_average,5,8,"ambient, classical, disney, guitar, new-age, opera, piano, romance"
+5,euclidean_average,6,1,iranian
+6,euclidean_average,7,1,sleep
+7,euclidean_average,8,1,comedy
+8,euclidean_complete,1,3,"black-metal, death-metal, grindcore"
+9,euclidean_complete,2,28,"alt-rock, alternative, anime, breakbeat, drum-and-bass, dub, dubstep, emo, garage, goth, groove, grunge, happy, hard-rock, hardcore, hardstyle, heavy-metal, industrial, j-pop, j-rock, metal, metalcore, power-pop, progressive-house, punk, punk-rock, rock, trance"
+10,euclidean_complete,3,53,"afrobeat, bluegrass, blues, brazil, children, chill, club, country, dance, dancehall, deep-house, disco, edm, electro, electronic, folk, forro, french, funk, hip-hop, house, indian, indie, indie-pop, j-dance, j-idol, k-pop, kids, latin, latino, malay, mpb, pagode, party, pop, pop-film, psych-rock, r-n-b, reggae, reggaeton, rock-n-roll, rockabilly, sad, salsa, samba, sertanejo, ska, soul, spanish, swedish, synth-pop, trip-hop, turkish"
+11,euclidean_complete,4,6,"chicago-house, detroit-techno, idm, minimal-techno, study, techno"
+12,euclidean_complete,5,14,"acoustic, british, cantopop, german, gospel, honky-tonk, jazz, mandopop, romance, show-tunes, singer-songwriter, songwriter, tango, world-music"
+13,euclidean_complete,6,8,"ambient, classical, disney, guitar, iranian, new-age, opera, piano"
+14,euclidean_complete,7,1,sleep
+15,euclidean_complete,8,1,comedy
+16,cityblock_average,1,9,"black-metal, breakbeat, death-metal, drum-and-bass, grindcore, happy, hardstyle, metalcore, trance"
+17,cityblock_average,2,4,"chicago-house, detroit-techno, minimal-techno, techno"
+18,cityblock_average,3,84,"acoustic, afrobeat, alt-rock, alternative, anime, bluegrass, blues, brazil, british, cantopop, children, chill, club, country, dance, dancehall, deep-house, disco, dub, dubstep, edm, electro, electronic, emo, folk, forro, french, funk, garage, german, gospel, goth, groove, grunge, hard-rock, hardcore, heavy-metal, hip-hop, house, indian, indie, indie-pop, industrial, j-dance, j-idol, j-pop, j-rock, k-pop, kids, latin, latino, malay, mandopop, metal, mpb, pagode, party, pop, pop-film, power-pop, progressive-house, psych-rock, punk, punk-rock, r-n-b, reggae, reggaeton, rock, rock-n-roll, rockabilly, sad, salsa, samba, sertanejo, singer-songwriter, ska, songwriter, soul, spanish, swedish, synth-pop, trip-hop, turkish, world-music"
+19,cityblock_average,4,6,"ambient, classical, disney, guitar, new-age, piano"
+20,cityblock_average,5,6,"honky-tonk, jazz, opera, romance, show-tunes, tango"
+21,cityblock_average,6,3,"idm, iranian, study"
+22,cityblock_average,7,1,sleep
+23,cityblock_average,8,1,comedy
+24,cityblock_complete,1,24,"black-metal, breakbeat, death-metal, drum-and-bass, dub, dubstep, garage, goth, grindcore, groove, grunge, happy, hard-rock, hardcore, hardstyle, heavy-metal, industrial, j-rock, metal, metalcore, power-pop, punk, punk-rock, trance"
+25,cityblock_complete,2,53,"afrobeat, alt-rock, alternative, anime, blues, brazil, children, club, country, dance, dancehall, deep-house, disco, edm, electro, electronic, emo, folk, forro, funk, hip-hop, house, indian, indie, indie-pop, j-dance, j-idol, j-pop, k-pop, kids, latin, latino, malay, pagode, party, pop, pop-film, progressive-house, r-n-b, reggae, reggaeton, rock, rockabilly, salsa, samba, sertanejo, ska, soul, spanish, swedish, synth-pop, trip-hop, turkish"
+26,cityblock_complete,3,10,"british, chicago-house, chill, detroit-techno, french, german, minimal-techno, sad, study, techno"
+27,cityblock_complete,4,16,"acoustic, bluegrass, cantopop, gospel, honky-tonk, jazz, mandopop, mpb, psych-rock, rock-n-roll, romance, show-tunes, singer-songwriter, songwriter, tango, world-music"
+28,cityblock_complete,5,2,"idm, iranian"
+29,cityblock_complete,6,7,"ambient, classical, disney, guitar, new-age, opera, piano"
+30,cityblock_complete,7,1,sleep
+31,cityblock_complete,8,1,comedy

@@ -1,0 +1,5 @@
+﻿configuration,distance,linkage,cophenetic_r,silhouette
+euclidean_average,euclidean,average,0.8655429369399706,0.2633907536837793
+euclidean_complete,euclidean,complete,0.7484939473085821,0.20791264667112314
+cityblock_average,cityblock,average,0.827019014982736,0.23574275894282098
+cityblock_complete,cityblock,complete,0.7266620968756063,0.22171873854953028

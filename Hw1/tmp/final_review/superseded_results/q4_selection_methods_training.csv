@@ -1,0 +1,7 @@
+﻿method,selection,features,pairwise_r,minimum_absolute_r,mean_absolute_r
+pearson,largest_absolute_pair,acousticness / loudness,[-0.58318665449804],0.58318665449804,0.58318665449804
+pearson,largest_mean_absolute_triple,acousticness / instrumentalness / loudness,"[0.0944723015971359, -0.58318665449804, -0.4346967518197612]",0.0944723015971359,0.3707852359716457
+pearson,largest_minimum_absolute_triple,instrumentalness / valence / loudness,"[-0.32903683176455867, -0.4346967518197612, 0.2837378357312469]",0.2837378357312469,0.3491571397718556
+spearman,largest_absolute_pair,acousticness / loudness,[-0.5374042375367957],0.5374042375367957,0.5374042375367957
+spearman,largest_mean_absolute_triple,acousticness / loudness / tempo,"[-0.5374042375367957, -0.22576256276737705, 0.2127634458737069]",0.2127634458737069,0.3253100820592932
+spearman,largest_minimum_absolute_triple,instrumentalness / valence / loudness,"[-0.32960718061508626, -0.2952238401341383, 0.222334289318271]",0.222334289318271,0.2823884366891652

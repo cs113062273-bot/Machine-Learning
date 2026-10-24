@@ -1,0 +1,30 @@
+{
+  "pdf_pages": 5,
+  "seven_cluster_table": true,
+  "regression_and_artists_tables": true,
+  "k_selection_and_stability": true,
+  "pca_values_and_loading_signs": true,
+  "genre_comparisons": true,
+  "regularization_all_reported_numbers": true,
+  "raw_counts_cleaning_and_no_split_leakage": true,
+  "independent_ols_and_training_mean_rmse": true,
+  "independent_polynomial_ols_and_svd_ridge": true,
+  "notebook_matches_report": true,
+  "final_submission_filenames_correct": true,
+  "ai_use_log_six_uses_with_verification": true,
+  "original_tracks_sha256": "db8cd3670209db33285dbfa7ad08dc05446219e9c430e7750abfd17e99297c42",
+  "files": {
+    "HW1_final_report_113062273.pdf": {
+      "bytes": 671581,
+      "sha256": "1fe242a15c86dbafaf1174f7addd4eba064bb8e336c39d290f1c0fc0f85e97d7"
+    },
+    "HW1_code_113062273.ipynb": {
+      "bytes": 1642422,
+      "sha256": "a4c57d1ff6c3b13d4098dd56b1a56b39c30bd1e656756481dbb804b78e19074b"
+    },
+    "HW1_ai_use_113062273.md": {
+      "bytes": 2336,
+      "sha256": "79107510126c8a63f24f64ad59e45b3fcadb1c0727f0df4a5ace13d003f30c77"
+    }
+  }
+}

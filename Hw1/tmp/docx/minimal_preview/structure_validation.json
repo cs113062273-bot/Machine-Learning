@@ -1,0 +1,29 @@
+{
+  "paragraph_text_preserved": true,
+  "native_editable_tables": 6,
+  "embedded_figures": 3,
+  "question_headings": 13,
+  "source_markdown_unchanged": true,
+  "conversion_tokens": {
+    "width_mm": 210,
+    "height_mm": 297,
+    "left_mm": 18,
+    "right_mm": 18,
+    "top_mm": 16,
+    "bottom_mm": 17,
+    "font": "Microsoft JhengHei",
+    "body_pt": 10.5,
+    "body_leading_pt": 15,
+    "body_after_pt": 7,
+    "title_pt": 15,
+    "section_pt": 12,
+    "question_heading_pt": 10.5,
+    "question_pt": 9.5,
+    "source_pt": 8,
+    "table_pt": 9,
+    "table_padding_dxa": 100,
+    "color": "000000"
+  },
+  "visual_render_QA_completed": false,
+  "visual_render_QA_reason": "LibreOffice is unavailable; native Word PDF preview export did not complete."
+}

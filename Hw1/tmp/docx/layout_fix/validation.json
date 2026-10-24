@@ -1,0 +1,527 @@
+{
+  "source": "C:\\Users\\chinh\\Desktop\\Machine Learning\\HW1_final_report_minimal_113062273.docx",
+  "output": "C:\\Users\\chinh\\Desktop\\Machine Learning\\HW1_final_report_minimal_113062273_formatted.docx",
+  "source_sha256": "554277467d95baa7b7ae1b54deb0c83662842c305310fcce8f58a2cf6315ed3c",
+  "visible_text_preserved": true,
+  "media_preserved": true,
+  "removed_empty_paragraphs": [
+    23,
+    37,
+    60,
+    70,
+    79
+  ],
+  "answer_indent_twips": 240,
+  "tables": 3,
+  "images": 3,
+  "paragraph_roles": [
+    {
+      "index": 0,
+      "role": "title",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 1,
+      "role": "section",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 2,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 3,
+      "role": "subheading",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 4,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 5,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 6,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 7,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 8,
+      "role": "subheading",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 9,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 10,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 11,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 12,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 13,
+      "role": "subheading",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 14,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 15,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 16,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 17,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 18,
+      "role": "subheading",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 19,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 20,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 21,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 22,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 24,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 25,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 26,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 27,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 28,
+      "role": "section",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 29,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 30,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 31,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 32,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 33,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 34,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 35,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 36,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 38,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 39,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 40,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 41,
+      "role": "section",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 42,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 43,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 44,
+      "role": "subheading",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 45,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 46,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 47,
+      "role": "subheading",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 48,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 49,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 50,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 51,
+      "role": "subheading",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 52,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 53,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 54,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 55,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 56,
+      "role": "image",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 57,
+      "role": "caption",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 58,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 61,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 62,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 63,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 64,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 65,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 66,
+      "role": "section",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 67,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 68,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 71,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 72,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 73,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 74,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 75,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 76,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 77,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 80,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 81,
+      "role": "question",
+      "indent_twips": 0,
+      "keep_next": true
+    },
+    {
+      "index": 82,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 83,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 84,
+      "role": "image",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 85,
+      "role": "caption",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 86,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 87,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 88,
+      "role": "image",
+      "indent_twips": 240,
+      "keep_next": true
+    },
+    {
+      "index": 89,
+      "role": "caption",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 90,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    },
+    {
+      "index": 91,
+      "role": "answer",
+      "indent_twips": 240,
+      "keep_next": false
+    }
+  ],
+  "rendered_page_count": 5,
+  "all_pages_visually_reviewed": true,
+  "source_unchanged": true,
+  "visual_findings": "No large internal gaps, clipped content, or split short tables; answers, figures, and table text aligned."
+}

@@ -1,0 +1,7 @@
+{
+  "pdf_pages": 7,
+  "figures": 3,
+  "plotted_values_match_source_CSVs": true,
+  "source_CSVs_and_protected_inputs_unchanged": true,
+  "fresh_kernel_code_cells_passed": 19
+}

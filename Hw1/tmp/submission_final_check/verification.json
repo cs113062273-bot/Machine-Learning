@@ -1,0 +1,13 @@
+{
+  "pdf_pages": 5,
+  "seven_cluster_table": true,
+  "regression_and_artists_tables": true,
+  "k_selection_and_stability": true,
+  "pca_values_and_loading_signs": true,
+  "genre_comparisons": true,
+  "regularization_all_reported_numbers": true,
+  "raw_counts_cleaning_and_no_split_leakage": true,
+  "independent_ols_and_training_mean_rmse": true,
+  "independent_polynomial_ols_and_svd_ridge": true,
+  "notebook_matches_report": true
+}

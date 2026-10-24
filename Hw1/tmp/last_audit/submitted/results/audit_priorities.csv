@@ -1,0 +1,7 @@
+﻿priority,finding,count,unit,implemented_decision,tradeoff
+1,Repeated track IDs / weighting and split leakage,16641,IDs repeated,One observation per ID; preserve genre memberships; group related recordings when splitting,Track weighting replaces listing weighting
+2,Conflicting audio or popularity for an ID,720,IDs conflicting,Exclude conflicting IDs from all downstream analyses,Lose ambiguous tracks and genre coverage
+3,Invalid values / undetected tempo or metre,164,rows flagged,Drop flagged listings; retain valid rare metre codes and valid zero audio scores,May remove genuine silence or music whose beat is hard to detect
+4,Equal-size genre sampling / multiple labels,114,genre categories,Preserve labels; unique-track geometry; never interpret genre counts as market prevalence,Cannot correct unknown population sampling probabilities
+5,Missing string metadata,1,rows with missing metadata,Keep valid audio tracks; fill metadata with empty strings,Metadata identity and artist inference weaker for these tracks
+6,Integer-coded musical categories,3,categorical columns,Exclude from continuous geometry; one-hot encode for regressions,Geometry does not capture key or metre; encoding does not model tonal relationships

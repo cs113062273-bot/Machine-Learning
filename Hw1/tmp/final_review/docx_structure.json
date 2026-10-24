@@ -1,0 +1,73 @@
+{
+  "questions": [
+    "1.1 Identify and prioritize at least four data-quality findings, ordered from most to least important based on how strongly you believe each one could affect the analyses or models in this assignment.",
+    "1.2 Justify your ranking.",
+    "1.3 Apply your cleaning decisions.",
+    "2.1 Effective dimensionality.",
+    "2.2 Interpret the leading principal components.",
+    "2.3 Effect of standardization.",
+    "3.1 Clustering genres.",
+    "3.2 Clustering individual tracks.",
+    "3.3 Are the clusters meaningful?",
+    "4.1 Compare your predictions with the actual results.",
+    "4.2 Explain the difference in predictive performance.",
+    "4.3 Look for additional predictive information.",
+    "4.4 Study the effect of regularization."
+  ],
+  "tables": 4,
+  "figures": 4,
+  "per_question_pdf_pages": {
+    "1.1": [
+      "5–6",
+      "12"
+    ],
+    "1.2": [
+      "6",
+      "12"
+    ],
+    "1.3": [
+      "6",
+      "12"
+    ],
+    "2.1": [
+      "6",
+      "13–14"
+    ],
+    "2.2": [
+      "7",
+      "14"
+    ],
+    "2.3": [
+      "7",
+      "14"
+    ],
+    "3.1": [
+      "7",
+      "15–16"
+    ],
+    "3.2": [
+      "7",
+      "16"
+    ],
+    "3.3": [
+      "8",
+      "16"
+    ],
+    "4.1": [
+      "8–9",
+      "17–18"
+    ],
+    "4.2": [
+      "9",
+      "18"
+    ],
+    "4.3": [
+      "9",
+      "18"
+    ],
+    "4.4": [
+      "8–9",
+      "18"
+    ]
+  }
+}

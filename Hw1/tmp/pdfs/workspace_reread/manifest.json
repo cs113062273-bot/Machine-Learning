@@ -1,0 +1,2138 @@
+[
+  {
+    "path": "HW1_ai_use_113062273.md",
+    "bytes": 5823,
+    "sha256": "c301a8fc2eef899b37d3e36b9cf2b75618651f933a6a22b8f85939f123e217c6",
+    "text_chars": 3063
+  },
+  {
+    "path": "HW1_code_113062273.ipynb",
+    "bytes": 1445401,
+    "sha256": "b386871a499c2dff8a83bf6a728213baaccdab29d659fef149160b61c9eb4bb6",
+    "cells": 29
+  },
+  {
+    "path": "HW1_final_report_113062273.docx",
+    "bytes": 669756,
+    "sha256": "f2402630df1562aaeb9054f32c627d8ed633666ef96ea575e16240ca69538005",
+    "text_chars": 14122
+  },
+  {
+    "path": "HW1_final_report_113062273.md",
+    "bytes": 28788,
+    "sha256": "6dea8b178d33314d26bb68d2b0e32b3185ff736149c2976cf690a976b57aaafa",
+    "text_chars": 16228
+  },
+  {
+    "path": "HW1_final_report_113062273.pdf",
+    "bytes": 1050010,
+    "sha256": "a9fa62315180e6aa7c3b158c3c5e037c51f9f0ac28c62a458877a4657e699b36",
+    "pages": 6,
+    "text_chars": 10138
+  },
+  {
+    "path": "HW1_final_report_minimal_113062273.md",
+    "bytes": 13182,
+    "sha256": "ea062e711a01545c9f8ae14bc41b8f2e34c73d1f7d512b3dfa7fb09693e35570",
+    "text_chars": 7993
+  },
+  {
+    "path": "HW1_final_report_simple_113062273.docx",
+    "bytes": 615276,
+    "sha256": "ef0b874f81c0d8aa0e4b28d0ea4da050f7cc3553a33a68a4f119b86ed8040972",
+    "text_chars": 7271
+  },
+  {
+    "path": "HW1_Intro.pdf",
+    "bytes": 187426,
+    "sha256": "0aa57ea9d49b4adb6170f889748ead61ce7b379cb65808a48d2d9617cd7a7765",
+    "pages": 21,
+    "text_chars": 13956
+  },
+  {
+    "path": "HW1_pre_report_113062273 (1).pdf",
+    "bytes": 88326,
+    "sha256": "2cfbb254e246f0d4f432d0fd511ac4c5b5f1e028ed665b50064eca761fa7f104",
+    "pages": 1,
+    "text_chars": 1514
+  },
+  {
+    "path": "HW1_pre_report_113062273.pdf",
+    "bytes": 88326,
+    "sha256": "2cfbb254e246f0d4f432d0fd511ac4c5b5f1e028ed665b50064eca761fa7f104",
+    "pages": 1,
+    "text_chars": 1514
+  },
+  {
+    "path": "HW1_results_113062273\\additional_artist_information.csv",
+    "bytes": 309,
+    "sha256": "10ac17d9b748f82daec73f236eb0c3e719a240a50060bd5252738a09df7e26e4",
+    "rows": 3,
+    "columns": [
+      "test_subset",
+      "tracks",
+      "audio_only_rmse",
+      "audio_plus_artists_rmse",
+      "rmse_reduction"
+    ],
+    "missing": {
+      "test_subset": 0,
+      "tracks": 0,
+      "audio_only_rmse": 0,
+      "audio_plus_artists_rmse": 0,
+      "rmse_reduction": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\artist_popularity.png",
+    "bytes": 60845,
+    "sha256": "664416de24fcb9dd7860321cc7404dc7a4314848a460f2ad7bd902143c1dcae2",
+    "size": [
+      1780,
+      877
+    ]
+  },
+  {
+    "path": "HW1_results_113062273\\artist_popularity_development.csv",
+    "bytes": 608,
+    "sha256": "d0cc1aa886e6e73185aaea81577c7b70091453f3ccf1d31ecd116c4626a03465",
+    "rows": 11,
+    "columns": [
+      "artists",
+      "count",
+      "mean",
+      "std"
+    ],
+    "missing": {
+      "artists": 0,
+      "count": 0,
+      "mean": 0,
+      "std": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_conflict_examples.csv",
+    "bytes": 1267,
+    "sha256": "efd2a647e8b30afdc2c2eec06c317aa4728a64695be44aa8ad1ce8394385ea4d",
+    "rows": 17,
+    "columns": [
+      "Unnamed: 0",
+      "track_id",
+      "track_genre",
+      "popularity",
+      "energy",
+      "tempo",
+      "artists"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "track_id": 0,
+      "track_genre": 0,
+      "popularity": 0,
+      "energy": 0,
+      "tempo": 0,
+      "artists": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_conflicting_columns.csv",
+    "bytes": 212,
+    "sha256": "46749f73fa71c6b7b34559906e74569586d113b67f45024dd8a1f1c4c191bb39",
+    "rows": 14,
+    "columns": [
+      "Unnamed: 0",
+      "conflicting_track_ids"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "conflicting_track_ids": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_duplicate_distribution.csv",
+    "bytes": 79,
+    "sha256": "3135379ba3aac55d89fa95ddf606d5b15f6d97cc9464fe0d2ca4b1b12ea3079b",
+    "rows": 9,
+    "columns": [
+      "Unnamed: 0",
+      "track_ids"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "track_ids": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_genre_counts_raw.csv",
+    "bytes": 1625,
+    "sha256": "14b516f282ecd83ee2138b3b5287e484b2c5be0f0979fc597cd6f0d20f7e7e9a",
+    "rows": 114,
+    "columns": [
+      "track_genre",
+      "rows"
+    ],
+    "missing": {
+      "track_genre": 0,
+      "rows": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_missing.csv",
+    "bytes": 279,
+    "sha256": "acfe3fa67f18c8208579ad2132e7ed7d10bc3afb55be6038349812ba050176a1",
+    "rows": 20,
+    "columns": [
+      "Unnamed: 0",
+      "missing_rows"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "missing_rows": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_musical_codes.csv",
+    "bytes": 251,
+    "sha256": "34c55b8b534a31058648f34125dad9bc0eb0374a41d17d68fe82aa40a9f9016e",
+    "rows": 12,
+    "columns": [
+      "Unnamed: 0",
+      "key",
+      "mode",
+      "time_signature"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "key": 0,
+      "mode": 0,
+      "time_signature": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_numeric_summary.csv",
+    "bytes": 1247,
+    "sha256": "e0eae8b313bdf68f7e7c1ceb8f27ece20c0caae7b20cd9e74f10c60896492ca0",
+    "rows": 14,
+    "columns": [
+      "Unnamed: 0",
+      "count",
+      "mean",
+      "std",
+      "min",
+      "25%",
+      "50%",
+      "75%",
+      "max"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "count": 0,
+      "mean": 0,
+      "std": 0,
+      "min": 0,
+      "25%": 0,
+      "50%": 0,
+      "75%": 0,
+      "max": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_popularity_by_id_spread.csv",
+    "bytes": 657,
+    "sha256": "4b01bfb63023e4ac7f245ff28dc96865f05914793a35cd82dfc739dd1e7b93a8",
+    "rows": 20,
+    "columns": [
+      "track_id",
+      "min",
+      "max",
+      "spread"
+    ],
+    "missing": {
+      "track_id": 0,
+      "min": 0,
+      "max": 0,
+      "spread": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_priorities.csv",
+    "bytes": 1235,
+    "sha256": "72a961a3b370ef14d26ccec37c795366068553c6f0f2f6d4ffeffa28d237d905",
+    "rows": 6,
+    "columns": [
+      "priority",
+      "finding",
+      "count",
+      "unit",
+      "implemented_decision",
+      "tradeoff"
+    ],
+    "missing": {
+      "priority": 0,
+      "finding": 0,
+      "count": 0,
+      "unit": 0,
+      "implemented_decision": 0,
+      "tradeoff": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_related_recording_groups.csv",
+    "bytes": 151,
+    "sha256": "a0e45eb195bc686a7a727e2a8867ccd1acc34dd7c6e645a096cbb33c38092e3d",
+    "rows": 5,
+    "columns": [
+      "Unnamed: 0",
+      "count"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "count": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_sentinel_examples.csv",
+    "bytes": 762,
+    "sha256": "91d0896635a8fcb552389ecfb9d3b6da4fc93f90b2d5c95e3815d375dce0c5e9",
+    "rows": 12,
+    "columns": [
+      "Unnamed: 0",
+      "track_id",
+      "track_genre",
+      "energy",
+      "loudness",
+      "tempo",
+      "time_signature"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "track_id": 0,
+      "track_genre": 0,
+      "energy": 0,
+      "loudness": 0,
+      "tempo": 0,
+      "time_signature": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\audit_validity.csv",
+    "bytes": 217,
+    "sha256": "253330c60c2811835d0e78f64041102215c13e594fa72ddc71ee57d7141e737b",
+    "rows": 10,
+    "columns": [
+      "Unnamed: 0",
+      "flagged_rows"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "flagged_rows": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\cleaned_genre_membership_counts.csv",
+    "bytes": 1514,
+    "sha256": "c364d9e48dd9d8dc76fb6d41215ebe48c232c16d8cdb9334a1105ae5c811f55e",
+    "rows": 114,
+    "columns": [
+      "track_genre",
+      "tracks"
+    ],
+    "missing": {
+      "track_genre": 0,
+      "tracks": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\cleaning_flow.csv",
+    "bytes": 186,
+    "sha256": "91bd951a67be0bedcb73a3ade1617c098fc2599ad227a8286ba24d261b478e87",
+    "rows": 5,
+    "columns": [
+      "stage",
+      "rows"
+    ],
+    "missing": {
+      "stage": 0,
+      "rows": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\cluster_stability.csv",
+    "bytes": 332,
+    "sha256": "6e8c329b2ff4c77b3f4821f47227423d7a894f0f09beb4e981bfc248925b5a45",
+    "rows": 4,
+    "columns": [
+      "check",
+      "fit_rows",
+      "ARI",
+      "matched_changed_fraction"
+    ],
+    "missing": {
+      "check": 0,
+      "fit_rows": 0,
+      "ARI": 0,
+      "matched_changed_fraction": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\cluster_top_genre_memberships.csv",
+    "bytes": 585,
+    "sha256": "c036d2dae714acfac2a49edcc16f584d7c7749f994e28e58f1553cc4d528bd55",
+    "rows": 10,
+    "columns": [
+      "Unnamed: 0",
+      "cluster",
+      "genre",
+      "share_of_cluster",
+      "share_of_genre"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "cluster": 0,
+      "genre": 0,
+      "share_of_cluster": 0,
+      "share_of_genre": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\expectation1_correlations.csv",
+    "bytes": 473,
+    "sha256": "365a9bea645581fb90adbe7ee68434d22c20f8e72cececacf8f4612a7f401631",
+    "rows": 9,
+    "columns": [
+      "Unnamed: 0",
+      "pearson_with_energy",
+      "spearman_with_energy"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "pearson_with_energy": 0,
+      "spearman_with_energy": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\expectation2_genre_eta_squared.csv",
+    "bytes": 301,
+    "sha256": "eb6bda83d3dda57305c5e6f217ed5ab7b2447ba3b4791c43b0130bef9d4be55c",
+    "rows": 9,
+    "columns": [
+      "feature",
+      "eta_squared"
+    ],
+    "missing": {
+      "feature": 0,
+      "eta_squared": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_cluster_proportions.csv",
+    "bytes": 5425,
+    "sha256": "4ec5f7d5900fdc83d4862e55e0db5e8d8e90e199514296d724dbafa6fefc3893",
+    "rows": 114,
+    "columns": [
+      "track_genre",
+      "0",
+      "1"
+    ],
+    "missing": {
+      "track_genre": 0,
+      "0": 0,
+      "1": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_cluster_weighted_counts.csv",
+    "bytes": 4129,
+    "sha256": "8166151606138b231befc44637d65f56d7f2ebc8e63a40e2d559db683af577a1",
+    "rows": 114,
+    "columns": [
+      "track_genre",
+      "0",
+      "1"
+    ],
+    "missing": {
+      "track_genre": 0,
+      "0": 0,
+      "1": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_clustering_quality.csv",
+    "bytes": 365,
+    "sha256": "f70f788026536f59cab6ab280846430cfa9844946942ad645333456493b00446",
+    "rows": 4,
+    "columns": [
+      "configuration",
+      "distance",
+      "linkage",
+      "cophenetic_r",
+      "silhouette"
+    ],
+    "missing": {
+      "configuration": 0,
+      "distance": 0,
+      "linkage": 0,
+      "cophenetic_r": 0,
+      "silhouette": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_configuration_ari.csv",
+    "bytes": 405,
+    "sha256": "c838d1423dcae81b520cab4d916b5d5a44e23690d653f26c1f1095dd70d74666",
+    "rows": 4,
+    "columns": [
+      "Unnamed: 0",
+      "euclidean_average",
+      "euclidean_complete",
+      "cityblock_average",
+      "cityblock_complete"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "euclidean_average": 0,
+      "euclidean_complete": 0,
+      "cityblock_average": 0,
+      "cityblock_complete": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_dendrograms.png",
+    "bytes": 399306,
+    "sha256": "3a6e776ae7b70d597031c88fd5f17bf427c09901f63b34097a7c724bbdccd32b",
+    "size": [
+      4176,
+      2980
+    ]
+  },
+  {
+    "path": "HW1_results_113062273\\genre_group_assignments.csv",
+    "bytes": 2025,
+    "sha256": "1c7f4205676d1267f27dd6aa1b5ff8f6eaa0da2388f16f2ef988357dabe29dd4",
+    "rows": 114,
+    "columns": [
+      "Unnamed: 0",
+      "euclidean_average",
+      "euclidean_complete",
+      "cityblock_average",
+      "cityblock_complete"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "euclidean_average": 0,
+      "euclidean_complete": 0,
+      "cityblock_average": 0,
+      "cityblock_complete": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_group_members.csv",
+    "bytes": 5038,
+    "sha256": "b4f79bb7b66c21e84a8cbe7c56247b87e3c095e53cff186932f2c1547155f9d5",
+    "rows": 32,
+    "columns": [
+      "Unnamed: 0",
+      "configuration",
+      "group",
+      "n_genres",
+      "genres"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "configuration": 0,
+      "group": 0,
+      "n_genres": 0,
+      "genres": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_group_profiles_cityblock_average.csv",
+    "bytes": 1518,
+    "sha256": "e15881ce56ef2aecc66a413531c9a33e8c3be1a84f49b48fbd8f392119bd1dfa",
+    "rows": 8,
+    "columns": [
+      "group",
+      "danceability",
+      "energy",
+      "loudness",
+      "speechiness",
+      "acousticness",
+      "instrumentalness",
+      "liveness",
+      "valence",
+      "tempo"
+    ],
+    "missing": {
+      "group": 0,
+      "danceability": 0,
+      "energy": 0,
+      "loudness": 0,
+      "speechiness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0,
+      "liveness": 0,
+      "valence": 0,
+      "tempo": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_group_profiles_cityblock_complete.csv",
+    "bytes": 1515,
+    "sha256": "605df4765ef9a4e1627dc917d836c772d09ad26197e87c8e615742bf6c6d3b63",
+    "rows": 8,
+    "columns": [
+      "group",
+      "danceability",
+      "energy",
+      "loudness",
+      "speechiness",
+      "acousticness",
+      "instrumentalness",
+      "liveness",
+      "valence",
+      "tempo"
+    ],
+    "missing": {
+      "group": 0,
+      "danceability": 0,
+      "energy": 0,
+      "loudness": 0,
+      "speechiness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0,
+      "liveness": 0,
+      "valence": 0,
+      "tempo": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_group_profiles_euclidean_average.csv",
+    "bytes": 1517,
+    "sha256": "3508d454232995e9a556e81901205843ba9cb53e49fb37ac56a7db1bff9930ed",
+    "rows": 8,
+    "columns": [
+      "group",
+      "danceability",
+      "energy",
+      "loudness",
+      "speechiness",
+      "acousticness",
+      "instrumentalness",
+      "liveness",
+      "valence",
+      "tempo"
+    ],
+    "missing": {
+      "group": 0,
+      "danceability": 0,
+      "energy": 0,
+      "loudness": 0,
+      "speechiness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0,
+      "liveness": 0,
+      "valence": 0,
+      "tempo": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_group_profiles_euclidean_complete.csv",
+    "bytes": 1521,
+    "sha256": "fd993f328f2d89ce9f9da554f3808e6698eaf96567b5d941e4e9e7f810c3079d",
+    "rows": 8,
+    "columns": [
+      "group",
+      "danceability",
+      "energy",
+      "loudness",
+      "speechiness",
+      "acousticness",
+      "instrumentalness",
+      "liveness",
+      "valence",
+      "tempo"
+    ],
+    "missing": {
+      "group": 0,
+      "danceability": 0,
+      "energy": 0,
+      "loudness": 0,
+      "speechiness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0,
+      "liveness": 0,
+      "valence": 0,
+      "tempo": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\genre_quality_common_euclidean.csv",
+    "bytes": 182,
+    "sha256": "ebae44eba142db0cca3a8bc6f3d6b8c5f5f578b963c41760af650d4a0c9767e8",
+    "rows": 4,
+    "columns": [
+      "Unnamed: 0",
+      "euclidean_silhouette"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "euclidean_silhouette": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\kmeans_k_selection.png",
+    "bytes": 93406,
+    "sha256": "068c34b7db11f5addc8c9c410f3233a5f88add7e7cc5aa6c6d97b7f59c3c9b88",
+    "size": [
+      1979,
+      777
+    ]
+  },
+  {
+    "path": "HW1_results_113062273\\kmeans_selection.csv",
+    "bytes": 618,
+    "sha256": "6ec53239e975d33e88d65ba7c72e0af2758cdf192ca25803570064363036c9d3",
+    "rows": 9,
+    "columns": [
+      "k",
+      "inertia",
+      "silhouette",
+      "iterations",
+      "relative_inertia_reduction"
+    ],
+    "missing": {
+      "k": 0,
+      "inertia": 0,
+      "silhouette": 0,
+      "iterations": 0,
+      "relative_inertia_reduction": 1
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\ols_coefficients_energy.csv",
+    "bytes": 1115,
+    "sha256": "c398cc3dfec3a9d03ebc68c2a9a18071f290db026e4d613b7f37c7e3b3325612",
+    "rows": 23,
+    "columns": [
+      "Unnamed: 0",
+      "coefficient"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "coefficient": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\ols_coefficients_popularity.csv",
+    "bytes": 1114,
+    "sha256": "55fb2cb97cadbc960c34dbed3007e7d1fb9bda43ec9d63e6ba87acb833788a5f",
+    "rows": 24,
+    "columns": [
+      "Unnamed: 0",
+      "coefficient"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "coefficient": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\pca_comparison.png",
+    "bytes": 158396,
+    "sha256": "916be9e808b7369925880c841b8e905f69d451d7a19f6b39009e53bd56817804",
+    "size": [
+      2969,
+      816
+    ]
+  },
+  {
+    "path": "HW1_results_113062273\\pca_dimensions.csv",
+    "bytes": 81,
+    "sha256": "1d791fefbdb09c6d8825de2aec5c612a6ac8e28ef54fabe7d298e2d57363c828",
+    "rows": 3,
+    "columns": [
+      "criterion",
+      "standardized_components",
+      "raw_components"
+    ],
+    "missing": {
+      "criterion": 0,
+      "standardized_components": 0,
+      "raw_components": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\pca_feature_variance.csv",
+    "bytes": 709,
+    "sha256": "c40162f70644e9a354f6399ea9e175b84b86d0973a8c17c8d4d82c6531f78d67",
+    "rows": 9,
+    "columns": [
+      "Unnamed: 0",
+      "raw_variance",
+      "share_of_total_raw_variance",
+      "standardized_variance"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "raw_variance": 0,
+      "share_of_total_raw_variance": 0,
+      "standardized_variance": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\pca_loadings_raw.csv",
+    "bytes": 1815,
+    "sha256": "9cb5ba1a685c585d37451ffd2facf8ff47dd586844517705207168f856d6afe4",
+    "rows": 9,
+    "columns": [
+      "Unnamed: 0",
+      "PC1",
+      "PC2",
+      "PC3",
+      "PC4",
+      "PC5",
+      "PC6",
+      "PC7",
+      "PC8",
+      "PC9"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "PC1": 0,
+      "PC2": 0,
+      "PC3": 0,
+      "PC4": 0,
+      "PC5": 0,
+      "PC6": 0,
+      "PC7": 0,
+      "PC8": 0,
+      "PC9": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\pca_loadings_standardized.csv",
+    "bytes": 1778,
+    "sha256": "1b802629ee5179b2217db9812513fef3573d3b8ea549ed05c36e012d3d01618a",
+    "rows": 9,
+    "columns": [
+      "Unnamed: 0",
+      "PC1",
+      "PC2",
+      "PC3",
+      "PC4",
+      "PC5",
+      "PC6",
+      "PC7",
+      "PC8",
+      "PC9"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "PC1": 0,
+      "PC2": 0,
+      "PC3": 0,
+      "PC4": 0,
+      "PC5": 0,
+      "PC6": 0,
+      "PC7": 0,
+      "PC8": 0,
+      "PC9": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\pca_variance.csv",
+    "bytes": 834,
+    "sha256": "1beb62acff20a058945a340f603dc917ab643bc2d828724a7fae576b5cb9d885",
+    "rows": 9,
+    "columns": [
+      "Unnamed: 0",
+      "standardized_ratio",
+      "standardized_cumulative",
+      "raw_ratio",
+      "raw_cumulative"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "standardized_ratio": 0,
+      "standardized_cumulative": 0,
+      "raw_ratio": 0,
+      "raw_cumulative": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\pca_variance_objective_check.csv",
+    "bytes": 136,
+    "sha256": "29c3353b1ff70530e8f65a0b25d89a2c4c1f8d46307ef7847a61c2fdc73efd90",
+    "rows": 2,
+    "columns": [
+      "Unnamed: 0",
+      "projection_variance",
+      "largest_eigenvalue"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "projection_variance": 0,
+      "largest_eigenvalue": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\regression_results.csv",
+    "bytes": 595,
+    "sha256": "d992471d049e302d65fc07c17a1875b130bac2e369f1ac22ec8b6b89b467e17d",
+    "rows": 2,
+    "columns": [
+      "target",
+      "preregistered_rmse",
+      "OLS_test_rmse",
+      "mean_baseline_test_rmse",
+      "actual_minus_predicted_rmse",
+      "rmse_divided_by_baseline",
+      "relative_rmse_reduction",
+      "test_r_squared",
+      "rmse_group_CI_low",
+      "rmse_group_CI_high",
+      "training_target_mean"
+    ],
+    "missing": {
+      "target": 0,
+      "preregistered_rmse": 0,
+      "OLS_test_rmse": 0,
+      "mean_baseline_test_rmse": 0,
+      "actual_minus_predicted_rmse": 0,
+      "rmse_divided_by_baseline": 0,
+      "relative_rmse_reduction": 0,
+      "test_r_squared": 0,
+      "rmse_group_CI_low": 0,
+      "rmse_group_CI_high": 0,
+      "training_target_mean": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\regression_split_sizes.csv",
+    "bytes": 207,
+    "sha256": "c539d47d75076fe39a44f3a95beb5c1b5d8534ad24024a274c55515c8236187c",
+    "rows": 4,
+    "columns": [
+      "split",
+      "tracks",
+      "recording_groups",
+      "fraction"
+    ],
+    "missing": {
+      "split": 0,
+      "tracks": 0,
+      "recording_groups": 0,
+      "fraction": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\regression_target_correlations_development.csv",
+    "bytes": 512,
+    "sha256": "a6e66ae68e7809b9a41f08b4fd6962d7c855a48a964227dec113a6e75f0d2998",
+    "rows": 10,
+    "columns": [
+      "Unnamed: 0",
+      "energy",
+      "popularity"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "energy": 0,
+      "popularity": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\regression_target_distributions.csv",
+    "bytes": 206,
+    "sha256": "5edf60ca30f53855f2a5d7d190b873e7908e845ba1d05330931e84db2ff9f5d7",
+    "rows": 2,
+    "columns": [
+      "Unnamed: 0",
+      "count",
+      "mean",
+      "std",
+      "min",
+      "25%",
+      "50%",
+      "75%",
+      "max"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "count": 0,
+      "mean": 0,
+      "std": 0,
+      "min": 0,
+      "25%": 0,
+      "50%": 0,
+      "75%": 0,
+      "max": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\regression_test_predictions.png",
+    "bytes": 290700,
+    "sha256": "50c596af091b79f1dc3833eaa776f774a2dc012c87ee23fa6d07d498b16af0b2",
+    "size": [
+      2156,
+      877
+    ]
+  },
+  {
+    "path": "HW1_results_113062273\\regularization_input_correlations_training.csv",
+    "bytes": 1359,
+    "sha256": "de8c56b1f2e4fcd440e01751dafd0e58b87e34d863df773fff3ea8b9d67ffab8",
+    "rows": 8,
+    "columns": [
+      "Unnamed: 0",
+      "danceability",
+      "speechiness",
+      "acousticness",
+      "instrumentalness",
+      "liveness",
+      "valence",
+      "loudness",
+      "tempo"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "danceability": 0,
+      "speechiness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0,
+      "liveness": 0,
+      "valence": 0,
+      "loudness": 0,
+      "tempo": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\regularization_ranked_input_correlations.csv",
+    "bytes": 691,
+    "sha256": "48cade4d19c04b9db4d2fd0a00107dc5ae6284d05d654f15c3c9224a0a075949",
+    "rows": 10,
+    "columns": [
+      "Unnamed: 0",
+      "feature1",
+      "feature2",
+      "pearson_r",
+      "absolute_r"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "feature1": 0,
+      "feature2": 0,
+      "pearson_r": 0,
+      "absolute_r": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\regularization_selected_correlations_training.csv",
+    "bytes": 212,
+    "sha256": "1f2ddd31f2e70e999f49f0571b84a68cb48e8264858cbd2126d9a3bee4a5d3f4",
+    "rows": 3,
+    "columns": [
+      "Unnamed: 0",
+      "loudness",
+      "acousticness",
+      "instrumentalness"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "loudness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\reproducibility.json",
+    "bytes": 1687,
+    "sha256": "035d1eb928d9a12eb70f056917020720ea941cc3bb6ccf44281bd9ac86eab18a",
+    "text_chars": 1687
+  },
+  {
+    "path": "HW1_results_113062273\\ridge_full_path.csv",
+    "bytes": 3455,
+    "sha256": "97142ffb482b5041a5951b7e0ea7c8aae823cc4b3ba9153615bebf2dfb1271b1",
+    "rows": 25,
+    "columns": [
+      "alpha",
+      "validation_rmse",
+      "test_rmse",
+      "coefficient_l2",
+      "loudness",
+      "acousticness",
+      "instrumentalness"
+    ],
+    "missing": {
+      "alpha": 0,
+      "validation_rmse": 0,
+      "test_rmse": 0,
+      "coefficient_l2": 0,
+      "loudness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\ridge_regularization.png",
+    "bytes": 242711,
+    "sha256": "cc737f0a9aef3ce1427efb14a927edccf325dba90a799f2b0e515733a773cecb",
+    "size": [
+      2378,
+      1775
+    ]
+  },
+  {
+    "path": "HW1_results_113062273\\ridge_small_correlated_basis.csv",
+    "bytes": 292,
+    "sha256": "d5b780a49d49fec8002b2a5737d6a89348c6dc2d36eaa0532b630fe6e0c60115",
+    "rows": 3,
+    "columns": [
+      "Unnamed: 0",
+      "basis_feature_1",
+      "basis_feature_2",
+      "training_pearson_r",
+      "absolute_r"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "basis_feature_1": 0,
+      "basis_feature_2": 0,
+      "training_pearson_r": 0,
+      "absolute_r": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\ridge_small_polynomial_coefficients.csv",
+    "bytes": 10796,
+    "sha256": "0e40004214d09f7f1fccea29938d69601e32ea213b29461ede1b544b3746701f",
+    "rows": 19,
+    "columns": [
+      "Unnamed: 0",
+      "1e-06",
+      "3.162277660168379e-06",
+      "1e-05",
+      "3.1622776601683795e-05",
+      "0.0001",
+      "0.00031622776601683794",
+      "0.001",
+      "0.0031622776601683794",
+      "0.01",
+      "0.03162277660168379",
+      "0.1",
+      "0.31622776601683794",
+      "1.0",
+      "3.1622776601683795",
+      "10.0",
+      "31.622776601683793",
+      "100.0",
+      "316.22776601683796",
+      "1000.0",
+      "3162.2776601683795",
+      "10000.0",
+      "31622.776601683792",
+      "100000.0",
+      "316227.7660168379",
+      "1000000.0"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "1e-06": 0,
+      "3.162277660168379e-06": 0,
+      "1e-05": 0,
+      "3.1622776601683795e-05": 0,
+      "0.0001": 0,
+      "0.00031622776601683794": 0,
+      "0.001": 0,
+      "0.0031622776601683794": 0,
+      "0.01": 0,
+      "0.03162277660168379": 0,
+      "0.1": 0,
+      "0.31622776601683794": 0,
+      "1.0": 0,
+      "3.1622776601683795": 0,
+      "10.0": 0,
+      "31.622776601683793": 0,
+      "100.0": 0,
+      "316.22776601683796": 0,
+      "1000.0": 0,
+      "3162.2776601683795": 0,
+      "10000.0": 0,
+      "31622.776601683792": 0,
+      "100000.0": 0,
+      "316227.7660168379": 0,
+      "1000000.0": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\ridge_small_polynomial_path.csv",
+    "bytes": 2382,
+    "sha256": "b0183852e42844f5bf13644580d736c833f1b2078c2217a6cb172addbb190162",
+    "rows": 25,
+    "columns": [
+      "alpha",
+      "validation_rmse",
+      "test_rmse",
+      "coefficient_l2",
+      "training_rmse"
+    ],
+    "missing": {
+      "alpha": 0,
+      "validation_rmse": 0,
+      "test_rmse": 0,
+      "coefficient_l2": 0,
+      "training_rmse": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\ridge_small_training_ids.csv",
+    "bytes": 2894,
+    "sha256": "bdca9141af2b4247ebdf3e2146ad8b5ba83da0a7ed87b73824429967f1e5c1e5",
+    "rows": 80,
+    "columns": [
+      "Unnamed: 0",
+      "track_id",
+      "recording_group"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "track_id": 0,
+      "recording_group": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\ridge_summary.csv",
+    "bytes": 333,
+    "sha256": "57f9c04e95521592e8696cb5438f437afd681e55bb2dbf93749264f43ee728ea",
+    "rows": 2,
+    "columns": [
+      "setting",
+      "training_tracks",
+      "basis_features",
+      "alpha_selected_on_validation",
+      "OLS_test_rmse",
+      "selected_Ridge_test_rmse",
+      "test_rmse_improvement"
+    ],
+    "missing": {
+      "setting": 0,
+      "training_tracks": 0,
+      "basis_features": 0,
+      "alpha_selected_on_validation": 0,
+      "OLS_test_rmse": 0,
+      "selected_Ridge_test_rmse": 0,
+      "test_rmse_improvement": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\split_track_ids.csv",
+    "bytes": 3758900,
+    "sha256": "d3759e2fe48349d41bac9efc50b947e8a66d5710514136e494431aee2c1a1b98",
+    "rows": 88858,
+    "columns": [
+      "Unnamed: 0",
+      "track_id",
+      "recording_group",
+      "split"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "track_id": 0,
+      "recording_group": 0,
+      "split": 0
+    },
+    "split_counts": {
+      "train": 56931,
+      "test": 17769,
+      "validation": 14158
+    },
+    "groups_crossing_splits": 0
+  },
+  {
+    "path": "HW1_results_113062273\\track_cluster_counts.csv",
+    "bytes": 30,
+    "sha256": "54d47540af8739ab82d89a6ff9a84ee077af20d32b9d973965c24b8b09babacf",
+    "rows": 2,
+    "columns": [
+      "Unnamed: 0",
+      "tracks"
+    ],
+    "missing": {
+      "Unnamed: 0": 0,
+      "tracks": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\track_cluster_profiles_raw.csv",
+    "bytes": 460,
+    "sha256": "61b0f9de6cb2a2e67864fd2ef6382af4949f9717edc8b44a25491aa24c8ead1b",
+    "rows": 2,
+    "columns": [
+      "cluster",
+      "danceability",
+      "energy",
+      "loudness",
+      "speechiness",
+      "acousticness",
+      "instrumentalness",
+      "liveness",
+      "valence",
+      "tempo"
+    ],
+    "missing": {
+      "cluster": 0,
+      "danceability": 0,
+      "energy": 0,
+      "loudness": 0,
+      "speechiness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0,
+      "liveness": 0,
+      "valence": 0,
+      "tempo": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\track_cluster_profiles_standardized.csv",
+    "bytes": 472,
+    "sha256": "3203d0cb7226eaec4e21a57e898e23a5f3564dd15160eab9ad6892b7d38a1430",
+    "rows": 2,
+    "columns": [
+      "cluster",
+      "danceability",
+      "energy",
+      "loudness",
+      "speechiness",
+      "acousticness",
+      "instrumentalness",
+      "liveness",
+      "valence",
+      "tempo"
+    ],
+    "missing": {
+      "cluster": 0,
+      "danceability": 0,
+      "energy": 0,
+      "loudness": 0,
+      "speechiness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0,
+      "liveness": 0,
+      "valence": 0,
+      "tempo": 0
+    }
+  },
+  {
+    "path": "HW1_results_113062273\\track_clusters_pca_profiles.png",
+    "bytes": 457934,
+    "sha256": "039e386cad5c5f864ec38606543b9cab426c8d54cd4c961a59eac3344f210afd",
+    "size": [
+      2535,
+      980
+    ]
+  },
+  {
+    "path": "HW1_results_113062273\\verification.json",
+    "bytes": 1739,
+    "sha256": "558e6efd418669f61742578c2a7ab987783d92acb1e61ce594601f4816220557",
+    "text_chars": 1739
+  },
+  {
+    "path": "HW1_Spec (1).pdf",
+    "bytes": 237002,
+    "sha256": "195b0408ad9b103cca0fc3e3ea588cdf5d35f7002ba244ac45e28210e360f15e",
+    "pages": 11,
+    "text_chars": 20543
+  },
+  {
+    "path": "hw1_starter.ipynb",
+    "bytes": 2721,
+    "sha256": "518760fc53708d18abe6dd900b8124801491d6b5504a9c223e36ae5ee37d36f6",
+    "cells": 3
+  },
+  {
+    "path": "L1-Introduction.pdf",
+    "bytes": 2508610,
+    "sha256": "20dcecd1b07c39f741d7e5d8bb0a9efb375d9a415a5fe402d09501936d0eacec",
+    "pages": 33,
+    "text_chars": 13887
+  },
+  {
+    "path": "L2-Regression.pdf",
+    "bytes": 4904840,
+    "sha256": "d395c8adea49209eb902bc9d747a148559811a732018911e11b151419689350b",
+    "pages": 53,
+    "text_chars": 79062
+  },
+  {
+    "path": "L3-Dimension Reduciton.pdf",
+    "bytes": 1658598,
+    "sha256": "4251eb15afab453ed3c1db50fc8b2a8fca091cf94d4e29f43cbb997065918f4e",
+    "pages": 36,
+    "text_chars": 16326
+  },
+  {
+    "path": "L4-Clustering.pdf",
+    "bytes": 1235383,
+    "sha256": "735d7f35724c93a50b46e2f106e1a7455edd595168ed5953d9436dc229792fd3",
+    "pages": 42,
+    "text_chars": 17872
+  },
+  {
+    "path": "output\\pdf\\minimal\\HW1_final_report_113062273.pdf",
+    "bytes": 278567,
+    "sha256": "8ddba3b21fc568876a4e681ef7a9db48fae78a98a139cf8a83cd134196188878",
+    "pages": 5,
+    "text_chars": 9815
+  },
+  {
+    "path": "tmp\\docx\\artist_popularity.png",
+    "bytes": 54810,
+    "sha256": "c2fe0441f4891f12f023689355121f0df5804f0cede4b24ec9170ecd0cc6cced",
+    "size": [
+      1697,
+      631
+    ]
+  },
+  {
+    "path": "tmp\\docx\\create_report.py",
+    "bytes": 10000,
+    "sha256": "60a373b89773d1d0ba0ab1e65dad7829c443922ea34eb0f701396f9724a144f0",
+    "text_chars": 9920
+  },
+  {
+    "path": "tmp\\docx\\create_simple_report.py",
+    "bytes": 10204,
+    "sha256": "b97122c7f51a9e69cca0d00b1548812c541834d2745558b7249fb9a75bdf1856",
+    "text_chars": 10124
+  },
+  {
+    "path": "tmp\\docx\\kmeans_k_selection.png",
+    "bytes": 52094,
+    "sha256": "b8e7f020368a35c0c6765d40974b868da607490637c07a6754e2dc73cfcadcb8",
+    "size": [
+      1696,
+      514
+    ]
+  },
+  {
+    "path": "tmp\\docx\\original-ten-page-report.pdf",
+    "bytes": 1241676,
+    "sha256": "ae7bcf6f1887778fbd010d95c1b40aeef0e99534b18e91e70f1c5867bc2056d4",
+    "pages": 10,
+    "text_chars": 20046
+  },
+  {
+    "path": "tmp\\docx\\page-01.png",
+    "bytes": 139383,
+    "sha256": "aac9e55addcab48d556cb2e0f194272f4ea3adef274aa8cb0c3416a251f357cd",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-02.png",
+    "bytes": 156815,
+    "sha256": "5db7d6f1bfac76cdf20d9e34114d6f4a6332ae35dc69c3cf6b5e007b8daf63e1",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-03.png",
+    "bytes": 159377,
+    "sha256": "7fbd1e75e6b7c7f114f8652bbcc26355bc46e199e365778b3f99f2e510fe0939",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-04.png",
+    "bytes": 163341,
+    "sha256": "f3d6683c7f85f9b805a4b559d082f19bb7bffb983fe36c083648daaf879da895",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-05.png",
+    "bytes": 148102,
+    "sha256": "d066cf88f50f56a64eb97710cb6a43d2939a51623d8c92ecfe4744c867f1f25e",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-06.png",
+    "bytes": 127265,
+    "sha256": "b9286ffc56e14df70ca20e404bb406af7dc9cc664330a3aa440759e45a10da07",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-07.png",
+    "bytes": 220247,
+    "sha256": "63a98441df137a5a5f7ab6127a0c78953969b08e4e9c73607830a63298485f7c",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-08.png",
+    "bytes": 186201,
+    "sha256": "e75fae711d3e0cf3689b0c5873a88856b8bdc8147303d11304d97278c0e7bc35",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-09.png",
+    "bytes": 155451,
+    "sha256": "6b7b17dc615cfcbe23be3d084461fc2a382abf42d4b42b385c1033246fc1e708",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\page-10.png",
+    "bytes": 185110,
+    "sha256": "a72cbc75f04737f016394f6b038c857c7fb9e768a240a31eda10486b6370ca70",
+    "size": [
+      745,
+      1053
+    ]
+  },
+  {
+    "path": "tmp\\docx\\pca_comparison.png",
+    "bytes": 92138,
+    "sha256": "7e5d0007ab3574646679a58e23d15ae99e4a2f1ca24d97db7b750e198d2c94ff",
+    "size": [
+      1695,
+      670
+    ]
+  },
+  {
+    "path": "tmp\\docx\\regression_test_predictions.png",
+    "bytes": 158518,
+    "sha256": "7d9c822c36ca366ec5411e0d45c0c9c07c435ebd56bf2556a4b24dcfb9d78ede",
+    "size": [
+      1693,
+      644
+    ]
+  },
+  {
+    "path": "tmp\\docx\\render_in_word.ps1",
+    "bytes": 1066,
+    "sha256": "257ff4245e3a7625525741c7f85f09867058574364ee111789e21d19fb43b24d",
+    "text_chars": 1066
+  },
+  {
+    "path": "tmp\\docx\\render_simple_in_word.ps1",
+    "bytes": 1109,
+    "sha256": "b34235899d77650edb244079959e7d0e834fb934056bde2ac20baf22e089e1cf",
+    "text_chars": 1106
+  },
+  {
+    "path": "tmp\\docx\\report_simple.md",
+    "bytes": 14923,
+    "sha256": "d484c0aef094c941e92f354747ccc6f9a3f430c728243c337ae18bdc0714a455",
+    "text_chars": 8308
+  },
+  {
+    "path": "tmp\\docx\\requirements_audit.json",
+    "bytes": 2331,
+    "sha256": "ff4d341ea5e877ed303e0a326b32d3245cb23f89693f37f7068e73f409cb82f8",
+    "text_chars": 2331
+  },
+  {
+    "path": "tmp\\docx\\ridge_regularization.png",
+    "bytes": 112946,
+    "sha256": "bba072b8ab33d969db6dbaeb6a12140e009ac45aeb3c6cb892690f26aca8aef5",
+    "size": [
+      1680,
+      921
+    ]
+  },
+  {
+    "path": "tmp\\docx\\simple-page-01.png",
+    "bytes": 240505,
+    "sha256": "ac98cc2eaffa8c33df7dbe48798b8ad9cc7d67365970a49d83538ed101886d09",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\docx\\simple-page-02.png",
+    "bytes": 240678,
+    "sha256": "e574b83050b56c00fa7ea3f95da2308a5b1e46c7ffaf2b414b977cbf4f9d095e",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\docx\\simple-page-03.png",
+    "bytes": 124792,
+    "sha256": "add0e544e24dc618761f04f06ab44cf025b92d40f4ece9c42b8874ef280a3c8c",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\docx\\simple-page-04.png",
+    "bytes": 242284,
+    "sha256": "caedba9ae39dccaffba15c7235bff88a9c8656fe70c112ce43372fdba38efd9a",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\docx\\simple-page-05.png",
+    "bytes": 258081,
+    "sha256": "c945552fca7b9f391c847167084ac52a45f7e50071842a20e888492aed27e0b5",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\docx\\simple-page-06.png",
+    "bytes": 244476,
+    "sha256": "7dc87755cff4ca349505937f91817bcb1694870be21bb16092f827ae6ab232fe",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\docx\\simple-word-render.pdf",
+    "bytes": 1050010,
+    "sha256": "a9fa62315180e6aa7c3b158c3c5e037c51f9f0ac28c62a458877a4657e699b36",
+    "pages": 6,
+    "text_chars": 10138
+  },
+  {
+    "path": "tmp\\docx\\supplement_basis.py",
+    "bytes": 4993,
+    "sha256": "bdf33a9d36c9089c092fac8b68f2cf5fe2ce470bbcc094e18682f38e0ab4abcf",
+    "text_chars": 4993
+  },
+  {
+    "path": "tmp\\docx\\track_clusters_pca_profiles.png",
+    "bytes": 191896,
+    "sha256": "37b8ead10f69aaf4ec1fc972b5b51e4a24cbcafe8e9b4dd8514f0599c6df3f9d",
+    "size": [
+      1654,
+      707
+    ]
+  },
+  {
+    "path": "tmp\\docx\\verify_full_notebook.py",
+    "bytes": 1991,
+    "sha256": "735d426f693a6718dbd17cbee06d982a0ce6ca5619f80ef63faee6d9ab57d1e9",
+    "text_chars": 1991
+  },
+  {
+    "path": "tmp\\docx\\word-render.pdf",
+    "bytes": 1249020,
+    "sha256": "01553a8e27b6163094ba81726779d16a42da940cf5a12a2cd4dc5c1f5bc4cdaa",
+    "pages": 10,
+    "text_chars": 19326
+  },
+  {
+    "path": "tmp\\pdfs\\build_hw1_minimal.py",
+    "bytes": 5770,
+    "sha256": "d27f0ecd0e2d025a611db658ca9b8225a29d4cef032b07be43e5089ce034443b",
+    "text_chars": 5734
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\HW1_final_report_113062273.pdf.txt",
+    "bytes": 17127,
+    "sha256": "62d2d5f8f68aaada072cbbf721a343770601e590b2e8c656766653615f52033c",
+    "text_chars": 10500
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\HW1_Intro.pdf.txt",
+    "bytes": 14567,
+    "sha256": "579b60735043141da8501a8d16ec10ad01cbff5fc3578adb0f27aeec6a462015",
+    "text_chars": 14445
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\HW1_Spec (1).pdf.txt",
+    "bytes": 21149,
+    "sha256": "89afb0d6ad0eae5ba174ebdcbd3dbe19e9b46bae3ad746a550302a358a5ef523",
+    "text_chars": 21029
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-01.png",
+    "bytes": 41641,
+    "sha256": "c19312647300ad79f8344dafa0beac1051d5c27e26c91a93186990733fbc4e38",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-02.png",
+    "bytes": 63705,
+    "sha256": "50d8005387b1dc2f9f5cecdd00134072b4f06259b7417e3085746f57f4ca1f00",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-03.png",
+    "bytes": 58137,
+    "sha256": "b4f0d9ed131d24fa7d3129a24b7fab9d43734dbce6990ed05663376a4cb17a93",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-04.png",
+    "bytes": 67714,
+    "sha256": "d6711a43f5ff57be1be7d908130fc0771f3a29fc00483637340cd976316b0a99",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-05.png",
+    "bytes": 50824,
+    "sha256": "5f70bb6a9ebf6cb23a0a425f74391b6a75649037c00565ff5944269b7347c31e",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-06.png",
+    "bytes": 24743,
+    "sha256": "a4656508e3b2d4152272d7b79438cc688aff4649a4e9f3d00c6d42cbdaf92cce",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-07.png",
+    "bytes": 88157,
+    "sha256": "b11860eb04b863ef9ccbdad17843cb9acc20a6ff3a03ae5bd14f141d78d7c0cc",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-08.png",
+    "bytes": 54953,
+    "sha256": "820bb2cfef567729bafbab6bf3dc9d91dedbc2ad5e70dd7c66cdf8b3d512dd1b",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-09.png",
+    "bytes": 48216,
+    "sha256": "a81c0c9b4abfc4a04be504a470003db3a8f88cd3a56f1dd1fdb2dc21a0ecbc7c",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-10.png",
+    "bytes": 88204,
+    "sha256": "1f0b8bfff5fbe46596917c66c668cc6b9cc28203439ef9d5d7b85db87b9da63a",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-11.png",
+    "bytes": 68174,
+    "sha256": "34434f79c055dcc4eb38b2a9a59f47918f28934f638151e99768cd56f3835c69",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-12.png",
+    "bytes": 97514,
+    "sha256": "9cea4f96a43293b1075681e46d21054bc708669e73eea0eb7e6a68ce3287f06b",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-13.png",
+    "bytes": 53289,
+    "sha256": "66c9b2c43aca09eff39ecb193f7fb93d18ad8ef7183c0fda0aa3257d14d1cb36",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-14.png",
+    "bytes": 65233,
+    "sha256": "b61df29f6b44225a6fc35a5f67261b2208fc6ace4ecb6b9bf9b835b02b3d244b",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-15.png",
+    "bytes": 42482,
+    "sha256": "57fad1e64c06550cb3b65dc03fb449a5e6c1070e9192985a0418bbd303fa9603",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-16.png",
+    "bytes": 92159,
+    "sha256": "c15b04bec0bdcabda31395e2fa24cb1913086fb5492e30d1c1e34baeca4c5c3a",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-17.png",
+    "bytes": 68595,
+    "sha256": "c3278dc66da53dfd55c6ed4d61cff799e320597ac0fff523e7b38dad231a06d2",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-18.png",
+    "bytes": 84587,
+    "sha256": "18ce56664293581133114f5a28ecd0ea5484a29f5572c9a199e610bd1c4fc80a",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-19.png",
+    "bytes": 74296,
+    "sha256": "632ec5d208f5b4b9960d88252e35fdc3125ecd6300728f0960b4b5eb5268a4af",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-20.png",
+    "bytes": 49672,
+    "sha256": "abd78fb1c1fd49a78231cddd706d6336b3488924d6b550476565438ba3f0b41e",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\intro-21.png",
+    "bytes": 14111,
+    "sha256": "c735b3f6590395fc37054b87c8fbee1ce3ecc5129fa11cc9959e0b1935ee470a",
+    "size": [
+      1008,
+      567
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\report-01.png",
+    "bytes": 219066,
+    "sha256": "fb9658698e186a1e303000fadd9ff43b545a1f53e2cd3e25d09df7352e64e224",
+    "size": [
+      834,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\report-02.png",
+    "bytes": 220383,
+    "sha256": "2cc3d21ca69c8b69d109361d67ae9f58e673bb113b513c9f548979656e261553",
+    "size": [
+      834,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\report-03.png",
+    "bytes": 113632,
+    "sha256": "5dda2776d02f0f71869df0aeb190a692e2ef725ac4816fcf7ba6ef89085aeeeb",
+    "size": [
+      834,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\report-04.png",
+    "bytes": 218400,
+    "sha256": "c34d34032a4411a0c3d80298e635b9764a66ab2bd304c3f1a47ece2e81941390",
+    "size": [
+      834,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\report-05.png",
+    "bytes": 235654,
+    "sha256": "355ae1db45680f6abb595e4f884876435f1ccd3884a31c10b09fb762b11ca24c",
+    "size": [
+      834,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\report-06.png",
+    "bytes": 224797,
+    "sha256": "1667ae582f34ff01eb6d03a93af471972ee6357fbcf1102d38682aed2579a837",
+    "size": [
+      834,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-01.png",
+    "bytes": 183354,
+    "sha256": "c2b18d18a726699e82da4ff1a63cfc25802d7433b66878b4ef33c4e9701d04d4",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-02.png",
+    "bytes": 174634,
+    "sha256": "e6c90146c9934ce8e1084c9d8a52dd8ec2191429e2669d32803cdaf2d691dd37",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-03.png",
+    "bytes": 150517,
+    "sha256": "045ae7ecdc910fd0abb6f20c1744c3c3f164949921e895ec36dfe37ea38a9520",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-04.png",
+    "bytes": 155492,
+    "sha256": "5d96c2a1c8fe5168623fd68d3357890fe686de7824d049e756f8bf43defe608a",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-05.png",
+    "bytes": 175702,
+    "sha256": "6261d64b5589b4cdb517806e0f0bf0d5952b8a0cc5513014cb01580b30e640fa",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-06.png",
+    "bytes": 167195,
+    "sha256": "4e2012cfc9abacc5135d0ebf4cd354ab2313774508fe75883230d57c112e02b9",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-07.png",
+    "bytes": 178272,
+    "sha256": "e999e627fce332fda66d2ad01db2dc877d2309f1e8590c72b8c664ec0ee60736",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-08.png",
+    "bytes": 163597,
+    "sha256": "e2695a7d8aed97d7bc544c0c3f30acbe26a623edf4885ccb9b5990ade71bf58b",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-09.png",
+    "bytes": 191946,
+    "sha256": "5573da48cb1703c213419f34e8cda11cae003c57c0d48afdb65fef627c7433c5",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-10.png",
+    "bytes": 141335,
+    "sha256": "011f77ba411d0a4ed2ef0d9a8cff03dda397a59baca0ae012bd1b6ca4583a7c8",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_audit\\spec-11.png",
+    "bytes": 64802,
+    "sha256": "1fb810d19d5c756d60ae116aa7ae58975fbb124027953d1136d63716a9eb473d",
+    "size": [
+      835,
+      1179
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_minimal_preview\\extracted.txt",
+    "bytes": 15354,
+    "sha256": "27ea7f9cefb7655653a3f64c23b2d98fdf30397649400d314e07226d74ac0f97",
+    "text_chars": 10145
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_minimal_preview\\page-01.png",
+    "bytes": 206065,
+    "sha256": "7948cefd607d4846165f2fd5ff6aa6341f6b49e2b1b9904f04849143497c7c9b",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_minimal_preview\\page-02.png",
+    "bytes": 175997,
+    "sha256": "c5dbee48fef037ea048b06d6100e02bad7cec2139f841c35c2b3ba3642f415d9",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_minimal_preview\\page-03.png",
+    "bytes": 164834,
+    "sha256": "acc4193f067d72170ae3ab7cb832757f95f164a3790518151e1018b567f7ef3d",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_minimal_preview\\page-04.png",
+    "bytes": 170632,
+    "sha256": "340f61e09b20326700838d2211b268dfdc0e4820fc855b56777151edb5eb6b59",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_minimal_preview\\page-05.png",
+    "bytes": 203245,
+    "sha256": "ed5cdc12e670a0dee4b2bed4b3e6b3af86ee68a161dee9f0f0d4f089aaaa8487",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\hw1_minimal_preview\\page-06.png",
+    "bytes": 203352,
+    "sha256": "b2dee4973a67f89fcc8cc501ded9602103fb82c7fa4da8039ee4bdb96d4f22c4",
+    "size": [
+      893,
+      1263
+    ]
+  },
+  {
+    "path": "tmp\\pdfs\\reread_workspace.py",
+    "bytes": 5062,
+    "sha256": "56e53a29fe425ff2fdd46b1fe5b7d1e5952ed6df77d722196871d123f17c3f91",
+    "text_chars": 5062
+  },
+  {
+    "path": "tracks.csv",
+    "bytes": 19431353,
+    "sha256": "db8cd3670209db33285dbfa7ad08dc05446219e9c430e7750abfd17e99297c42",
+    "rows": 114000,
+    "columns": [
+      "track_id",
+      "artists",
+      "album_name",
+      "track_name",
+      "popularity",
+      "duration_ms",
+      "explicit",
+      "danceability",
+      "energy",
+      "key",
+      "loudness",
+      "mode",
+      "speechiness",
+      "acousticness",
+      "instrumentalness",
+      "liveness",
+      "valence",
+      "tempo",
+      "time_signature",
+      "track_genre"
+    ],
+    "missing": {
+      "track_id": 0,
+      "artists": 1,
+      "album_name": 1,
+      "track_name": 1,
+      "popularity": 0,
+      "duration_ms": 0,
+      "explicit": 0,
+      "danceability": 0,
+      "energy": 0,
+      "key": 0,
+      "loudness": 0,
+      "mode": 0,
+      "speechiness": 0,
+      "acousticness": 0,
+      "instrumentalness": 0,
+      "liveness": 0,
+      "valence": 0,
+      "tempo": 0,
+      "time_signature": 0,
+      "track_genre": 0
+    }
+  }
+]

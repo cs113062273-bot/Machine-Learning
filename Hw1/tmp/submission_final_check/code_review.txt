@@ -1,0 +1,776 @@
+CELL 0 markdown
+# HW1: Exploratory Analysis of a Music Catalog
+Student ID: **113062273**
+
+Run all cells from a fresh Python kernel, with `tracks.csv` beside this notebook.
+If absent, the file is downloaded from the assignment's starter URL. All analysis
+uses this file alone. Tables and figures are saved under `HW1_results_113062273/`.
+The original starter and pre-registration report are preserved.
+
+This notebook contains executable analysis and technical method notes. The final
+report's reasoning must be written by the student, as required by Spec Rule 3.
+Pre-registration RMSE values are transcribed unchanged: energy **0.12**, popularity **18**.
+
+CELL 1 code
+%pip install -q numpy==2.2.6 pandas==2.3.3 scipy==1.16.1 matplotlib==3.10.5 scikit-learn==1.7.1 threadpoolctl
+
+CELL 2 code
+import os
+os.environ['OMP_NUM_THREADS'] = '2'
+os.environ['MKL_NUM_THREADS'] = '2'
+os.environ['OPENBLAS_NUM_THREADS'] = '2'
+import sys, json, hashlib, platform, urllib.request, itertools
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import scipy
+import matplotlib
+import matplotlib.pyplot as plt
+import sklearn
+from IPython.display import display
+from scipy.cluster.hierarchy import linkage, dendrogram, fcluster, cophenet
+from scipy.spatial.distance import pdist
+from scipy.optimize import linear_sum_assignment
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, PolynomialFeatures
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score, adjusted_rand_score, root_mean_squared_error, r2_score
+from sklearn.model_selection import GroupShuffleSplit
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.dummy import DummyRegressor
+from threadpoolctl import threadpool_limits
+
+SEED = 113062273
+PRE_RMSE = {'energy': 0.12, 'popularity': 18.0}
+rng = np.random.default_rng(SEED)
+thread_limit = threadpool_limits(limits=2)
+OUT = Path('HW1_results_113062273')
+OUT.mkdir(exist_ok=True)
+plt.rcParams.update({'figure.dpi': 120, 'savefig.dpi': 200,
+                     'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False})
+
+def table(name, frame, show=True):
+    frame.to_csv(OUT / (name + '.csv'), index=True, encoding='utf-8-sig')
+    if show:
+        display(frame.round(6))
+    return frame
+
+def figure(name, fig):
+    fig.savefig(OUT / (name + '.png'), bbox_inches='tight')
+    plt.show()
+    plt.close(fig)
+
+versions = {'python': platform.python_version(), 'numpy': np.__version__,
+            'pandas': pd.__version__, 'scipy': scipy.__version__,
+            'matplotlib': matplotlib.__version__, 'scikit-learn': sklearn.__version__}
+print(json.dumps(versions, indent=2))
+
+CELL 3 code
+DATA_URL = 'https://github.com/nthu-cs-hmilab/I2ML-2026/releases/download/data/tracks.csv'
+LOCAL_PATH = Path('tracks.csv')
+if not LOCAL_PATH.exists():
+    temporary = LOCAL_PATH.with_suffix('.csv.part')
+    urllib.request.urlretrieve(DATA_URL, temporary)
+    temporary.replace(LOCAL_PATH)
+raw = pd.read_csv(LOCAL_PATH)
+assert raw.shape == (114000, 20), f'Unexpected assignment dataset shape: {raw.shape}'
+AUDIO = ['danceability', 'energy', 'loudness', 'speechiness', 'acousticness',
+         'instrumentalness', 'liveness', 'valence', 'tempo']
+BASE_INPUTS = ['danceability', 'speechiness', 'acousticness', 'instrumentalness',
+               'liveness', 'valence', 'loudness', 'tempo', 'key', 'mode', 'time_signature']
+CAT = ['key', 'mode', 'time_signature']
+NUM = [c for c in BASE_INPUTS if c not in CAT]
+UNIT = ['danceability', 'energy', 'speechiness', 'acousticness',
+        'instrumentalness', 'liveness', 'valence']
+manifest = {'student_id': str(SEED), 'data_url': DATA_URL,
+            'dataset_sha256': hashlib.sha256(LOCAL_PATH.read_bytes()).hexdigest(),
+            'raw_shape': list(raw.shape), 'versions': versions, 'seed': SEED,
+            'preregistered_rmse': PRE_RMSE}
+print('Dataset:', raw.shape, 'SHA256:', manifest['dataset_sha256'])
+display(raw.head(3))
+
+CELL 4 markdown
+## Section 3: Raw-data audit and cleaning
+Raw rows are deliberately used only for the audit and the explicitly labelled
+duplicate-weight sensitivity check. Geometry uses nine continuous audio features;
+integer-coded key, mode and time signature are not treated as Euclidean coordinates.
+All three are one-hot encoded in regression, including a category for every valid
+observed value. Duration, explicit, identifiers and genre are excluded from Q1/Q2/Q4.
+
+CELL 5 code
+missing = raw.isna().sum().to_frame('missing_rows')
+table('audit_missing', missing)
+table('audit_numeric_summary', raw.select_dtypes(include='number').describe().T)
+table('audit_genre_counts_raw', raw.groupby('track_genre').size().to_frame('rows'))
+exact_duplicates = raw.duplicated().sum()
+id_counts = raw.groupby('track_id').size()
+genre_counts = raw.groupby('track_id').track_genre.nunique()
+dedup = raw.drop_duplicates().copy()
+numeric_payload = AUDIO + CAT + ['popularity', 'duration_ms']
+variation = dedup.groupby('track_id')[numeric_payload].nunique(dropna=False)
+table('audit_conflicting_columns', variation.gt(1).sum().to_frame('conflicting_track_ids'))
+conflict_ids = variation.index[variation[AUDIO + CAT + ['popularity']].gt(1).any(axis=1)]
+table('audit_conflict_examples', dedup[dedup.track_id.isin(conflict_ids[:5])]
+      [['track_id', 'track_genre', 'popularity', 'energy', 'tempo', 'artists']], show=True)
+table('audit_duplicate_distribution', id_counts.value_counts().sort_index().to_frame('track_ids'))
+
+invalid = pd.DataFrame(index=raw.index)
+invalid['missing_id'] = raw.track_id.isna() | raw.track_id.fillna('').str.strip().eq('')
+invalid['missing_audio_or_target'] = raw[AUDIO + CAT + ['popularity']].isna().any(axis=1)
+invalid['nonfinite_audio_or_target'] = ~np.isfinite(raw[AUDIO + CAT + ['popularity']]).all(axis=1)
+invalid['unit_interval'] = ((raw[UNIT] < 0) | (raw[UNIT] > 1)).any(axis=1)
+invalid['popularity_range'] = ~raw.popularity.between(0, 100)
+invalid['duration_nonpositive'] = raw.duration_ms.le(0)
+invalid['key_code'] = ~raw.key.isin(range(12))
+invalid['mode_code'] = ~raw['mode'].isin([0, 1])
+invalid['signature_code'] = ~raw.time_signature.isin([1, 2, 3, 4, 5])
+invalid['tempo_nonpositive'] = raw.tempo.le(0)
+table('audit_validity', invalid.sum().to_frame('flagged_rows'))
+table('audit_musical_codes', pd.concat([raw[c].value_counts().rename(c) for c in CAT], axis=1).fillna(0))
+table('audit_sentinel_examples', raw[invalid.signature_code | invalid.tempo_nonpositive]
+      [['track_id', 'track_genre', 'energy', 'loudness', 'tempo', 'time_signature']].head(12))
+table('audit_popularity_by_id_spread', dedup.groupby('track_id').popularity.agg(['min','max'])
+      .assign(spread=lambda x: x['max']-x['min']).query('spread > 0')
+      .sort_values('spread', ascending=False).head(20))
+
+CELL 6 code
+# Deterministic row validity; no thresholds learned from held-out targets.
+valid_rows = dedup.loc[~invalid.loc[dedup.index].any(axis=1)].copy()
+# Conflicting audio/target measurements cannot be resolved without external data.
+# Exclude entire conflicting IDs, retaining a single reliable target definition.
+valid_rows = valid_rows.loc[~valid_rows.track_id.isin(conflict_ids)].copy()
+valid_rows['track_genre'] = valid_rows.track_genre.fillna('UNKNOWN')
+for c in ['artists', 'album_name', 'track_name']:
+    valid_rows[c] = valid_rows[c].fillna('')
+# Membership table preserves all genre labels, without repeating tracks in PCA or regression.
+memberships = valid_rows[['track_id', 'track_genre']].drop_duplicates()
+clean = valid_rows.drop_duplicates('track_id').sort_values('track_id').reset_index(drop=True)
+assert clean.track_id.is_unique
+assert clean[AUDIO + CAT + ['popularity']].notna().all().all()
+assert set(memberships.track_id) == set(clean.track_id)
+cleaning_flow = pd.DataFrame({
+    'stage': ['raw listings', 'remove exact duplicate listings', 'remove invalid/sentinel listings',
+              'remove conflicting audio/target IDs', 'one row per track'],
+    'rows': [len(raw), len(dedup), len(dedup.loc[~invalid.loc[dedup.index].any(axis=1)]),
+             len(valid_rows), len(clean)]}).set_index('stage')
+table('cleaning_flow', cleaning_flow)
+table('cleaned_genre_membership_counts', memberships.groupby('track_genre').size().to_frame('tracks'))
+
+# Rank is an explicit pipeline choice; report justification must be written by the student.
+audit_priorities = pd.DataFrame([
+    [1, 'Repeated track IDs / weighting and split leakage',
+     int(id_counts.gt(1).sum()), 'IDs repeated',
+     'One observation per ID; preserve genre memberships; group related recordings when splitting',
+     'Track weighting replaces listing weighting'],
+    [2, 'Conflicting audio or popularity for an ID', len(conflict_ids), 'IDs conflicting',
+     'Exclude conflicting IDs from all downstream analyses', 'Lose ambiguous tracks and genre coverage'],
+    [3, 'Invalid values / undetected tempo or metre', int(invalid.any(axis=1).sum()), 'rows flagged',
+     'Drop flagged listings; retain valid rare metre codes and valid zero audio scores',
+     'May remove genuine silence or music whose beat is hard to detect'],
+    [4, 'Equal-size genre sampling / multiple labels', raw.track_genre.nunique(), 'genre categories',
+     'Preserve labels; unique-track geometry; never interpret genre counts as market prevalence',
+     'Cannot correct unknown population sampling probabilities'],
+    [5, 'Missing string metadata', int(raw[['artists','album_name','track_name']].isna().any(axis=1).sum()),
+     'rows with missing metadata', 'Keep valid audio tracks; fill metadata with empty strings',
+     'Metadata identity and artist inference weaker for these tracks'],
+    [6, 'Integer-coded musical categories', len(CAT), 'categorical columns',
+     'Exclude from continuous geometry; one-hot encode for regressions',
+     'Geometry does not capture key or metre; encoding does not model tonal relationships'],
+], columns=['priority','finding','count','unit','implemented_decision','tradeoff']).set_index('priority')
+table('audit_priorities', audit_priorities)
+manifest['clean_rows'] = len(clean)
+manifest['clean_genre_memberships'] = len(memberships)
+manifest['conflicting_ids_excluded'] = len(conflict_ids)
+
+CELL 7 markdown
+## Pre-registration expectations: measurements
+Expectation 1: energy/loudness positive association and energy/acousticness negative
+association. Expectation 2: genre audio profiles differ. Pearson and Spearman
+correlations, genre feature effect sizes and the Section 5 profiles provide evidence.
+No significance cutoff or effect-size threshold was specified in the pre-report;
+these are descriptive comparisons rather than preregistered hypothesis tests.
+
+CELL 8 code
+expectation_correlations = pd.DataFrame({
+    'pearson_with_energy': clean[AUDIO].corr(method='pearson')['energy'],
+    'spearman_with_energy': clean[AUDIO].corr(method='spearman')['energy']})
+table('expectation1_correlations', expectation_correlations)
+genre_audio = memberships.merge(clean[['track_id'] + AUDIO], on='track_id', validate='many_to_one')
+genre_profiles = genre_audio.groupby('track_genre')[AUDIO].mean()
+genre_weights = genre_audio.groupby('track_genre').size()
+effects = []
+for c in AUDIO:
+    grand = genre_audio[c].mean()
+    between = ((genre_profiles[c]-grand)**2 * genre_weights).sum()
+    total = ((genre_audio[c]-grand)**2).sum()
+    effects.append((c, between / total))
+table('expectation2_genre_eta_squared', pd.DataFrame(effects, columns=['feature','eta_squared']).set_index('feature'))
+# Eta squared is descriptive: multilabel tracks occur in several groups and are not independent.
+
+CELL 9 markdown
+## Section 4: PCA
+Full cleaned unique-track data; nine continuous audio features, including energy.
+The primary sufficiency criterion is 90% cumulative explained variance; 80% and
+95% are reported as sensitivity checks. Both PCA fits center the input. Only the
+first fit standardizes it. Loadings are eigenvector weights; PC signs are arbitrary.
+
+CELL 10 code
+geometry_scaler = StandardScaler()
+Z = geometry_scaler.fit_transform(clean[AUDIO])
+pca = PCA(svd_solver='full').fit(Z)
+pca_raw = PCA(svd_solver='full').fit(clean[AUDIO])
+pcs = pca.transform(Z)
+pc_names = [f'PC{i+1}' for i in range(len(AUDIO))]
+variance_table = pd.DataFrame({
+    'standardized_ratio': pca.explained_variance_ratio_,
+    'standardized_cumulative': np.cumsum(pca.explained_variance_ratio_),
+    'raw_ratio': pca_raw.explained_variance_ratio_,
+    'raw_cumulative': np.cumsum(pca_raw.explained_variance_ratio_)}, index=pc_names)
+table('pca_variance', variance_table)
+dimension_table = pd.DataFrame({
+    'criterion': [0.80, 0.90, 0.95],
+    'standardized_components': [np.searchsorted(variance_table.standardized_cumulative, t)+1 for t in [0.8,0.9,0.95]],
+    'raw_components': [np.searchsorted(variance_table.raw_cumulative, t)+1 for t in [0.8,0.9,0.95]]}).set_index('criterion')
+table('pca_dimensions', dimension_table)
+loadings = pd.DataFrame(pca.components_.T, index=AUDIO, columns=pc_names)
+table('pca_loadings_standardized', loadings)
+table('pca_loadings_raw', pd.DataFrame(pca_raw.components_.T, index=AUDIO, columns=pc_names))
+cov_raw = np.cov(clean[AUDIO].to_numpy(), rowvar=False, ddof=1)
+cov_z = np.cov(Z, rowvar=False, ddof=1)
+raw_var = np.diag(cov_raw)
+table('pca_feature_variance', pd.DataFrame({'raw_variance': raw_var,
+      'share_of_total_raw_variance': raw_var / raw_var.sum(),
+      'standardized_variance': np.diag(cov_z)}, index=AUDIO))
+objective_checks = pd.DataFrame({
+    'projection_variance': [pca_raw.components_[0] @ cov_raw @ pca_raw.components_[0],
+                            pca.components_[0] @ cov_z @ pca.components_[0]],
+    'largest_eigenvalue': [np.linalg.eigvalsh(cov_raw)[-1], np.linalg.eigvalsh(cov_z)[-1]]},
+    index=['raw','standardized'])
+table('pca_variance_objective_check', objective_checks)
+np.testing.assert_allclose(objective_checks.projection_variance, objective_checks.largest_eigenvalue)
+fig, axes = plt.subplots(1,3,figsize=(15,4.2))
+x = np.arange(1,len(AUDIO)+1)
+axes[0].plot(x,pca.explained_variance_ratio_,'o-',label='Standardized')
+axes[0].plot(x,pca_raw.explained_variance_ratio_,'s-',label='Raw')
+axes[0].set(xlabel='Component',ylabel='Explained variance ratio',title='Scree plot')
+axes[0].legend()
+for lab,model in [('Standardized',pca),('Raw',pca_raw)]:
+    axes[1].plot(x,np.cumsum(model.explained_variance_ratio_),'o-',label=lab)
+axes[1].axhline(.9,color='gray',linestyle='--')
+axes[1].set(xlabel='Components retained',ylabel='Cumulative variance',title='90% sufficiency criterion')
+axes[1].legend()
+im=axes[2].imshow(loadings.iloc[:,:3],aspect='auto',cmap='RdBu_r',vmin=-.75,vmax=.75)
+axes[2].set_xticks(range(3),pc_names[:3]);axes[2].set_yticks(range(len(AUDIO)),AUDIO)
+axes[2].set_title('First three PC weights')
+fig.colorbar(im,ax=axes[2],label='Eigenvector weight')
+fig.tight_layout();figure('pca_comparison',fig)
+
+CELL 11 markdown
+## Section 5.1: Hierarchical genre clustering
+Each genre profile is the mean of its unique member tracks. Standardization uses
+the unique-track means/SDs from Section 4, keeping one common feature geometry.
+All four combinations of Euclidean / city-block distance and average / complete
+linkage are compared. Eight genre groups is a fixed comparison cut, not an
+estimate of a true number of genres. Group listings, cophenetic correlations,
+silhouettes and feature profiles support a student-written preference.
+
+CELL 12 code
+G = geometry_scaler.transform(genre_profiles[AUDIO])
+genre_labels = genre_profiles.index.to_numpy()
+GENRE_K = 8
+trees, assignments, genre_quality = {}, {}, []
+fig,axes=plt.subplots(2,2,figsize=(21,15))
+for ax,(metric,method) in zip(axes.flat,itertools.product(['euclidean','cityblock'],['average','complete'])):
+    name=f'{metric}_{method}'
+    dist=pdist(G,metric=metric)
+    tree=linkage(dist,method=method,optimal_ordering=True)
+    labs=fcluster(tree,GENRE_K,criterion='maxclust')
+    trees[name]=tree;assignments[name]=labs
+    coph=cophenet(tree,dist)[0]
+    sil=silhouette_score(G,labs,metric=metric)
+    genre_quality.append([name,metric,method,coph,sil])
+    dendrogram(tree,labels=genre_labels,leaf_rotation=90,leaf_font_size=6,ax=ax,
+               color_threshold=tree[-(GENRE_K-1),2])
+    ax.set_title(f'{metric} / {method}; cophenetic r={coph:.3f}; silhouette={sil:.3f}')
+    ax.set_ylabel('Merge dissimilarity')
+fig.tight_layout();figure('genre_dendrograms',fig)
+genre_quality=pd.DataFrame(genre_quality,columns=['configuration','distance','linkage','cophenetic_r','silhouette']).set_index('configuration')
+table('genre_clustering_quality',genre_quality)
+assignments=pd.DataFrame(assignments,index=genre_labels)
+table('genre_group_assignments',assignments,show=False)
+agreement=pd.DataFrame(index=assignments.columns,columns=assignments.columns,dtype=float)
+for a,b in itertools.product(assignments.columns,repeat=2):
+    agreement.loc[a,b]=adjusted_rand_score(assignments[a],assignments[b])
+table('genre_configuration_ari',agreement)
+group_rows=[]
+for name in assignments:
+    for group in sorted(assignments[name].unique()):
+        names=assignments.index[assignments[name].eq(group)]
+        group_rows.append([name,group,len(names),', '.join(names)])
+table('genre_group_members',pd.DataFrame(group_rows,columns=['configuration','group','n_genres','genres']),show=False)
+# A common Euclidean silhouette permits a distance-independent comparison table.
+table('genre_quality_common_euclidean',pd.DataFrame({
+    'euclidean_silhouette': {name:silhouette_score(G,assignments[name],metric='euclidean') for name in assignments}}))
+for name in assignments:
+    prof=genre_profiles.assign(group=assignments[name]).groupby('group')[AUDIO].mean()
+    table('genre_group_profiles_'+name,prof,show=False)
+
+CELL 13 markdown
+## Section 5.2: Individual-track k-means
+K-means fits all cleaned unique tracks for k=2,...,10, using standardized continuous
+audio features and 10 initializations. A fixed uniform sample of 2,000 tracks is
+used for every silhouette evaluation because pairwise distances cost O(n squared).
+The final k is the maximum sampled silhouette; inertia and its relative reductions
+are also reported. This is an operational choice, not proof of discrete musical classes.
+
+CELL 14 code
+K_VALUES = list(range(2,11))
+sil_idx = rng.choice(len(clean),size=min(2000,len(clean)),replace=False)
+models, k_rows = {}, []
+for k in K_VALUES:
+    model=KMeans(n_clusters=k,n_init=10,random_state=SEED,algorithm='lloyd').fit(Z)
+    score=silhouette_score(Z[sil_idx],model.labels_[sil_idx])
+    models[k]=model
+    k_rows.append([k,model.inertia_,score,model.n_iter_])
+    print(f'k={k}: inertia={model.inertia_:.1f}, silhouette={score:.4f}')
+k_metrics=pd.DataFrame(k_rows,columns=['k','inertia','silhouette','iterations']).set_index('k')
+k_metrics['relative_inertia_reduction']=1-k_metrics.inertia/k_metrics.inertia.shift(1)
+table('kmeans_selection',k_metrics)
+BEST_K=int(k_metrics.silhouette.idxmax())
+kmeans=models[BEST_K]
+cluster_labels=kmeans.labels_
+print('Chosen k by maximum fixed-sample silhouette:',BEST_K)
+fig,axes=plt.subplots(1,2,figsize=(10,4))
+axes[0].plot(k_metrics.index,k_metrics.inertia,'o-');axes[0].set(xlabel='k',ylabel='Inertia',title='Full cleaned data')
+axes[1].plot(k_metrics.index,k_metrics.silhouette,'o-');axes[1].set(xlabel='k',ylabel='Silhouette',title='Fixed uniform sample: 2,000 tracks')
+for ax in axes: ax.axvline(BEST_K,color='gray',linestyle='--')
+fig.tight_layout();figure('kmeans_k_selection',fig)
+cluster_profiles=clean[AUDIO].assign(cluster=cluster_labels).groupby('cluster').mean()
+table('track_cluster_profiles_raw',cluster_profiles)
+table('track_cluster_counts',pd.Series(cluster_labels).value_counts().sort_index().to_frame('tracks'))
+cluster_z=pd.DataFrame(kmeans.cluster_centers_,columns=AUDIO,index=cluster_profiles.index)
+table('track_cluster_profiles_standardized',cluster_z)
+fig,axes=plt.subplots(1,2,figsize=(13,5))
+scatter=axes[0].scatter(pcs[sil_idx,0],pcs[sil_idx,1],c=cluster_labels[sil_idx],cmap='tab10',s=8,alpha=.55)
+axes[0].set(xlabel=f'PC1 ({pca.explained_variance_ratio_[0]:.1%})',
+            ylabel=f'PC2 ({pca.explained_variance_ratio_[1]:.1%})',title='Clusters projected into PCA space')
+handles,_=scatter.legend_elements();axes[0].legend(handles,[str(i) for i in range(BEST_K)],title='Cluster',markerscale=2)
+im=axes[1].imshow(cluster_z,cmap='RdBu_r',vmin=-2,vmax=2,aspect='auto')
+axes[1].set_xticks(range(len(AUDIO)),AUDIO,rotation=60,ha='right')
+axes[1].set_yticks(range(BEST_K),[str(i) for i in range(BEST_K)])
+axes[1].set(ylabel='Cluster',title='Centroids in standardized feature space')
+fig.colorbar(im,ax=axes[1],label='Mean standardized feature')
+fig.tight_layout();figure('track_clusters_pca_profiles',fig)
+
+CELL 15 markdown
+## Section 5.3: Stability and collection effects
+Two independent uniform subsamples (20,000 tracks each) refit both the scaler and
+k-means. They assign the same full reference tracks. Adjusted Rand index (ARI)
+is invariant to cluster names; Hungarian label matching additionally reports the
+fraction of changed assignments. Sampling, duplicate weights and PCA projection
+provide distinct checks. Genre labels are never inputs to individual-track clustering.
+
+CELL 16 code
+def matched_change(a,b,k):
+    counts=np.zeros((k,k),dtype=int)
+    np.add.at(counts,(a,b),1)
+    rows,cols=linear_sum_assignment(-counts)
+    return 1-counts[rows,cols].sum()/len(a)
+
+stability=[]
+sub_predictions=[]
+for run in range(2):
+    idx=rng.choice(len(clean),size=min(20000,len(clean)),replace=False)
+    ss=StandardScaler().fit(clean.iloc[idx][AUDIO])
+    km=KMeans(n_clusters=BEST_K,n_init=10,random_state=SEED).fit(ss.transform(clean.iloc[idx][AUDIO]))
+    pred=km.predict(ss.transform(clean[AUDIO]));sub_predictions.append(pred)
+    stability.append([f'uniform_subsample_{run+1}',len(idx),
+                      adjusted_rand_score(cluster_labels,pred),matched_change(cluster_labels,pred,BEST_K)])
+stability.append(['subsample_1_vs_2',min(20000,len(clean)),
+                  adjusted_rand_score(*sub_predictions),matched_change(*sub_predictions,BEST_K)])
+# Sensitivity check retaining cleaned song-genre listings; invalid/conflicting rows stay excluded.
+listing_scaler=StandardScaler().fit(valid_rows[AUDIO])
+listing_model=KMeans(n_clusters=BEST_K,n_init=10,random_state=SEED).fit(listing_scaler.transform(valid_rows[AUDIO]))
+listing_prediction=listing_model.predict(listing_scaler.transform(clean[AUDIO]))
+stability.append(['duplicate_listing_weight_sensitivity',len(valid_rows),
+                  adjusted_rand_score(cluster_labels,listing_prediction),
+                  matched_change(cluster_labels,listing_prediction,BEST_K)])
+table('cluster_stability',pd.DataFrame(stability,columns=['check','fit_rows','ARI','matched_changed_fraction']).set_index('check'))
+
+genre_cluster=memberships.merge(clean[['track_id']].assign(cluster=cluster_labels),on='track_id',validate='many_to_one')
+genre_cluster['weight']=1/genre_cluster.groupby('track_id').track_genre.transform('size')
+cross=genre_cluster.pivot_table(index='track_genre',columns='cluster',values='weight',aggfunc='sum',fill_value=0)
+table('genre_cluster_weighted_counts',cross,show=False)
+table('genre_cluster_proportions',cross.div(cross.sum(axis=1),axis=0),show=False)
+top_genres=[]
+for c in cross:
+    frac=cross[c]/cross[c].sum()
+    for g in frac.nlargest(5).index:
+        top_genres.append([c,g,float(frac[g]),float(cross.loc[g,c]/cross.loc[g].sum())])
+table('cluster_top_genre_memberships',pd.DataFrame(top_genres,columns=['cluster','genre','share_of_cluster','share_of_genre']))
+manifest['chosen_k']=BEST_K
+manifest['silhouette_sample_size']=len(sil_idx)
+manifest['geometry_features']=AUDIO
+
+CELL 17 markdown
+## Section 6: Recording groups and held-out evaluation
+One row per track ID prevents repeated-genre leakage. A stricter grouping also
+joins equal normalized artist/title pairs and identical full audio/musical payloads
+across IDs (possible reissues). Connected components are kept together. No popularity
+value is used to define groups. Missing artist/title pairs use their unique track ID.
+GroupShuffleSplit with the student-ID seed holds out approximately 20% for test;
+another 20% of development groups is validation. The same split is used for both
+targets. Scalers, encoders, artist categories and model selection see training data only.
+PCA and clustering are descriptive and are not used as regression preprocessing.
+
+CELL 18 code
+def normalized_text(s):
+    return s.str.normalize('NFKC').str.casefold().str.replace(r'\s+', ' ', regex=True).str.strip()
+
+identity_keys = pd.DataFrame({'artists': normalized_text(clean.artists),
+                              'track_name': normalized_text(clean.track_name)})
+identity_complete = identity_keys.artists.ne('') & identity_keys.track_name.ne('')
+parent = np.arange(len(clean))
+def find_root(i):
+    while parent[i] != i:
+        parent[i] = parent[parent[i]]
+        i = parent[i]
+    return i
+def join_indices(indices):
+    first = int(indices[0])
+    for j in indices[1:]:
+        a,b=find_root(first),find_root(int(j))
+        if a != b:
+            parent[max(a,b)] = min(a,b)
+
+identity_original_indices = identity_keys.index[identity_complete].to_numpy()
+for indices in identity_keys.loc[identity_complete].groupby(['artists','track_name'],sort=False).indices.values():
+    # GroupBy.indices refers to positions in the filtered frame, not original row indices.
+    original_indices = identity_original_indices[indices]
+    if len(original_indices)>1:
+        join_indices(original_indices)
+for indices in clean.groupby(AUDIO+CAT,sort=False).indices.values():
+    if len(indices)>1:
+        join_indices(indices)
+groups = np.array([find_root(i) for i in range(len(clean))])
+clean['recording_group'] = groups
+group_counts=pd.Series(groups).value_counts()
+table('audit_related_recording_groups',pd.DataFrame({
+    'count': [len(clean),len(group_counts),int(group_counts.gt(1).sum()),
+              int(group_counts[group_counts.gt(1)].sum()),int(group_counts.max())]},
+    index=['unique_track_ids','recording_groups','groups_with_multiple_ids',
+           'tracks_in_multiple_id_groups','largest_group_tracks']))
+
+splitter=GroupShuffleSplit(n_splits=1,test_size=.2,random_state=SEED)
+dev_idx,test_idx=next(splitter.split(clean,groups=groups))
+inner=GroupShuffleSplit(n_splits=1,test_size=.2,random_state=SEED)
+tr_pos,val_pos=next(inner.split(clean.iloc[dev_idx],groups=groups[dev_idx]))
+train_idx,val_idx=dev_idx[tr_pos],dev_idx[val_pos]
+for a,b in [(train_idx,val_idx),(train_idx,test_idx),(val_idx,test_idx)]:
+    assert not set(groups[a]) & set(groups[b])
+    assert not set(clean.iloc[a].track_id) & set(clean.iloc[b].track_id)
+split_labels=np.full(len(clean),'train',dtype=object)
+split_labels[val_idx]='validation';split_labels[test_idx]='test'
+table('split_track_ids',clean[['track_id','recording_group']].assign(split=split_labels),show=False)
+split_sizes=pd.DataFrame([
+    [name,len(idx),len(np.unique(groups[idx])),len(idx)/len(clean)]
+    for name,idx in [('train',train_idx),('validation',val_idx),('development',dev_idx),('test',test_idx)]],
+    columns=['split','tracks','recording_groups','fraction']).set_index('split')
+table('regression_split_sizes',split_sizes)
+manifest['splits']=split_sizes.to_dict(orient='index')
+manifest['split_policy']='Connected recording groups; 20% test groups and 20% of remaining groups for validation'
+
+CELL 19 markdown
+### Q1/Q2: Ordinary linear regression and training-mean baseline
+Q1/Q2 use all allowed predictors, with one-hot musical categories (first category
+dropped to avoid redundant intercept columns). Energy is an additional predictor
+only for popularity. Both OLS and the mean baseline fit all development data.
+RMSE is in target units; RMSE/baseline and R-squared allow comparison across scales.
+Confidence intervals resample whole held-out recording groups, not repeated tracks.
+
+CELL 20 code
+def audio_preprocessor(target, sparse=False):
+    numeric=NUM+(['energy'] if target=='popularity' else [])
+    return ColumnTransformer([
+        ('numeric',StandardScaler(),numeric),
+        ('musical_categories',OneHotEncoder(drop='first',handle_unknown='ignore',
+                                           sparse_output=sparse),CAT)],
+        sparse_threshold=1.0 if sparse else 0.0)
+
+def group_bootstrap_rmse(y,pred,g,n_boot=500):
+    t=pd.DataFrame({'group':g,'sq':(np.asarray(y)-np.asarray(pred))**2})
+    a=t.groupby('group').sq.agg(['sum','size']).to_numpy()
+    brng=np.random.default_rng(SEED)
+    rmses=[]
+    for _ in range(n_boot):
+        chosen=brng.integers(0,len(a),size=len(a))
+        sample=a[chosen].sum(axis=0)
+        rmses.append(np.sqrt(sample[0]/sample[1]))
+    return np.quantile(rmses,[.025,.975])
+
+ols_models,ols_predictions,reg_rows={}, {}, []
+for target in ['energy','popularity']:
+    inputs=BASE_INPUTS+(['energy'] if target=='popularity' else [])
+    assert target not in inputs
+    assert not set(inputs)&{'duration_ms','explicit','track_genre','track_id','artists','album_name','track_name'}
+    ols=Pipeline([('preprocess',audio_preprocessor(target)),('model',LinearRegression())])
+    ydev=clean.iloc[dev_idx][target];ytest=clean.iloc[test_idx][target]
+    ols.fit(clean.iloc[dev_idx][inputs],ydev)
+    pred=ols.predict(clean.iloc[test_idx][inputs])
+    baseline=DummyRegressor(strategy='mean').fit(clean.iloc[dev_idx][inputs],ydev)
+    basepred=baseline.predict(clean.iloc[test_idx][inputs])
+    error=root_mean_squared_error(ytest,pred)
+    baseerror=root_mean_squared_error(ytest,basepred)
+    lo,hi=group_bootstrap_rmse(ytest,pred,groups[test_idx])
+    reg_rows.append([target,PRE_RMSE[target],error,baseerror,error-PRE_RMSE[target],
+                     error/baseerror,1-error/baseerror,r2_score(ytest,pred),lo,hi,float(ydev.mean())])
+    ols_models[target]=ols;ols_predictions[target]=pred
+    table('ols_coefficients_'+target,pd.DataFrame({'coefficient':ols.named_steps['model'].coef_},
+          index=ols.named_steps['preprocess'].get_feature_names_out()))
+regression_results=pd.DataFrame(reg_rows,columns=['target','preregistered_rmse','OLS_test_rmse',
+    'mean_baseline_test_rmse','actual_minus_predicted_rmse','rmse_divided_by_baseline',
+    'relative_rmse_reduction','test_r_squared','rmse_group_CI_low','rmse_group_CI_high','training_target_mean']).set_index('target')
+table('regression_results',regression_results)
+correlations=clean.iloc[dev_idx][AUDIO+['popularity']].corr()[['energy','popularity']]
+table('regression_target_correlations_development',correlations)
+table('regression_target_distributions',clean.iloc[dev_idx][['energy','popularity']].describe().T)
+fig,axes=plt.subplots(1,2,figsize=(11,4.5))
+for ax,target in zip(axes,['energy','popularity']):
+    y=clean.iloc[test_idx][target].to_numpy();pred=ols_predictions[target]
+    im=ax.hexbin(y,pred,gridsize=45,mincnt=1,bins='log',cmap='viridis')
+    lim=[min(y.min(),pred.min()),max(y.max(),pred.max())]
+    ax.plot(lim,lim,'--',color='orange');ax.set(xlabel='Observed '+target,ylabel='OLS prediction',
+        title=f'{target}: test RMSE = {regression_results.loc[target,"OLS_test_rmse"]:.4f}')
+    ax.set_xlim((0,1) if target=='energy' else (0,100))
+    fig.colorbar(im,ax=ax,label='Count (log scale)')
+fig.tight_layout();figure('regression_test_predictions',fig)
+
+CELL 21 markdown
+### Q3: One additional dataset column, artists
+Use the literal `artists` string as one additional column (collaborations remain
+their original strings). A train-fitted one-hot encoder groups categories appearing
+fewer than five times. Audio-only and audio-plus-artists Ridge models use the same
+fixed alpha=10, the same development data and test groups. Seen/unseen artist
+performance is reported separately. This estimates catalog association, not a
+causal artist effect or performance for completely unseen artists.
+
+CELL 22 code
+artist_pre=ColumnTransformer([
+    ('numeric',StandardScaler(),NUM+['energy']),
+    ('musical_categories',OneHotEncoder(drop='first',handle_unknown='ignore',sparse_output=True),CAT),
+    ('artists',OneHotEncoder(min_frequency=5,handle_unknown='infrequent_if_exist',sparse_output=True),['artists'])],
+    sparse_threshold=1.0)
+artist_model=Pipeline([('preprocess',artist_pre),('model',Ridge(alpha=10,solver='lsqr',tol=1e-6))])
+audio_ridge=Pipeline([('preprocess',audio_preprocessor('popularity',sparse=True)),
+                      ('model',Ridge(alpha=10,solver='lsqr',tol=1e-6))])
+for model in [artist_model,audio_ridge]:
+    model.fit(clean.iloc[dev_idx],clean.iloc[dev_idx].popularity)
+artist_pred=artist_model.predict(clean.iloc[test_idx])
+audio_ridge_pred=audio_ridge.predict(clean.iloc[test_idx])
+seen=clean.iloc[test_idx].artists.isin(set(clean.iloc[dev_idx].artists)).to_numpy()
+artist_results=[]
+for name,mask in [('all',np.ones(len(test_idx),dtype=bool)),('seen_artist_string',seen),('unseen_artist_string',~seen)]:
+    if mask.sum():
+        actual=clean.iloc[test_idx].popularity.to_numpy()[mask]
+        aerr=root_mean_squared_error(actual,audio_ridge_pred[mask])
+        berr=root_mean_squared_error(actual,artist_pred[mask])
+        artist_results.append([name,int(mask.sum()),aerr,berr,aerr-berr])
+table('additional_artist_information',pd.DataFrame(artist_results,columns=['test_subset','tracks',
+      'audio_only_rmse','audio_plus_artists_rmse','rmse_reduction']).set_index('test_subset'))
+artist_means=clean.iloc[dev_idx].groupby('artists').popularity.agg(['count','mean','std'])
+frequent=artist_means.query('count >= 100').sort_values('mean',ascending=False)
+table('artist_popularity_development',frequent,show=False)
+show=frequent.head(10).sort_values('mean')
+fig,ax=plt.subplots(figsize=(9,4.5))
+ax.barh(show.index,show['mean']);ax.set(xlabel='Mean popularity (development only)',title='Artist strings with at least 100 development tracks')
+fig.tight_layout();figure('artist_popularity',fig)
+
+CELL 23 markdown
+## Section 6 Q4: correlated polynomial inputs and regularization
+Target: energy. Source columns: loudness, acousticness, instrumentalness, all from the allowed audio list (Spec pp. 8–9). No target or external variable is an input.
+
+Use the degree-3 polynomial basis allowed by Q4's richer-basis setting. The model is linear in its 19 basis coefficients. Identify acousticness, acousticness² and acousticness³ as three mutually correlated inputs, using training-only Pearson correlations. Standardize each basis column using only the fitting subset. The full and 80-track settings use exactly the same basis so their difference is training size.
+
+Alpha is selected using validation RMSE only. The full-data model is then refit on development; the small model remains fit on its fixed 80 training groups. OLS uses identical inputs and fitting rows as Ridge. All 25 strengths are shown, without choosing a strength from test outcomes. 
+
+CELL 24 code
+# Q4: correlated polynomial inputs on the full development dataset.
+# Use only the three permitted audio columns. The basis is fixed before
+# validation/test evaluation; alpha is selected by validation RMSE alone.
+q4_features = ['loudness', 'acousticness', 'instrumentalness']
+assert set(q4_features).issubset(BASE_INPUTS) and 'energy' not in q4_features
+q4_alphas = np.logspace(-6, 6, 25)
+q4_correlated_names = ['acousticness', 'acousticness^2', 'acousticness^3']
+
+def q4_pipeline(alpha=None):
+    return Pipeline([
+        ('basis', PolynomialFeatures(degree=3, include_bias=False)),
+        ('scale_basis', StandardScaler()),
+        ('model', LinearRegression() if alpha is None else Ridge(alpha=alpha, solver='svd'))])
+
+q4_basis = PolynomialFeatures(degree=3, include_bias=False)
+q4_train_basis = q4_basis.fit_transform(clean.iloc[train_idx][q4_features])
+q4_basis_names = q4_basis.get_feature_names_out(q4_features)
+q4_train_corr = pd.DataFrame(q4_train_basis, columns=q4_basis_names).corr()
+q4_correlations = []
+for first, second in itertools.combinations(q4_correlated_names, 2):
+    r = float(q4_train_corr.loc[first, second])
+    q4_correlations.append([first, second, r, abs(r)])
+q4_corr_evidence = pd.DataFrame(q4_correlations,
+    columns=['feature_1', 'feature_2', 'training_pearson_r', 'absolute_r'])
+assert q4_corr_evidence.absolute_r.gt(.90).all()
+table('ridge_correlated_training_evidence', q4_corr_evidence)
+
+# Uniformly draw 80 distinct training recording groups, one representative track each.
+# The fixed RNG stream follows the silhouette and stability samples; no outcome-based resampling.
+representatives = clean.iloc[train_idx].drop_duplicates('recording_group').index.to_numpy()
+q4_small_idx = rng.choice(representatives, size=80, replace=False)
+table('q4_final_small_training_ids', clean.iloc[q4_small_idx][['track_id', 'recording_group']], show=False)
+assert len(q4_small_idx) == 80
+assert len(set(groups[q4_small_idx])) == 80
+assert not set(groups[q4_small_idx]) & set(groups[val_idx])
+assert not set(groups[q4_small_idx]) & set(groups[test_idx])
+q4_small_basis = q4_basis.transform(clean.iloc[q4_small_idx][q4_features])
+q4_small_corr = pd.DataFrame(q4_small_basis, columns=q4_basis_names).corr()
+q4_small_evidence = pd.DataFrame([
+    [a, b, float(q4_small_corr.loc[a,b]), abs(float(q4_small_corr.loc[a,b]))]
+    for a,b in itertools.combinations(q4_correlated_names,2)],
+    columns=['feature_1','feature_2','training_pearson_r','absolute_r'])
+assert q4_small_evidence.absolute_r.gt(.90).all()
+table('ridge_correlated_small_training_evidence', q4_small_evidence)
+
+q4_summary_rows = []
+for setting, fit_indices in [('full_polynomial', dev_idx), ('small_polynomial', q4_small_idx)]:
+    selection_indices = train_idx if setting == 'full_polynomial' else q4_small_idx
+    validation_errors = []
+    for alpha in q4_alphas:
+        model = q4_pipeline(float(alpha)).fit(clean.iloc[selection_indices][q4_features],
+                                             clean.iloc[selection_indices].energy)
+        validation_errors.append(root_mean_squared_error(clean.iloc[val_idx].energy,
+            model.predict(clean.iloc[val_idx][q4_features])))
+    selected_alpha = float(q4_alphas[int(np.argmin(validation_errors))])
+    rows = []; coefficient_rows = {}
+    for alpha, validation_error in zip(q4_alphas, validation_errors):
+        model = q4_pipeline(float(alpha)).fit(clean.iloc[fit_indices][q4_features],
+                                             clean.iloc[fit_indices].energy)
+        prediction = model.predict(clean.iloc[test_idx][q4_features])
+        coefficients = model.named_steps['model'].coef_
+        assert np.isfinite(prediction).all()
+        representative = [float(coefficients[list(q4_basis_names).index(name)])
+                          for name in q4_correlated_names]
+        rows.append([float(alpha), float(validation_error),
+            root_mean_squared_error(clean.iloc[test_idx].energy,prediction),
+            float(np.linalg.norm(coefficients)),
+            root_mean_squared_error(clean.iloc[fit_indices].energy, model.predict(clean.iloc[fit_indices][q4_features])), *representative])
+        coefficient_rows[float(alpha)] = coefficients
+    path = pd.DataFrame(rows, columns=['alpha','validation_rmse','test_rmse',
+        'coefficient_l2', 'training_rmse', *q4_correlated_names]).set_index('alpha')
+    assert np.all(np.diff(path.coefficient_l2) <= 1e-8)
+    table('ridge_correlated_'+setting+'_path', path)
+    table('ridge_correlated_'+setting+'_coefficients',
+        pd.DataFrame(coefficient_rows, index=q4_basis_names), show=False)
+    ols = q4_pipeline().fit(clean.iloc[fit_indices][q4_features], clean.iloc[fit_indices].energy)
+    ols_rmse = root_mean_squared_error(clean.iloc[test_idx].energy,
+        ols.predict(clean.iloc[test_idx][q4_features]))
+    chosen_rmse = float(path.loc[selected_alpha,'test_rmse'])
+    q4_summary_rows.append([setting,len(fit_indices),len(q4_basis_names),selected_alpha,
+        ols_rmse,chosen_rmse,ols_rmse-chosen_rmse])
+
+q4_summary = pd.DataFrame(q4_summary_rows,columns=['setting','training_tracks','basis_features',
+    'alpha_selected_on_validation','OLS_test_rmse','selected_Ridge_test_rmse',
+    'test_rmse_improvement']).set_index('setting')
+table('ridge_correlated_summary',q4_summary)
+manifest['q4_correlated_basis'] = {
+    'source_columns':q4_features,'polynomial_degree':3,
+    'basis_count':len(q4_basis_names),'training_only_correlated_basis':q4_correlated_names,
+    'full_selected_alpha':float(q4_summary.loc['full_polynomial','alpha_selected_on_validation']),
+    'small_selected_alpha':float(q4_summary.loc['small_polynomial','alpha_selected_on_validation'])}
+(OUT/'reproducibility.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False),encoding='utf-8')
+print('Q4 correlated-input experiments completed; validation-only alpha selection.')
+
+
+CELL 25 markdown
+## Report evidence and figures
+Plots below use the already fitted models and exported tables. No additional selection or outcome-based sample search is performed.
+
+CELL 26 code
+plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 9,
+    'axes.titlesize': 10, 'axes.labelsize': 9, 'legend.fontsize': 8,
+    'axes.spines.top': False, 'axes.spines.right': False, 'savefig.dpi': 300})
+BLUE, ORANGE, TEAL, PURPLE = '#2563eb', '#d97706', '#0f766e', '#7c3aed'
+fig, axes = plt.subplots(1, 2, figsize=(7.4, 2.6), layout='constrained')
+for ax, column, title, color in zip(axes, ['inertia', 'silhouette'],
+    ['(a) Inertia: all 88,858 tracks', '(b) Silhouette: fixed 2,000-track sample'], [BLUE, TEAL]):
+    values = k_metrics[column]
+    ax.plot(k_metrics.index, values, 'o-', color=color, linewidth=1.5, markersize=4)
+    ax.axvline(BEST_K, color=PURPLE, linestyle='--', linewidth=.9)
+    ax.set(title=title, xlabel='Number of clusters k', ylabel=column.capitalize(), xticks=K_VALUES)
+    ax.grid(axis='y', alpha=.2)
+    if column == 'silhouette':
+        ax.set_ylim(.15, .29)
+        for k, value in values.items():
+            ax.annotate(f'{value:.4f}', (k, value), xytext=(0, -14 if k in [3,5,8,10] else 8),
+                        textcoords='offset points', ha='center', fontsize=7.5)
+figure('report_k_selection', fig)
+
+fig, ax = plt.subplots(figsize=(7.4, 2.35), layout='constrained')
+for c, color in enumerate([BLUE, ORANGE]):
+    mask = cluster_labels[sil_idx] == c
+    ax.scatter(pcs[sil_idx[mask],0], pcs[sil_idx[mask],1], s=10, alpha=.42,
+               color=color, label=f'Cluster {c}')
+projected_centroids = pd.DataFrame(pcs[:,:2], columns=['PC1','PC2']).assign(cluster=cluster_labels).groupby('cluster').mean()
+table('cluster_pca_centroids', projected_centroids)
+ax.set(xlabel=f'PC1 ({pca.explained_variance_ratio_[0]:.2%})',
+       ylabel=f'PC2 ({pca.explained_variance_ratio_[1]:.2%})', title='Same fixed 2,000-track sample; clusters fitted in all 9 features')
+ax.legend(frameon=False); ax.grid(alpha=.15)
+figure('report_cluster_pca', fig)
+
+alpha_ticks = [1e-6, 1e-3, 1, 1e3, 1e6]
+for setting, name in [('full_polynomial','report_q4_full'), ('small_polynomial','report_q4_small')]:
+    path = pd.read_csv(OUT/f'ridge_correlated_{setting}_path.csv').set_index('alpha')
+    summary = q4_summary.loc[setting]
+    assert float(path.validation_rmse.idxmin()) == float(summary.alpha_selected_on_validation)
+    small = setting == 'small_polynomial'
+    fig, axes = plt.subplots(1, 3 if small else 2, figsize=(8,2.8) if small else (7.4,2.6), layout='constrained')
+    for name_basis, label, color in zip(q4_correlated_names, ['A', r'$A^2$', r'$A^3$'], [BLUE, ORANGE, TEAL]):
+        axes[0].plot(path.index, path[name_basis], label=label, color=color, linewidth=1.5)
+    axes[0].axhline(0, color='gray', linewidth=.6)
+    axes[0].set(title='(a) Standardized-basis coefficients', ylabel='Coefficient')
+    axes[0].legend(frameon=False)
+    if small:
+        axes[1].plot(path.index, path.coefficient_l2, color=TEAL)
+        axes[1].set(title='(b) All 19 coefficients', ylabel='Coefficient L2 norm', yscale='log')
+    ax = axes[-1]
+    ax.plot(path.index, path.test_rmse, 'o-', color=BLUE, markersize=2.5, label='Ridge test RMSE')
+    ax.axhline(summary.OLS_test_rmse, color='gray', linestyle=':', label='Same-input OLS test')
+    ax.axvline(summary.alpha_selected_on_validation, color=PURPLE, linestyle='--', label='Validation-selected alpha')
+    ax.scatter([summary.alpha_selected_on_validation], [summary.selected_Ridge_test_rmse], color=PURPLE, s=24, zorder=5)
+    ax.set(title='(c) Held-out error' if small else '(b) Held-out error', ylabel='Energy RMSE')
+    ax.legend(frameon=False, fontsize=6.8); ax.margins(y=.17)
+    for ax in axes:
+        ax.set(xscale='log', xlabel=r'Regularization strength $\alpha$', xticks=alpha_ticks)
+        ax.grid(axis='y', alpha=.2)
+    figure(name, fig)
+
+
+CELL 27 markdown
+## Final reproducibility checks
+
+CELL 28 code
+assert clean.track_id.is_unique
+assert len(train_idx) + len(val_idx) + len(test_idx) == len(clean)
+assert set(train_idx) | set(val_idx) == set(dev_idx)
+for target in ['energy', 'popularity']:
+    assert np.isfinite(ols_predictions[target]).all()
+    assert np.isclose(regression_results.loc[target, 'training_target_mean'], clean.iloc[dev_idx][target].mean())
+    expected = BASE_INPUTS if target == 'energy' else BASE_INPUTS + ['energy']
+    assert set(ols_models[target].named_steps['preprocess'].feature_names_in_) == set(expected)
+assert set(q4_features).issubset(BASE_INPUTS)
+assert q4_corr_evidence.absolute_r.min() > .90
+assert q4_small_evidence.absolute_r.min() > .90
+manifest['final_review'] = {'fresh_kernel_checks': True, 'q4_basis_same_in_full_and_small': True,
+    'validation_only_alpha_selection': True}
+(OUT/'reproducibility.json').write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding='utf-8')
+print('All computational checks passed. All final results reproduced from tracks.csv.')

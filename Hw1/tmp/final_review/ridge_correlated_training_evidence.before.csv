@@ -1,0 +1,4 @@
+﻿,feature_1,feature_2,training_pearson_r,absolute_r
+0,acousticness,acousticness^2,0.9645697336853204,0.9645697336853204
+1,acousticness,acousticness^3,0.9129049777208537,0.9129049777208537
+2,acousticness^2,acousticness^3,0.9865353201792658,0.9865353201792658

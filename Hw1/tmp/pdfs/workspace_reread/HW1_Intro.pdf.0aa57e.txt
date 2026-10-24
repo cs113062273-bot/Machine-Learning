@@ -1,0 +1,406 @@
+=== PAGE 1 ===
+Introduction to Machine Learning
+
+       HW1: Exploratory Analysis of a Music Catelog
+
+
+
+                              TA: Yi-Chun (George) Chang
+                             Release Date: 2026.09.24
+                      Contact: george930502@gapp.nthu.edu.tw
+
+=== PAGE 2 ===
+Course Website
+
+
+
+
+
+          https://nthu-cs-hmilab.github.io/I2ML-2026/
+
+
+
+                                                                                                                        2
+
+=== PAGE 3 ===
+Rules
+
+
+ ●   Individual assignment. No plagiarism.
+
+ ●   All kinds of AI tools are permitted. But you must submit the AI-use log.
+
+ ●  Do not use AI tools to generate the content of the report.
+
+ ●  Report can be either written in English or Traditional Chinese.
+
+ ●  No GPU is required. Google Colab is sufficient enough to complete the task.
+
+ ●  Do not use external datasets, features, or information collected from other sources.
+
+ ●  Submit your work on eeclass. No late submission will be accepted.
+
+
+
+
+
+                                                                                                                        3
+
+=== PAGE 4 ===
+Deadline
+
+
+                               Submission                          Deadline
+
+           A pre-registration report in the PDF format, up to 2
+                                                              9/30 11:59 PM
+             pages. File name: HW1_pre_report_{student_id}.pdf
+
+            A final report in the PDF format, up to 10 pages.
+                    File name: HW1_final_report_{student_id}.pdf
+
+            An .ipynb notebook containing all code needed to
+              reproduce the results reported in your submission.     10/8 11:59 PM
+                       File name: HW1_code_{student_id}.ipynb
+
+                       The AI-use log document.
+                        File name: HW1_ai_use_{student_id}.md
+
+                                                                                                                        4
+
+=== PAGE 5 ===
+About AI Use Log
+
+●  Submit an AI-use log written in the markdown file:
+
+     ○  What you used AI for.
+
+     ○  How you checked the output of AI.
+
+●  You should be able to explain any AI-assisted work during the demo session.
+ ●  A 5-point deduction will be applied for missing submissions or conspicuously
+     low-effort responses (e.g., merely writing "I used ChatGPT").
+
+
+
+
+
+                                                                                                                        5
+
+=== PAGE 6 ===
+Materials
+
+
+ ● We provide the starter notebook and the raw dataset.
+
+ ●  Please check out eeclass or course website for more details.
+
+
+
+
+
+                                                                                                                        6
+
+=== PAGE 7 ===
+Introduction
+
+You are given a music catalog containing 114,000 track records. Suppose a team ultimately
+wants to use this dataset to build machine-learning systems for tasks such as predicting track
+popularity. Before deciding what models to build, the team first needs to understand the
+dataset itself:
+
+ ●   Is the dataset reliable enough to use as training data?
+ ●  What structure is present in the audio-feature space?
+ ●  Which patterns appear to reflect meaningful properties of the tracks, and which may
+     instead result from the way the dataset was collected or represented?
+ ●  Which target variables can be predicted meaningfully from the available audio features,
+    and which cannot?
+
+Your goal in this homework is to answer these questions with evidence.
+
+
+
+                                                                                                                        7
+
+=== PAGE 8 ===
+Purpose of the Homework
+
+
+ ●  Not to obtain the highest possible accuracy. You will not compete with your
+
+     classmate!
+
+ ● We expect you to:
+
+     ○   Explain the reasons behind your analysis choices
+
+     ○  Recognize when the data support / not support the conclusion.
+
+     ○  A weak or unsuccessful result may be a correct finding if you demonstrate it thoroughly.
+
+ ●  Feel free to explore any possibilities inside the provided dataset.
+
+
+
+
+
+                                                                                                                        8
+
+=== PAGE 9 ===
+Section 1: The Data
+
+
+ ●  Dataset of spotify tracks over a range of genres.
+
+ ●  The raw dataset is available from huggingface:
+
+     https://huggingface.co/datasets/maharshipandya/spotify-tracks-dataset
+
+ ●  Contain 114,000 rows and 20 columns.
+
+
+
+
+
+                                                                                                                        9
+
+=== PAGE 10 ===
+        Columns             Type              Description
+
+  track_id, artists,
+                                  String     Track identifiers and metadataalbum_name, track_name
+
+                                   The genre category associated      track_genre            String
+                                               with the track
+
+                               A popularity score provided by      popularity            Integer
+                                       the streaming platform (0~100)
+
+      duration_ms           Integer     Track duration in milliseconds
+
+       explicit           Boolean      Indicator for explicit lyrics
+
+ danceability, energy,
+     speechiness,
+                                      Audio features automatically     acousticness,           Float
+                                         extracted from the track's audio   instrumentalness,
+   liveness, valence
+
+       loudness              Float    Estimated loudness of the track
+
+         tempo                Float       Estimated tempo in BPM
+
+      key, mode,                       Musical attributes stored as
+                                Integer    time_signature                        integer-coded values                           10
+
+=== PAGE 11 ===
+Section 2: Pre-Registration (5%)
+
+
+ ●  Submit this report before 9/30 11:59 PM. At most two pages.
+
+ ●  There are no formal answers!
+
+ ●  Make your expectations before you analyze the full dataset. Do not compute
+
+    summary statistics, create plots, search the full dataset, or fit any models before
+
+     submitting this section.
+
+ ●  Inside your report:
+
+     ○  Two testable expectations about the dataset.
+
+     ○  One data-quality problem you think might be in the dataset.
+
+     ○   Predicted held-out error for two regression tasks.
+
+     ○  One question about the dataset, labels, or data-collection process.
+                                                                                                                                11
+
+=== PAGE 12 ===
+Section 3: Auditing the Dataset (12%)
+
+
+ ●  Real-world datasets often contain problems that can affect a machine-learning
+     analysis, for example, missing or invalid values, repeated records, inconsistent
+     entries, or variables whose meaning is easy to misinterpret.
+
+ ●  Your task in this section is to identify the most important data-quality problems:
+     ○   Prioritze at least four data-quality findings. For each finding, include:
+        ■  The evidence (a table or a figure to show the issue)
+        ■  Why it matters (explain why it affects the pipeline)
+        ■  Your decision (state what you will do about it)
+        ■   Trade-off (explain the information you may loss due to your decision)
+     ○   Justify your ranking.
+                                            Do not miss any one of them, they are
+     ○  Apply your cleaning decisions to the pipeline.
+                                                        the most valuable lessons you will
+                                                             learn from the homework!!!           12
+
+=== PAGE 13 ===
+Section 4: The Geometry of the Feature Space (10%)
+
+
+ ●  The numeric audio features place each track at a point in a multidimensional feature
+
+     space. In this section, use principal component analysis (PCA) to understand the
+
+    main directions in which the tracks vary, how many of those directions are
+
+     important, and how feature scaling affects the result.
+
+ ●  Use the cleaned dataset you processed after section 3.
+
+
+
+
+
+                                                                                                                       13
+
+=== PAGE 14 ===
+Section 4: The Geometry of the Feature Space (10%)
+
+
+ 1.   Effective dimensionality: Use PCA to estimate how many principal components are
+    needed to represent most of the variation in the audio features.
+
+ 2.  Interpret the leading principle components: For the first few principal components,
+     explain in plain language what kind of variation each component appears to capture.
+
+ 3.   Effect of standardization: Repeat the PCA without standardizing the features first.
+    Compare the result with the standardized PCA and explain why they differ.
+
+
+
+
+
+                                                                                                                       14
+
+=== PAGE 15 ===
+Section 5: Structure in the Data (10%)
+
+ ●   Investigate whether tracks with similar audio features naturally form groups, and
+    whether those groups reflect meaningful musical structure rather than artifacts of
+   how the dataset was collected.
+
+ ●  Use the cleaned dataset you processed after section 3.
+
+
+
+
+
+                                                                                                                       15
+
+=== PAGE 16 ===
+Section 5: Structure in the Data
+
+ 1.  Clustering genres:
+       a.  Use hierarchical clustering to group similar genres together to create one representative
+           audio-feature profile for each genre.
+       b.  Show how the resulting genre groupings differ in terms of:
+                     i.  Two different measures of dissimilarity.
+                     ii.  Two different linkage methods.
+ 2.  Clustering individual tracks:
+       a.   Cluster with k-means, and choose at least two quantitative criteria (e.g. inertia curve and
+          the silhouette score) over a range of k.
+       b.   Describe what each resulting cluster represents in terms of its audio characteristics.
+ 3.  Are the clusters meaningful?
+       a.   Provide evidence that the clusters you found in Question 2 reflect real differences
+         between tracks, rather than being an artifact of the algorithm, the sampling, or the way
+          genres were assigned.                                                                                16
+
+=== PAGE 17 ===
+Section 6: Two Regression Targets (13%)
+
+ ●  You will build regression models for energy and popularity features.
+
+ ●  Use a held-out test set to evaluate predictive performance.
+
+ ●  Do not include the target itself among the input features.
+
+ ●  Reminder:
+
+     ○   Please watch out for the available features you can use as the input (as mentioned in the
+           spec).
+
+    ○   Notice that energy feature can be used as input only in building regression model for
+         popularity target.
+
+ ●   Hint: Watch out for data leakage during train-test splitting.
+
+
+
+
+                                                                                                                       17
+
+=== PAGE 18 ===
+Section 6: Two Regression Targets (13%)
+
+ 1.  Compare your pre-registation predictions with the actual results:
+
+       a.   Fit a linear regression model for each target and report its held-out RMSE.
+
+       b.  Report the RMSE of a simple baseline model that ignores the input features and always
+           predicts the mean target value from the training set.
+
+ 2.  Compare the two regression tasks and explain why one target is easier or harder to
+     predict from the available features.
+
+ 3.    If one target is difficult to predict from the audio features, look for one other variable
+     in the dataset that may contain useful information about that target.
+
+ 4.  Study the effect of regularization.
+
+       a.   Fit a regularized linear regression model.
+
+       b.   Vary the regularization strength.
+                                                                                                                       18
+
+=== PAGE 19 ===
+Grading Policy
+
+ ●  Report 50% + Demo 50%
+
+ ●  To prevent grader bias, each section is assigned to a dedicated TA to grade.
+
+
+                    Tier         Description                                   Percentage
+
+                              Provides evidence, explanation, and decisions,
+               4           along with a discussion of limitations or        100%
+                                 alternative interpretations.
+
+                              Provides evidence, explanation, and decisions,
+               3                                            80%
+                             with coherent logic linking all three.
+
+                              Presents results or figures, but the explanation is
+               2                                            50%
+                        weak or disconnected from the evidence.
+
+                            Only presents results without explanation, or
+               1                                            20%
+                             the methodology is clearly flawed.
+
+               0        No answer provided / Blank.               0%                                19
+
+=== PAGE 20 ===
+Appendix
+
+
+ ●  Demo will take place on Tuesday, November 10, together with the HW2 demo.
+ ●  Demo details will be announced later.
+ ●  For homework-related issues, please post on the eeclass discussion forum, and the
+    TAs will reply ASAP.
+ ●  For personal matters or private inquiries, you can reach the TA at
+    george930502@gapp.nthu.edu.tw.
+
+
+
+
+
+                                                                                                                       20
+
+=== PAGE 21 ===
+Q & A

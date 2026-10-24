@@ -1,0 +1,107 @@
+[
+  {
+    "question": "3.1",
+    "report_question": "1.1",
+    "spec_pages": [
+      5,
+      6
+    ],
+    "original_english": "Identify and prioritize at least four data-quality findings, ordered from most to least important based on how strongly you believe each one could affect the analyses or models in this assignment. For each finding, include: a. Evidence: one number, table, or figure showing that the issue is present. b. Why it matters: explain how the issue could affect a later analysis or model. c. Your decision: state what you will do about it. d. Trade-off: explain what information, data, or reliability you may lose because of that decision."
+  },
+  {
+    "question": "3.2",
+    "report_question": "1.2",
+    "spec_pages": [
+      6
+    ],
+    "original_english": "Justify your ranking. Explain why you ranked your first finding as more important than your second."
+  },
+  {
+    "question": "3.3",
+    "report_question": "1.3",
+    "spec_pages": [
+      6
+    ],
+    "original_english": "Apply your cleaning decisions. In your submitted notebook, include the code that transforms the raw dataset into the cleaned dataset used in your analysis. The code should be reproducible from the original tracks.csv dataset."
+  },
+  {
+    "question": "4.1",
+    "report_question": "2.1",
+    "spec_pages": [
+      6
+    ],
+    "original_english": "Effective dimensionality. Use PCA to estimate how many principal components are needed to represent most of the variation in the audio features. Clearly state the criterion or metrics you use to decide how many components are sufficient."
+  },
+  {
+    "question": "4.2",
+    "report_question": "2.2",
+    "spec_pages": [
+      7
+    ],
+    "original_english": "Interpret the leading principal components. For the first few principal components, explain in plain language what kind of variation each component appears to capture."
+  },
+  {
+    "question": "4.3",
+    "report_question": "2.3",
+    "spec_pages": [
+      7
+    ],
+    "original_english": "Effect of standardization. Repeat the PCA without standardizing the features first. Compare the result with the standardized PCA and explain why they differ. Your explanation should refer to the quantity that PCA maximizes. Support your explanation with either: a. A short mathematical derivation. b. A variance calculation using your own data."
+  },
+  {
+    "question": "5.1",
+    "report_question": "3.1",
+    "spec_pages": [
+      7
+    ],
+    "original_english": "Clustering genres. Create one representative audio-feature profile for each genre, and use hierarchical clustering to group similar genres together. Show how the resulting genre groupings differ, and explain which result you find more reasonable based on evidence from the data. Compare: a. Two different measures of dissimilarity. b. Two different linkage methods."
+  },
+  {
+    "question": "5.2",
+    "report_question": "3.2",
+    "spec_pages": [
+      7
+    ],
+    "original_english": "Clustering individual tracks. Using the standardized audio features, cluster the individual tracks (e.g. with k-means). To choose the number of clusters k, compute at least two quantitative criteria (e.g. the elbow of the inertia curve and the silhouette score) over a range of k, show them, and explain your final choice. Then describe what each resulting cluster represents in terms of its audio characteristics (e.g. by reporting the mean of each feature per cluster). Some clustering methods or criteria may be expensive to run on all 114,000 rows. If you use a subset of the data for clustering or evaluation, clearly state how the subset was selected and why."
+  },
+  {
+    "question": "5.3",
+    "report_question": "3.3",
+    "spec_pages": [
+      8
+    ],
+    "original_english": "Are the clusters meaningful? A clustering algorithm always returns k clusters, even on data with no real structure. Provide evidence that the clusters you found in Question 2 reflect real differences between tracks, rather than being an artifact of the algorithm, the sampling, or the way genres were assigned. Provide at least two evidence. For example: a. Plot the clusters in the space of the first two principal components and explain whether the cluster boundaries align with the directions of variation you interpreted there. b. Stability. Re-run the clustering with a different random seed, a different subsample, or after applying your cleaning decisions from Section 3, and report how much the cluster assignments change."
+  },
+  {
+    "question": "6.1",
+    "report_question": "4.1",
+    "spec_pages": [
+      9
+    ],
+    "original_english": "Compare your predictions with the actual results. Restate the RMSE values you predicted in Section 2. Then fit a linear regression model for each target and report its held-out RMSE. For each target, also report the RMSE of a simple baseline model that ignores the input features and always predicts the mean target value from the training set."
+  },
+  {
+    "question": "6.2",
+    "report_question": "4.2",
+    "spec_pages": [
+      9
+    ],
+    "original_english": "Explain the difference in predictive performance. Compare the two regression tasks and explain why one target is easier or harder to predict from the available features. Support your explanation with evidence from this dataset, such as relationships between the target and the input features, rather than only making a general statement such as “the data are noisy.”"
+  },
+  {
+    "question": "6.3",
+    "report_question": "4.3",
+    "spec_pages": [
+      9
+    ],
+    "original_english": "Look for additional predictive information. If one target is difficult to predict from the audio features, look for one other variable in the dataset that may contain useful information about that target. For example, pick one non-audio column in tracks.csv that you think carries information about the target. Support your choice with an appropriate measurement or plot."
+  },
+  {
+    "question": "6.4",
+    "report_question": "4.4",
+    "spec_pages": [
+      9
+    ],
+    "original_english": "Study the effect of regularization. Use energy as the target for this question. Identify several input features that are strongly correlated with one another. Standardize these features, then fit a regularized linear regression model using these features, and vary the regularization strength over several orders of magnitude. Report how the coefficients and held-out RMSE change as regularization becomes stronger. If regularization does not improve held-out performance on the full dataset, say so. Then create a setting in which regularization has a clearer effect, for example by using a smaller training set, a richer set of basis functions (such as polynomial features), or both."
+  }
+]

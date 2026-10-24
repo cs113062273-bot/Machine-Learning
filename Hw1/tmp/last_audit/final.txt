@@ -1,0 +1,278 @@
+PAGE 1
+ 
+HW1: Exploratory Analysis of a Music Catalog 
+1. Section 3: Auditing the Dataset 
+1.1 Identify and prioritize at least four data-quality findings, ordered from most 
+to least important based on how strongly you believe each one could affect the 
+analyses or models in this assignment. 
+優先級: 
+1.重複歌曲 
+(a) 有 16,641 個 track_id 出現多次，另有 450 列完全重複。 
+(b) 同一首歌若同時出現在訓練集和測試集，可能讓測試結果過度樂觀。 
+(c) 刪掉完全重複列，每個 track_id 只保留一筆歌曲資料，所有曲風標籤都保留。不同 
+ID 若歌手和歌名都相同，或所有音訊與音樂特徵都相同，就一起分到訓練集或測試集。 
+(d) 同一歌手的同名歌曲可能是不同錄音版本。把它們當成同一錄音，可能造成誤判，降低
+錄音分組的可靠性。 
+2.同一 ID 的popularity 不一致 
+(a) 有 720 個 ID 在不同列的人氣分數不同，但同一 ID 的音訊特徵一致。 
+(b) 同樣的音訊卻有不同的人氣分數，可能讓模型學不準，增加預測誤差。 
+(c) 排除這 720 個 ID，共刪除 1,928 列資料。 
+(d) 可能失去這首歌曲人氣隨時間變化的資訊。 
+3. 節奏、拍號和歌曲長度異常 
+(a) tempo ≤ 0 有 157 列，拍號為 0 有 163 列，歌曲長度 ≤ 0 有 1 列，共有 164 列
+符合至少一個條件。 
+(b) 這些異常值可能干擾歌曲分群和模型預測。 
+(c) 刪除這 164 列，不用平均值填補。 
+(d) 可能誤刪本來有效、只是節拍不明顯或偵測失敗的歌曲。 
+4. 曲風比例可能不符合實際情況 
+(a) 共有114 種曲風，但每一個都是1,000 列資料。 
+(b) 平台上較少見的曲風，可能在這份資料中占太大比例，影響歌曲分群。 
+(c) 保留資料，但是只用來比較曲風的音訊特徵。 
+(d) 這樣只能比較資料內的曲風差異，無法可靠估計平台各曲風真正的數量與比例。 
+1.2 Justify your ranking. 
+重複歌曲涉及 16,641 個 ID，人氣分數不一致涉及 720 個 ID，異常值只有 164 列，所以
+依影響資料的數量排第一到第三。曲風比例的問題主要限制結果能否代表整個平台，資料仍
+可用於分析，所以排第四。 
+1.3 Apply your cleaning decisions. 
+Code 在HW1_code_113062273.ipynb 的Section3。從原始tracks.csv 的 114,000 列資料
+中，刪除完全重複列、異常值和人氣分數不一致的 ID，再讓每個 ID 只留一筆，共剩 
+88,858 首歌，並保留各首歌的所有曲風標籤。後續 PCA、分群和回歸都使用清理後的資料。 
+ 
+ 
+ 
+ 
+
+PAGE 2
+ 
+2. Section 4: The Geometry of the Feature Space 
+使用 danceability、energy、loudness、speechiness、acousticness、instrumentalness、
+liveness、valence、tempo 九項連續音訊特徵。不包含 key、mode、time_signature。 
+2.1 Effective dimensionality. 
+至少要>=90%。所以標準化PCA 需要7 個PC，累積94.86%；6 個只有89.77%。 
+2.2 Interpret the leading principal components. 
+PC1：loudness、energy 的權重為正，acousticness 為負，反映大聲、高能量、原聲程度
+低，與小聲、低能量、原聲程度高的歌曲差異。 
+PC2：danceability、valence 的權重為正，instrumentalness、tempo 為負，反映較適合
+跳舞、情緒較正向、器樂程度較低、速度較慢，與相反特徵的歌曲差異。 
+PC3：liveness、speechiness 的權重都為正，反映現場感和口語成分都較高，與兩者都較
+低的歌曲差異。 
+2.3 Effect of standardization. 
+以至少要>=90%的變異為標準，標準化 PCA 需要7 個PC；未標準化只需1 個，PC1 就佔了 
+97.13%。 
+因為PCA 會優先保留變異最大的方向。未標準化時，tempo 的變異數為 882.4921，占各欄
+變異數總和的 96.99%，所以 PC1 主要反映速度差異。標準化後，各欄變異數約為 1，
+tempo 不再因數值尺度較大而主導結果，其他特徵的差異也能呈現，因此本次需要 7 個主
+成分。 
+3. Section 5: Structure in the Data 
+3.1 Clustering genres. 
+每種曲風用九項音訊特徵的平均值作代表，同一首歌在同一曲風只算一次。用全部清理後歌
+曲的平均值和標準差將各欄標準化，再做階層分群。各設定都分成 8 群，方便比較。 
+(a) Two different measures of dissimilarity 
+固定 average linkage，比較 Euclidean 和 city-block 距離。 
+Euclidean 把 opera 和 classical、ambient 分在一起；city-block 則把 opera 和 
+honky-tonk、jazz 分在一起。Euclidean 把 black-metal、death-metal、grindcore 單獨
+分成一群；city-block 則把它們和 breakbeat、drum-and-bass 分在一起。 
+(b) Two different linkage methods 
+比較 average 和 complete linkage。Average 用兩群間的平均距離，complete 用兩群間
+最遠的距離。 
+固定 Euclidean 距離時，average 把 metal、heavy-metal、pop、dance、house 分在一起；
+complete 則把 metal、heavy-metal 和後三者分開。 
+固定 city-block 距離時，average 把 black-metal、death-metal、grindcore 和 metal、
+heavy-metal 分開；complete 則把它們分在一起。 
+較合理的結果與證據 
+我選 Euclidean／average。統一用 Euclidean 距離評估時，它的 silhouette 為 0.2634，
+是四組中最高的。其他三組分別為 Euclidean／complete 的 0.2079、city-block／
+average 的 0.2387、city-block／complete 的 0.2032。 
+black-metal、death-metal、grindcore 同群，平均 energy 為 0.910、acousticness 為 
+0.014；classical、ambient、opera 等所在群則為 0.276、0.801，兩群的能量和原聲程度
+明顯不同。 
+這些例子符合事前預期，不同曲風有音訊差異，相近曲風也會分在一起。 
+ 
+
+PAGE 3
+ 
+3.2 Clustering individual tracks. 
+對清理後全部 88,858 首歌曲的標準化九項音訊特徵做 K-means，檢查k =2~10，使用 
+seed=113062273、n_init = 10。inertia 使用全部歌曲；silhouette 使用固定 seed 隨機
+抽出的同一批 2,000 首，降低兩兩距離的計算成本。 
+ 
+圖1(Power by AI)：不同 k 的 inertia 與 silhouette；虛線標示選擇的 k = 7。 
+k=2 和k=7 比起來，inertia 從 627,300.1 降至 373,493.2，降低 40.46%；silhouette 
+從 0.2633 降至 0.2061，降低 21.73%。雖然 k = 2 的 silhouette 最高，但 inertia 在 
+k=7 後降幅縮小，而且 k=7 的silhouette 比鄰近k=6、8 高，因此選擇 k=7。 
+各群歌曲數和九項特徵的平均值如下；數值以原始單位呈現。 
+特徵平均 
+C0 
+17,986 首 
+C1 
+10,027 首 
+C2 
+19,861 首 
+C3 
+6,450 首 
+C4 
+1,038 首 
+C5 
+27,354 首 
+C6 
+6,142 首 
+danceability 
+0.5273 
+0.5834 
+0.4711 
+0.3492 
+0.5721 
+0.7050 
+0.5197 
+energy 
+0.3752 
+0.7406 
+0.8169 
+0.1706 
+0.6753 
+0.7168 
+0.7523 
+loudness 
+-10.6435 
+-8.4684 
+-5.3422 
+-21.2632 
+-11.2380 
+-6.5413 
+-7.1001 
+speechiness 
+0.0540 
+0.0720 
+0.0859 
+0.0521 
+0.8471 
+0.0962 
+0.0886 
+acousticness 
+0.6857 
+0.1149 
+0.0763 
+0.8691 
+0.7490 
+0.2206 
+0.2901 
+instrumentalness 
+0.0319 
+0.7951 
+0.0367 
+0.7850 
+0.0072 
+0.0204 
+0.0777 
+liveness 
+0.1602 
+0.1698 
+0.1952 
+0.1563 
+0.6711 
+0.1644 
+0.7438 
+valence 
+0.3940 
+0.3452 
+0.3712 
+0.1840 
+0.4410 
+0.6984 
+0.5030 
+tempo 
+113.2587 
+126.8730 
+140.1814 
+104.7581 
+100.8902 
+118.1531 
+123.3654 
+Cluster 0：energy 較低，acousticness 較高。 
+Cluster 1：energy 較高，instrumentalness 高。 
+Cluster 2：loudness、energy、tempo 最高。 
+Cluster 3：loudness、energy 最低，acousticness 和 instrumentalness 都高。 
+Cluster 4：speechiness 最高，liveness 也高。 
+Cluster 5：danceability、valence 最高。 
+Cluster 6：liveness 最高，energy 也較高。 
+3.3 Are the clusters meaningful? 
+(a)PCA 圖。Cluster 3 的 energy 低、acousticness 高，主要在 PC1 左側；energy 較高
+的 Cluster 2、5 則偏右。Cluster 5 的 danceability、valence 較高，也偏向 PC2 上方，
+符合第 2.2 題的解讀。不過，有些群仍重疊，沒有完全分開。 
+
+PAGE 4
+ 
+ 
+圖 2(Power by AI)：同一批 2,000 首歌曲的 PC1–PC2 投影；七種顏色代表九項音訊特徵分出的
+七群。 
+(b)換一批歌曲再分群。固定seed=113062273，另外隨機抽兩批各 20,000 首，重新標準化
+並做七群 K-means，再用各模型替全部歌曲分群。把群號配對後，與原結果相比，只有 
+1.51%、0.79% 的歌曲改群，表示換樣本後結果仍很接近。 
+ 
+4. Section 6: Two Regression Targets 
+4.1 Compare your predictions with the actual results. 
+項目 
+Energy 
+Popularity 
+事前預測 RMSE 
+0.1200 
+18.0000 
+OLS test RMSE 
+0.1223 
+20.2001 
+訓練平均值 baseline test RMSE 
+0.2569 
+20.4984 
+energy 比事前預估高 0.0023，接近預期；popularity 高 2.2001，比預期難預測，不過也
+算蠻接近了。 
+4.2 Explain the difference in predictive performance. 
+分別和各自的baseline 比較，energy 的RMSE 降低52.39%，popularity 只降1.46%，所以
+模型對energy 的預測效果較好。 
+訓練資料中，energy 與 loudness、acousticness 的相關係數為 0.7591、−0.7336，關係
+較強；popularity 與兩者只有 0.0756、−0.0393，與energy 也只有 0.0145。這些音訊特
+徵和 popularity 的線性關係較弱，因此較難預測popularity。 
+energy 與loudness 正相關、與acousticness 負相關，也符合pre-report 的第一項預期。 
+4.3 Look for additional predictive information. 
+我選 artists，因為同一藝人的歌曲可能有相近的人氣，能提供音訊以外的資訊。 
+加入 artists 後，RMSE 從 20.2002 降至 17.8755，降低 11.51%，表示 artists 提供額
+外的預測資訊。改善主要出現在訓練資料已見過的 artists，沒見過的效用不大。 
+Test 子集合 
+歌曲數 
+僅音訊 RMSE 
+加 artists RMSE 
+全部 
+17,769 
+20.2002 
+17.8755 
+development 見過相同藝人字串 
+12,668 
+19.9217 
+16.5363 
+development 未見過相同藝人字串 
+5,101 
+20.8758 
+20.8323 
+ 
+
+PAGE 5
+ 
+4.4 Study the effect of regularization. 
+用 energy 當目標，將loudness、acousticness、instrumentalness 展開成19 項三次多項
+式特徵，其中，令 A 為原始 acousticness，A、A²、A³ 的三組相關係數為 0.9646、
+0.9129、0.9865，符合彼此高度相關。 
+各項特徵標準化後使用 Ridge，測試 α = 10⁻⁶ 到 10⁶，共 25 組，依 validation RMSE 
+選 α。
+ 
+圖 3(Power by AI)：完整資料中 A、A²、A³ 的標準化基底係數與 test RMSE；虛線標示 
+validation 選出的 α。 
+完整資料選 α = 1。OLS 的 test RMSE 為 0.128638，Ridge 為 0.128637，幾乎沒有改善。
+α 增大時，係數整體縮小，全部19 個係數的L2 長度從0.7977 降至0.0247，但個別係數
+可能變號。α 過大時，test RMSE 升至 0.204653，表示正則化太強反而讓預測變差。 
+因為完整資料沒有實質改善，我再改用小樣本。固定 seed = 113062273，從 Train 隨機抽 
+80 個不同錄音群組，各取一首，使用相同的 19 項特徵，重新標準化並訓練模型，仍用 
+validation 選 α。
+ 
+圖 4(Power by AI)：80 首設定的代表基底係數、全部 19 個係數的 L2 長度與 test RMSE。 
+小樣本選α=3.1623。Ridge 的test RMSE 為0.145732，比OLS 的0.181219 降低19.58%。
+這次係數縮小後，測試表現改善，符合減少過擬合的效果；但 α 過大時，RMSE 升至 
+0.256812。因此，適度正則化對這次小樣本有幫助，太強則會讓表現變差。 

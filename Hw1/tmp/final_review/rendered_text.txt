@@ -1,0 +1,265 @@
+第 1 頁
+HW1: Exploratory Analysis of a Music Catalog
+1. Section 3: Auditing the Dataset
+1.1 Identify and prioritize at least four data-quality findings, ordered from most 
+to least important based on how strongly you believe each one could affect the 
+analyses or models in this assignment.
+要求依據：HW1_Spec (1).pdf 第 5–6 頁；HW1_Intro.pdf 第 12 頁。
+優先序與品質問題
+原始資料的證據
+1. 重複歌曲
+16,641 個重複 ID；450 列完全重複
+2. popularity 不一致
+720 個 ID 的 popularity 有衝突
+3. 無效節奏、拍號或長度
+tempo  0
+≤
+：157 列；拍號 0：163 列；長度  
+≤0：1 列；聯集 164 
+列
+4. 曲風配額及多重標籤
+114 種曲風各 1,000 列；同一 ID 可有多種曲風
+1.重複歌曲
+(a)16,641 個 track_id 出現多次，另有 450 列完全重複。
+(b)同一歌曲若同時出現在訓練集與測試集，可能低估預測誤差；重複列也會讓部分歌曲在 
+PCA 與分群中被重複加權。
+(c)刪除完全重複列，每個 track_id 保留一筆，曲風標籤另存。回歸切分時，將相同歌手
+與歌名，或完整音訊與音樂屬性相同的歌曲歸入同一錄音群組，避免跨集合。
+(d)去重後改以歌曲而非歌曲與曲風配對列加權；錄音群組的判定規則也可能合併不同演奏
+版本。
+2.同一 ID 的popularity 不一致
+(a)720 個 track_id 對應不一致的 popularity；檢查的音訊欄位沒有衝突。
+(b)任意保留一列會使目標值依賴檔案順序，取平均則會改變目標定義，影響回歸結果的可
+信度。
+(c)排除這 720 個 ID，共移除 1,928 筆當時仍有效的配對列。
+(d)失去這些歌曲及 popularity 可能真實的時間變化；若衝突歌曲具有共同特性，排除也
+可能造成選擇偏差。
+3.零 tempo、零拍號與不合法長度
+(a)tempo ≤ 0 有 157 列，time_signature = 0 有 163 列，duration_ms ≤ 0 有 1 列；
+符合任一條件的資料共 164 列。
+(b)這些值無法直接解讀為正常節奏、拍號或歌曲長度，可能影響特徵距離與模型估計。
+(c)刪除符合上述條件的資料，不以平均值補入。
+(d)可能刪除沒有明確節拍的音樂，或節奏偵測困難但實際有效的歌曲。
+4.曲風筆數規整與多重標籤
+(a)114 種曲風各有 1,000 列，同一 track_id 可出現在多種曲風中。
+(b)各曲風的列數不能代表平台上的自然曲風比例；直接計算配對列也會重複加權具有多個
+標籤的歌曲。
+(c)保留曲風標籤做特徵比較，同一歌曲在每種曲風只計算一次。計算曲風與歌曲分群的交
+叉統計時，讓每首歌曲的所有標籤權重合計為 1。
+
+
+第 2 頁
+(d)權重調整後，每個標籤不再各算一個完整樣本；由於缺少抽樣機率，仍無法推估平台的
+實際曲風比例，結果僅描述這份資料。
+1.2 Justify your ranking.
+要求依據：HW1_Spec (1).pdf 第 6 頁；HW1_Intro.pdf 第 12 頁。
+我將重複歌曲排在 popularity 不一致之前，因為重複歌曲影響的範圍更廣：它涉及 
+16,641 個 ID，會改變 PCA 與分群的歌曲權重，也可能因同曲跨訓練集與測試集而低估回
+歸誤差。相較之下，popularity 不一致涉及 720 個 ID，主要影響 popularity 回歸的目
+標可信度。因此，重複歌曲對本作業多項分析的影響較大，優先處理。
+1.3 Apply your cleaning decisions.
+要求依據：HW1_Spec (1).pdf 第 6 頁；HW1_Intro.pdf 第 12 頁。
+清理程式位於 HW1_code_113062273.ipynb 的 Section 3，可從原始 tracks.csv 重現：
+114,000 列依序去除完全重複列、無效值與衝突 ID，再整理為 88,858 首唯一歌曲，曲風
+標籤另存。後續 PCA、分群與回歸均使用清理後資料。
+2. Section 4: The Geometry of the Feature Space
+使用 danceability 、energy 、loudness 、speechiness 、acousticness 、
+instrumentalness 、liveness 、valence 、tempo 九項連續音訊特徵。key 、mode 、
+time_signature 是類別代碼，不直接當成距離座標。
+2.1 Effective dimensionality.
+要求依據：HW1_Spec (1).pdf 第 6 頁；HW1_Intro.pdf 第 13–14 頁。
+以累積解釋至少 90% 變異為標準。標準化 PCA 需要 7 個 PC，累積 94.86%；6 個只有 
+89.77%。
+2.2 Interpret the leading principal components.
+要求依據：HW1_Spec (1).pdf 第 7 頁；HW1_Intro.pdf 第 14 頁。
+PC1 主要呈現較大聲、能量較高、原聲程度較低的歌曲，與較小聲、能量較低、原聲程度較
+高的歌曲之間的差異。
+PC2 主要呈現可舞性和正向情緒分數較高、器樂程度較低且速度較慢的歌曲，與具有相反特
+徵的歌曲之間的差異。
+PC3 主要呈現歌曲在現場感與口語成分上的差異，這兩項分數沿著此主成分大致一起增加或
+降低。
+2.3 Effect of standardization.
+要求依據：HW1_Spec (1).pdf 第 7 頁；HW1_Intro.pdf 第 14 頁。
+以累積解釋變異至少達到 90% 為標準，標準化 PCA 需要 7 個主成分；未標準化 PCA 只需 
+1 個，第一個主成分就解釋了 97.13% 的變異。
+PCA 在方向向量 w 的長度為 1 時，最大化投影變異 wᵀSw，其中 S 是共變異矩陣。未標準
+化時，tempo 的變異數為 882.4921，占各特徵變異數總和的 96.99%，因此第一個主成分主
+要反映 tempo 的變化。標準化後，各特徵的變異數約為 1，tempo 不再因原始尺度較大而
+主導結果，主成分改由特徵間的相關結構決定，因此需要更多主成分才能達到相同的變異保
+留比例。
+
+
+第 3 頁
+3. Section 5: Structure in the Data
+3.1 Clustering genres.
+要求依據：HW1_Spec (1).pdf 第 7 頁；HW1_Intro.pdf 第 15–16 頁。
+每種曲風以九項音訊特徵的平均值作為代表特徵，同一歌曲在同一曲風只計算一次。以清理
+後唯一歌曲的各欄平均值與標準差進行標準化，再做階層分群。各設定均切成 8 群，以便
+比較。
+(a) Two different measures of dissimilarity
+固定使用 average linkage，比較 Euclidean 與 city-block 距離。
+使用 Euclidean 時，opera 與 classical、ambient 等曲風同群；改用 city-block 後，
+opera 與 honky-tonk、jazz 等曲風同群。此外，Euclidean 將 black-metal、death-
+metal、grindcore 獨立分成一群；city-block 則將這三者與 breakbeat、drum-and-bass 
+等曲風合併。
+(b) Two different linkage methods
+比較 average 與 complete linkage。Average 使用兩群所有跨群配對距離的平均值，
+complete 使用其中的最大值。
+固定使用 Euclidean 距離時，average 將 metal、heavy-metal、pop、dance、house 放在
+同一群；complete 則將 metal、heavy-metal 與 pop、dance、house 分開。
+固定使用 city-block 距離時，average 將 black-metal、death-metal、grindcore 與 
+metal、heavy-metal 分開；complete 則將它們合併為同一群。
+較合理的結果與證據
+本分析選擇 Euclidean ／average 。統一用 Euclidean 距離評估四組結果時，其 
+silhouette 為 0.2634，高於 Euclidean／complete 的 0.2079、city-block／average 的 
+0.2387，以及 city-block／complete 的 0.2032。
+此設定中，black-metal、death-metal、grindcore 群的曲風代表特徵平均 energy 為 
+0.910、acousticness 為 0.014；包含 classical、ambient、opera 等曲風的另一群則為 
+0.276、0.801，顯示分組具有可解釋的音訊差異。不過，其中一群包含 94 種曲風，因此此
+結果仍屬粗略分組。
+上述特徵差異支持 pre-report「不同曲風有音訊差異」的預期；black-metal、death-
+metal、grindcore 同群，也提供相近曲風較接近的例子。但這些例子與包含 94 種曲風的
+大群，尚不足以支持所有曲風都能清楚區分。（事前預期比較：HW1_Spec (1).pdf 第 5 
+頁。）
+3.2 Clustering individual tracks.
+要求依據：HW1_Spec (1).pdf 第 7 頁；HW1_Intro.pdf 第 16 頁。
+對清理後全部 88,858 首歌曲的標準化九項音訊特徵做 k-means，檢查 k = 2–10。固定隨
+機種子，n_init = 10。inertia 使用全部歌曲；silhouette 使用同一批均勻無放回抽出的 
+2,000 首，減少兩兩距離的計算成本。
+
+
+第 4 頁
+圖 1：不同 k 的 inertia 與 silhouette；虛線標示選擇的 k = 2。
+inertia 持續下降，沒有唯一明顯轉折；k = 7 後降幅縮小，但 silhouette 在 k = 2 最
+高。因此選 k = 2，作為較容易解釋的粗分。
+特徵平均
+Cluster 0：22,301 首
+Cluster 1：66,557 首
+danceability
+0.4635
+0.5961
+energy
+0.2988
+0.7476
+loudness
+-14.4880
+-6.4712
+speechiness
+0.0594
+0.0972
+acousticness
+0.7500
+0.1874
+instrumentalness
+0.3251
+0.1222
+liveness
+0.1795
+0.2288
+valence
+0.3093
+0.5238
+tempo
+110.2413
+126.2822
+Cluster 0 平均較安靜、低能量，原聲及器樂分數較高；Cluster 1 的能量、音量、可舞
+性、valence 與 tempo 較高。這是群平均，不表示每首歌曲都符合描述。
+3.3 Are the clusters meaningful?
+要求依據：HW1_Spec (1).pdf 第 8 頁；HW1_Intro.pdf 第 16 頁。
+證據一：PCA 投影。圖 2 的兩群主要沿 PC1 區分，與第 2.2 題解讀的「高能量、較大
+聲、原聲程度較低」方向一致。這表示分群對應可解釋的音訊差異；但投影中仍有重疊，沒
+有明顯空隙。
+圖 2：固定 2,000 首歌曲的 PC1–PC2 投影；顏色為九項音訊特徵分群的結果，未使用曲風標籤。
+證據二：不同抽樣的穩定性。另外均勻無放回抽兩批各 20,000 首，分別重新擬合標準化及 
+k-means，再對全部歌曲預測。與全資料分群相比，對齊群號後的分群改變比例為 0.27%、
+0.34%，ARI 為 0.9887、0.9855。這降低結果只由單次抽樣造成的疑慮。
+兩項證據支持穩定且可解釋的音訊粗分；分群未使用曲風標籤，因此不是依曲風標籤直接分
+組。連續梯度也可能被 k-means 切成群，不能據此證明有兩個天然音樂類別。
+
+
+第 5 頁
+4. Section 6: Two Regression Targets
+4.1 Compare your predictions with the actual results.
+要求依據：HW1_Spec (1).pdf 第 8–9 頁；HW1_Intro.pdf 第 17–18 頁。
+回歸使用清理後唯一歌曲，依錄音群組切分，避免同一錄音跨集合。Development 共 
+71,089 首，test 共 17,769 首；OLS 與 baseline 均用 development 擬合，baseline 固
+定預測其目標平均值。輸入為 Spec 指定的 11 項音訊特徵；預測 popularity 時額外加入 
+energy，均排除目標本身。連續輸入標準化，key、mode、time_signature 使用 one-hot；
+前處理只擬合 development。事前預測值取自已提交的 pre-report。
+項目
+Energy
+Popularity
+事前預測 RMSE
+0.1200
+18.0000
+OLS test RMSE
+0.1223
+20.2001
+訓練平均值 baseline test RMSE
+0.2569
+20.4984
+energy 比事前預估高 0.0023，接近預期；popularity 高 2.2001，比預期難預測。誤差單
+位分別為 energy 的 0-1 分數、popularity 的 0-100 分數。
+4.2 Explain the difference in predictive performance.
+要求依據：HW1_Spec (1).pdf 第 9 頁；HW1_Intro.pdf 第 18 頁。
+相對各自 baseline，energy 的 RMSE 降低 52.39%，popularity 只降低 1.46%，所以 
+energy 較容易由這些音訊特徵線性預測。
+development 中，energy 與 loudness、acousticness 的 Pearson r 為 0.7591、-
+0.7336；popularity 與兩者為 0.0756、-0.0393，與 energy 為 0.0145。這支持音訊對 
+energy 較有線性資訊。此結果只針對本次線性模型，不能推論所有模型都無法預測 
+popularity。
+energy 與 loudness 正相關、與 acousticness 負相關的方向，支持 pre-report 的第一
+項預期。（事前預期比較依據：HW1_Spec (1).pdf 第 5 頁。）
+4.3 Look for additional predictive information.
+要求依據：HW1_Spec (1).pdf 第 9 頁；HW1_Intro.pdf 第 18 頁。
+選 artists。使用原始藝人字串 one-hot，少於 5 筆的類別合併；前處理只 fit 
+development。兩個模型都使用 alpha = 10 的 Ridge，並在相同 test 比較。
+Test 子集合
+歌曲數
+僅音訊 RMSE
+加 artists RMSE
+全部
+17,769
+20.2002
+17.8755
+development 見過相同藝人字串
+12,668
+19.9217
+16.5363
+development 未見過相同藝人字串
+5,101
+20.8758
+20.8323
+整體 RMSE 降低 11.51%，支持 artists 包含額外資訊；改善主要來自已見過的藝人字串，
+不能推廣成對陌生藝人也有相同效果。
+4.4 Study the effect of regularization.
+要求依據：HW1_Spec (1).pdf 第 8–9 頁；HW1_Intro.pdf 第 18 頁。
+以 energy 為目標，輸入只由允許的 loudness、acousticness、instrumentalness 三欄產
+生，使用本題允許的三次多項式基底，共 19 項；模型對基底係數保持線性，不含 energy 
+或外部資訊。令 A 為原尺度 acousticness，Train 中 A、A²、A³ 的三組 Pearson r 分別
+為 0.9646、0.9129、0.9865，皆超過 0.90，呈現彼此高度相關。高相關的判斷針對這些實
+際模型輸入，不將原始三欄宣稱為彼此高度相關。
+
+
+第 6 頁
+每項基底分別標準化，前處理只擬合當次訓練資料。Ridge 的 α 從 10 
+⁻⁶ 到 10⁶，共 25 
+組；完整資料先用 Train 56,931 首擬合、validation 14,158 首選 α ，再用 
+development 71,089 首重訓。Test 17,769 首只用於呈現 held-out RMSE，不用來選 α。
+OLS 使用相同基底及訓練資料。
+圖 3：完整資料中 A、A²、A³ 的標準化基底係數與 test RMSE；虛線標示 validation 選出的 
+α。
+完整資料選 α = 1。OLS test RMSE 為 0.128638，Ridge 為 0.128637，差約 6.6e-07，
+沒有實質改善。α 增強時，全部 19 個係數的 L2 長度由 0.7977 降至 0.0247；圖 3 顯
+示個別係數會調整或變號，並非各自單調縮小。過強的正則化使 test RMSE 升至 
+0.204653。
+為呈現較明顯的效果，固定隨機種子，從 Train 均勻無放回抽取 80 個不同錄音群組，各
+取一首，使用完全相同的 19 項基底。這 80 首中 A、A²、A³ 的三組 r 為 0.9614、
+0.9002、0.9835，仍皆超過 0.90。前處理與模型只擬合這 80 首，α 由相同 validation 
+選擇，不將 validation 或 test 加入訓練。
+圖 4：80 首設定的代表基底係數、全部 19 個係數的 L2 長度與 test RMSE。
+小樣本選 α = 3.1623 。OLS test RMSE 為 0.181219 ，Ridge 為 0.145732 ，降低 
+19.58%。係數整體收縮，適度正則化改善此設定的預測表現；α 過強時，test RMSE 上升
+至 0.256812。這支持正則化可減少小樣本、相關基底下的過擬合。整體而言，清理後資料可支援音訊探索、歌曲粗分與 energy 線性預測；popularity 的音
+訊線性預測力較弱，artists 的改善主要限於已見藝人。重複歌曲、目標衝突、曲風配額及
+缺少評分時間資訊，限制資料可靠性與母體、跨時間外推。

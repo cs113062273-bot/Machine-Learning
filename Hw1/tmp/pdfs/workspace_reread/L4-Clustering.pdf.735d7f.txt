@@ -1,0 +1,633 @@
+=== PAGE 1 ===
+   CS 4602
+
+ Introduction to
+Machine Learning
+
+        Clustering
+      Instructor: Po-Chih Kuo
+
+
+
+
+
+                       CS4602                                         1
+
+=== PAGE 2 ===
+Week      Date     Day        Time                         Course Topic                                                    Activity
+  1     2026/09/08   Tue      10:00–12:00    Overview and logic
+
+         2026/09/10   Thu      10:00–11:00     Intro to ML
+
+  2     2026/09/15   Tue      10:00–12:00    Regression
+
+         2026/09/17   Thu      10:00–11:00    Regression
+
+  3     2026/09/22   Tue      10:00–12:00    Dimensionality reduction Roadmap
+         2026/09/24   Thu      10:00–11:00    Introduction to Coding CLI (TA Lecture)           ●HW1 Announcement
+
+  4     2026/09/29   Tue      10:00–12:00    Dimensionality reduction, Clustering
+
+         2026/10/01   Thu      10:00–11:00    Clustering
+  5  •  2026/10/06IntroductionTueand Basic10:00–12:00Concepts●Midterm 1
+     •  2026/10/08RegressionThu      10:00–11:00    Bayesian Classifiers                                      ●Project Announcement ●HW1 Deadline
+  6  •  2026/10/13Data ExplorationTue      10:00–12:00& DimensionalityBayesianreductionClassifiers, Decision Trees               ●HW2 Announcement
+         2026/10/15   Thu      10:00–11:00    Decision Trees
+     •  Clustering  7     2026/10/20   Tue      10:00–12:00   SVM
+     •  2026/10/22KNN      Thu      10:00–11:00    Perceptron
+  8  •  2026/10/27Bayesian TueClassifiers10:00–12:00    Neural Networks
+         2026/10/29   Thu      10:00–11:00    Introduction to PyTorch (TA Lecture)             ●HW3 Announcement
+     •  Decision Trees
+  9     2026/11/03   Tue      10:00–12:00    ●Project Proposal                         ●HW2 Deadline
+     •  2026/11/05Linear ClassifierThu      10:00–11:00   Deep learning                              ●HW1&2 Demo
+ 10 •  2026/11/10Neural NetworksTue      10:00–12:00   ●Midterm 2
+         2026/11/12   Thu      10:00–11:00   Deep learning
+     •  Deep learning
+ 11     2026/11/17   Tue      10:00–12:00   CNN
+     •  2026/11/19ConvolutionalThu  Neural10:00–11:00NetworksRecurrent Neural Networks                    ●HW3 Deadline
+               •  Autoencoder
+ 12     2026/11/24   Tue      10:00–12:00    Recurrent Neural Networks, Transformer            ●HW4 Announcement
+               •   Adversarial
+         2026/11/26   Thu      10:00–11:00    Transformer                            ●HW3 Demo               •   Transfer learning
+ 13     2026/12/01   Tue      10:00–12:00   LLM               • …
+         2026/12/03   Thu      10:00–11:00    Generative model (Autoencoder, GAN, Diffusion)              Industry Speaker Sharing Session (PicCollage)
+     •  RNN/Transformer
+ 14     2026/12/08   Tue      10:00–12:00    Generative model / Reinforcement Learning
+     •  2026/12/10ReinforcementThu   Learning10:00–11:00    Reinforcement Learning, Trusthworthy ML
+
+ 15     2026/12/15   Tue      10:00–12:00    ●Final Exam                            ●HW4 Deadline
+
+         2026/12/17   Thu      10:00–11:00    ●Final Presentation
+ 16     2026/12/22   Tue      10:00–12:00    ●Final Presentation  CS 4602                                         2
+         2026/12/24   Thu      10:00–11:00    ●Final Presentation                        ●HW4 Demo
+
+=== PAGE 3 ===
+Outline
+
+• Why clustering?
+• Choosing (dis)similarity measures
+• Clustering algorithms
+
+
+
+
+
+                                                                         Ref: Slides from Georg Gerber
+
+=== PAGE 4 ===
+What is clustering?
+
+• A way of grouping together data samples that
+ are similar according to some criteria
+• A form of unsupervised learning
+    • Don’t need testing data demonstrating how the data
+     should be grouped together
+• It’s a method of exploratory data analysis
+ (EDA)
+    • looking for patterns or structures in the data that are
+     of interest
+    • no explicit labels; the clusters may need further
+      interpretation.
+
+=== PAGE 5 ===
+  Real-World Applications
+
+
+
+
+
+Customer Segmentation    Anomaly Detection       Image Segmentation
+
+ Grouping customers based on        Identifying outliers that do not         Partitioning a digital image into
+  purchasing behavior to tailor      belong to any cluster, often used      multiple segments (sets of pixels)
+ marketing strategies (e.g., "High        for fraud detection or system          to simplify representation and
+Spenders" vs "Bargain Hunters").            health monitoring.                          analysis.
+
+
+
+
+
+                                            CS4602                                         5
+
+=== PAGE 6 ===
+Customer Segmentation
+
+• Streaming Services
+     • To identify viewers who have similar behavior.
+                                                                Minutes
+                                                             watched per
+                                                            day
+
+
+
+
+
+                                                                           Total viewing
+                                                                 sessions per
+Number of unique                                         week
+shows viewed per
+month
+                                       CS4602                                         6
+
+=== PAGE 7 ===
+                                     Group by features (Column clustering)
+
+   Example                                             Attributes                                         Target
+
+                     Alt.     Bar        Fri     Hun      Pat      Price     Rain     Res     Type      Est.     Wait
+
+      X1      T      F       F       T     Some    $$$      F       T     French    0-10     T
+      X2      T      F       F       T         Full      $       F       F       Thai     30-60     F
+      X3      F      T       F       F     Some     $       F       F      Burger    0-10     T
+      X4      T      F       T       T         Full      $       F       F       Thai     10-30     T
+      X5      T      F       T       F         Full     $$$      F       T     French    >60      F
+      X6      F      T       F       T     Some     $$      T       T        Italian     0-10     T
+      X7      F      T       F       F     None      $       T       F      Burger    0-10     F
+      X8      F      F       F       T     Some     $$      T       T       Thai     0-10     T
+      X9      F      T       T       F         Full      $       T       F      Burger    >60      F
+       X10      T      T       T       T         Full     $$$      F       T        Italian    10-30     F
+       X11      F      F       F       F     None      $       F       F       Thai     0-10     F
+       X12      T      T       T       T         Full      $       F       F      Burger    30-60     T
+Group by instances (Row clustering)
+
+
+                                         CS4602                                         7
+
+=== PAGE 8 ===
+How to cluster the data?
+
+
+
+
+
+                                       CS4602                                         8
+
+=== PAGE 9 ===
+CS4602                                         9
+
+=== PAGE 10 ===
+CS4602                                        10
+
+=== PAGE 11 ===
+There is no single correct answer!
+
+
+
+                 CS4602                                           11
+
+=== PAGE 12 ===
+Outline
+
+• Why clustering?
+• Choosing (dis)similarity measures
+    • a critical step in clustering
+• Clustering algorithms
+
+
+
+
+
+                                                                         Ref: Slides from Georg Gerber
+
+=== PAGE 13 ===
+How do we define (dis)similarity?
+
+   • The goal is to group together “similar” data
+   • It depends on what we want to find or
+   emphasize in the data;
+   • The similarity measure is often more important
+    than the clustering algorithm used
+   • This is usually a pair-wise measure
+
+=== PAGE 14 ===
+Euclidean distance
+
+
+
+
+
+                                                                       n
+                              d   ( x , y ) =      ( x − y 2)                                                         euc                                     i          i                   
+                                                                                                                              i =1
+
+
+  • Here n is the number of dimensions in the
+   data vector. For instance:
+       • Number of features (when clustering instances)
+       • Number of instances (when clustering features)
+
+=== PAGE 15 ===
+ deuc=0.5846                      deuc=1.1345
+
+
+
+
+
+                      These examples ofdeuc=2.6115
+                         Euclidean distance match
+                         our intuition of dissimilarity
+                      well…
+
+=== PAGE 16 ===
+   But what about these?
+
+
+
+             deuc=1.41                         deuc=1.22
+
+
+
+
+
+What might be going on with the data profiles on the left? On the right?
+
+=== PAGE 17 ===
+Pearson Correlation
+
+   • We might care more about the shape of data profiles
+    rather than the magnitudes
+
+
+                  More similar
+
+
+   • We can make the data have mean = 0 and std = 1
+
+                                                           n
+                                                      ( x i − x )( y i − y )                
+           ( x , y ) =               i =1
+                                                       n                  n
+                                                                   ( y i − y ) 2                                                                  ( x i − x ) 2 
+                                                                                                 i =1                             i =1
+                         1  n
+                         x =                                 x i                                     n    i
+                         1  n
+                         y =                                 y i                                     n    i
+
+=== PAGE 18 ===
+Pearson Correlation
+
+
+• Pearson correlation is a measure that is invariant to
+  scaling and shifting of the data values
+• Always between –1 and +1
+• We can easily make it into a dissimilarity measure:
+
+                    1 − ( x , y )
+                d =                              p
+                        2
+
+=== PAGE 19 ===
+Other measures
+
+• Manhattan distance (or Cityblock, or L1),
+ cosine distance
+
+
+
+
+
+        Manhattan is preferred over Euclidean distance:
+          1. High dimensional data.
+          2. Data points are not evenly distributed across all dimensions.
+
+
+
+                                       CS4602                                        19
+
+=== PAGE 20 ===
+Outline
+
+• Motivation
+• Choosing (dis)similarity measures – a critical
+ step in clustering
+• Clustering algorithms
+    • Hierarchical clustering
+    • K-means
+
+
+
+
+
+                                                                         Ref: Slides from Georg Gerber
+
+=== PAGE 21 ===
+Hierarchical Clustering
+
+• Start with every data point in a separate cluster
+• Keep merging the most similar pairs of data
+  points/clusters until we have one big cluster left
+• A bottom-up method
+
+=== PAGE 22 ===
+  Hierarchical Clustering (cont.)
+
+
+                                         • This produces a
+                                 binary tree or45
+40                         dendrogram
+35                                       • The final cluster is
+30
+                                the root and each25
+                               data item is a leaf20
+15                                       • The height of the
+10                             bars indicate how
+5
+                                close the items are
+
+=== PAGE 23 ===
+Cluster of comorbidities based
+on Covid-19 Symptoms
+
+
+
+
+
+                                       CS4602                                        23
+
+=== PAGE 24 ===
+Linkage in Hierarchical
+Clustering
+
+• We already know about distance measures
+ between data items, but what about between a
+ data item and a cluster or between two
+ clusters?
+• We just treat a data point as a cluster with a
+ single item, so our only problem is to define a
+ linkage method between clusters
+
+=== PAGE 25 ===
+Average Linkage
+
+• Average linkage is defined as follows:
+    • Each cluster ci is associated with a mean vector i
+    which is the mean of all the data items in the cluster
+    • The distance between two clusters ci and cj is then
+      just d(i, j )
+
+=== PAGE 26 ===
+Single Linkage     Complete Linkage
+
+
+• The minimum of all          • The maximum of all
+  pairwise distances           pairwise distances between
+ between points in the two    points in the two clusters
+  clusters                                     • Tends to produce tight
+• Tends to produce loose      clusters
+  clusters
+
+=== PAGE 27 ===
+Ward’s Method
+
+• Consider merging two clusters, how does it
+ change the total distance from centroids?
+
+
+
+
+
+ 1. Find the centroid of each cluster.
+ 2. Calculate the distance between each object and its cluster’s centroid.
+ 3. Calculate the sum of squared differences from Step 2.
+ 4. Add up all the sums from Step 3.
+
+=== PAGE 28 ===
+CS4602                                        28
+
+=== PAGE 29 ===
+Outline
+
+• Motivation
+• Choosing (dis)similarity measures – a critical
+ step in clustering
+• Clustering algorithms
+    • Hierarchical clustering
+    • K-means
+
+
+
+
+
+                                                                         Ref: Slides from Georg Gerber
+
+=== PAGE 30 ===
+K-means Clustering
+
+
+• Choose the number of clusters k
+• Initialize cluster centers 1,… k
+    • Randomly pick k data points and set cluster centers
+     to these points
+• For each data point, compute the cluster center it is
+  closest to (using a distance measure) and assign the
+  data point to this cluster
+• Re-compute cluster centers (mean of data points in the
+  cluster)
+• Stop when there are no new re-assignments
+
+=== PAGE 31 ===
+K-means
+1.  Ask user how many
+    clusters they’d like.
+    (e.g. k=5)
+
+
+
+
+
+       https://reurl.cc/b779v
+
+=== PAGE 32 ===
+K-means
+1.  Ask user how many
+    clusters they’d like.
+    (e.g. k=5)
+
+2.  Randomly guess k
+    cluster Center
+    locations
+
+
+
+
+
+       https://reurl.cc/b779v
+
+=== PAGE 33 ===
+K-means
+1.  Ask user how many
+    clusters they’d like.
+    (e.g. k=5)
+
+2.  Randomly guess k
+    cluster Center
+    locations
+
+3.  Each datapoint finds
+    out which Center it’s
+    closest to.
+
+
+
+
+
+       https://reurl.cc/b779v
+
+=== PAGE 34 ===
+K-means
+1.  Ask user how many
+    clusters they’d like.
+    (e.g. k=5)
+
+2.  Randomly guess k
+    cluster Center
+    locations
+
+3.  Each datapoint finds
+    out which Center it’s
+    closest to.
+
+4.  Each Center finds
+    the centroid of the
+    points it owns
+
+
+
+
+
+       https://reurl.cc/b779v
+
+=== PAGE 35 ===
+K-means
+1.  Ask user how many
+    clusters they’d like.
+    (e.g. k=5)
+
+2.  Randomly guess k
+    cluster Center
+    locations
+
+3.  Each datapoint finds
+    out which Center it’s
+    closest to.
+
+4.  Each Center finds
+    the centroid of the
+    points it owns…
+
+5. …and jumps there
+
+6.  …Repeat until
+    terminated!
+
+
+       https://reurl.cc/b779v
+
+=== PAGE 36 ===
+K-means
+
+
+
+
+
+Example generated by
+Dan Pelleg’s super-duper
+fast K-means system:
+ DanPellegandAndrew
+  Moore.AcceleratingExact
+  k-meansAlgorithmswith
+  GeometricReasoning.
+  Proc.Conferenceon
+  KnowledgeDiscoveryin
+  Databases1999,(KDD99)
+  (availableon
+   www.autonlab.org/pap.html)
+
+
+       https://reurl.cc/b779v
+
+=== PAGE 37 ===
+K-means Clustering Issues
+
+
+
+
+
+                            How many clusters do you think
+                                          there are in this data? How might
+    K = ?                             it have been generated?
+
+=== PAGE 38 ===
+Determining K
+
+• We’d like to have a measure of cluster quality
+ Q and then try different values of k until we get
+ an optimal value for Q
+• This is an unsupervised learning method; we
+  can’t really find a “correct” measure Q…
+
+=== PAGE 39 ===
+Cluster Quality Measures
+
+• A measure that emphasizes cluster tightness or
+ homogeneity:
+                                           k                                                      Similar to Ward’s Method!                         1
+            Q =         d (x,  )                                                                                                             i            
+                                                                   i =1 | C i | xC i
+• |Ci | is the number of data points in cluster i
+• Q will be small if the data points in each cluster are
+ close
+
+
+
+              Q
+
+                               elbow point
+
+
+                          K
+
+=== PAGE 40 ===
+Silhouette Score
+
+
+    • Measures how similar an object is to its own cluster
+     (cohesion) compared to other clusters (separation).
+    • Range: -1 to +1
+    • +1: Perfectly clustered. 0: Overlapping clusters. -1:
+    Wrongly assigned.
+
+
+
+
+
+                                       CS4602                                        41
+
+=== PAGE 41 ===
+Summary
+
+• Clustering discovers natural structure in unlabeled
+ data by grouping similar samples.
+• Different methods make different assumptions about
+ what defines a cluster; therefore, the choice of
+ distance metric and clustering algorithm matters.
+• K-means is simple and widely used, while hierarchical
+ and other extensions can provide more flexible cluster
+  structures.
+• Although clustering is unsupervised, the resulting
+  cluster assignments or representations can be used as
+  features or pseudo-labels for downstream
+  classification.
+
+    https://colab.research.google.com/github/jakevdp/PythonDataScienc
+   eHandbook/blob/master/notebooks/05.11-K-Means.ipynb
+
+=== PAGE 42 ===
+Questions?
+
+
+
+
+
+                                       CS4602                                        43

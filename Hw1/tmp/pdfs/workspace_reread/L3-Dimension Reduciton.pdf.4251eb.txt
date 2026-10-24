@@ -1,0 +1,665 @@
+=== PAGE 1 ===
+   CS 4602
+
+ Introduction to
+Machine Learning
+
+   Data Exploration &
+Dimensionality Reduction
+      Instructor: Po-Chih Kuo
+
+
+
+
+                       CS4602                                         1
+
+=== PAGE 2 ===
+Roadmap
+
+
+
+•  Introduction and Basic Concepts
+•  Regression
+•  Data Exploration & Dimensionality reduction
+•  Clustering
+• KNN
+•  Bayesian Classifiers
+•  Decision Trees
+•  Linear Classifier
+•  Neural Networks
+•  Deep learning
+•  Convolutional Neural Networks
+         •  Autoencoder
+         •   Adversarial
+         •   Transfer learning
+         • …
+•  RNN/Transformer
+•  Reinforcement Learning
+
+
+
+                                  CS 4602                                         2
+
+=== PAGE 3 ===
+Outline
+
+• EDA
+• Curse of dimensionality
+• Linear Dimensionality reduction
+    • PCA
+• Nonlinear Dimensionality Reduction
+
+
+
+
+
+                                       CS4602                                         3
+
+=== PAGE 4 ===
+Exploratory Data Analysis
+(EDA)
+
+• A crucial step in the data analysis process,
+ allowing you to understand the dataset and its
+ structure before applying more complex
+  statistical or machine learning techniques.
+• How?
+
+
+
+
+
+                                       CS4602                                         4
+
+=== PAGE 5 ===
+Know Your Dataset
+
+ • What does each row represent?
+ • What does each column represent?
+ • How many observations and variables?
+ • What are the variable types?
+ • What is the prediction outcome?
+Example: ICU dataset
+
+Patient          Age      HR   Creatinine   Ventilation     Mortality
+P001             67        88         1.2         0         0
+P002             81        112         2.7         1         1
+P003             45        72         0.9         0         0
+
+
+                                        CS4602                                         5
+
+=== PAGE 6 ===
+Descriptive Statistics
+
+• Continuous variables
+    • Mean
+    • Median                              Our ICU cohort (N = 10,000)
+    • Standard deviation                           Age: 64.2 ± 16.3 years
+    • Interquartile range                            Heart rate: 82 [70–96] bpm
+    • Min / Max                           Female: 46.2%
+• Categorical variables   Mortality: 10.8%
+    • Count
+    • Percentage
+
+
+
+
+
+                                       CS4602                                         6
+
+=== PAGE 7 ===
+But…Statistics Can Hide the
+Data
+
+
+
+
+        Similar summaries can describe very different patterns.
+
+
+
+
+
+    Dataset A                   Dataset B                   Dataset C                   Dataset D
+
+
+
+                   Always look at your data.
+
+
+                                       CS4602                                         7
+
+=== PAGE 8 ===
+Data Visualization
+
+
+
+Distribution       →Histogram
+
+Outliers       →Box plot                          Histogram
+
+Relationship       →Scatter plot
+
+Group differences  →Box / Violin plot
+
+Category frequency  →Bar chart
+
+
+                                                                      Scatter plotCorrelation       →Heatmap
+
+                                           Visualization helps us see
+Change over time   →Line plot                                what summary statistics cannot.
+
+                                        CS4602                                         8
+
+=== PAGE 9 ===
+ What Should We Look For?
+
+
+
+Distribution                Outliers                 Missingness
+
+Skewed or multimodal?             Real or measurement error?       Random or systematic?
+
+
+
+Relationships           Subgroups              Unexpected patterns
+Which variables move                                         Does anything not make
+                                        Different patient populations?
+together?                                                       sense?
+
+
+
+
+         Heart Rate = 500 bpm     Extreme patient or data error?
+
+
+      EDA asks the question before preprocessing makes the decision for you.
+
+
+
+                                           CS4602                                         9
+
+=== PAGE 10 ===
+When Data Become High-
+Dimensional
+
+
+
+
+
+               Can we still “explore” the data?
+
+
+
+
+
+                                       CS4602                                        10
+
+=== PAGE 11 ===
+Curse of dimensionality
+
+
+
+• As dimensions increase, the data space grows extremely
+  fast.
+     • Distances between samples become less informative.
+     •  It becomes harder to find enough similar examples.
+     • Much more data are needed to learn reliable patterns.
+• As the dimensionality of the training set increases, the
+  likelihood of overfitting also escalates.
+• How do we beat the curse of dimensionality?
+     • By incorporating prior knowledge
+     • By increasing the size of the dataset
+     • By reducing the dimensionality
+
+
+                                       CS4602                                           11
+
+=== PAGE 12 ===
+Dimension Transformation
+
+
+• Find a low-dimensional basis for describing high-dimensional
+  data
+        •  PCA, LDA, LLE, Isomap…
+
+
+
+
+
+(http://bigdata.csail.mit.edu)
+
+
+
+
+
+                               CS 460200                                       12
+                                                                 (Tenenbaum et al., 2000)
+
+=== PAGE 13 ===
+Why do dimensionality
+reduction?
+
+• Computational: compress data ⇒time/space
+  efficiency
+• Statistical: fewer dimensions ⇒better
+ generalization
+• Visualization: understand structure of data
+
+
+
+
+
+                                       CS4602                                        13
+
+=== PAGE 14 ===
+ Feature selection vs extraction
+
+
+   • In the presence of many of features, select the
+   most relevant subset of (weighted) combinations
+    of features.
+
+                     X  ,  , X → X   ,  , XFeature Selection:                 1      m         k 1         kp
+Dimensionality Reduction: X  ,  , X →  f ( X  ,  , X  ),  , f  ( X  ,  , X  )                                               1      m       1    1      m          p    1      m
+
+   • Linear feature extraction
+
+
+
+
+
+                                         CS4602                                        14
+
+=== PAGE 15 ===
+Projection
+
+• Most real-world problems do not have training
+ instances spread out across all dimensions
+
+
+
+
+
+                                  How many features are
+                                               there?
+
+                                        Which of the feature is
+                                              almost constant for almost all
+                                               instances?
+
+
+
+
+
+                                       CS4602                                        15
+
+=== PAGE 16 ===
+Linear dimensionality
+reduction
+
+
+
+                                                 19
+
+
+                                                        19
+
+
+
+  Represent each face as a high-dimensional vector
+
+
+
+
+
+                                 How do we choose U ?
+
+                                       CS4602                                        16
+
+=== PAGE 17 ===
+Principal Components Analysis
+(PCA)
+
+• PCA finds a linear mapping of dataset x to a
+ dataset z of lower dimensionality.
+
+
+                                          PC1
+
+
+
+
+                                         PC2
+
+
+
+
+
+                                       CS4602                                        17
+
+=== PAGE 18 ===
+PCA objective 1: reconstruction
+error
+
+
+
+
+
+                                       CS4602                                        18
+
+=== PAGE 19 ===
+Autoencoder (will covered in
+lecture 11)!
+
+
+
+
+
+                                       CS4602                                        19
+
+=== PAGE 20 ===
+PCA objective 2: projected
+variance
+
+
+
+
+
+  Equivalence in objective 1 & 2
+
+   Intuition:
+
+  variance of data = captured variance + reconstruction error
+       fixed
+
+
+
+
+                                       CS4602                                        20
+
+=== PAGE 21 ===
+CS4602               From 3blue1brown21
+
+=== PAGE 22 ===
+Covariance
+
+• Used to find relationships between dimensions
+  in high dimensional data sets
+
+
+
+• Covariance Matrix
+
+
+
+
+
+                                       CS4602                                        22
+
+=== PAGE 23 ===
+Positive: Both dimensions increase together     Negative: While one increase the other decrease
+
+
+
+
+                                      CS4602                                        23
+
+=== PAGE 24 ===
+ PCA - Steps
+• Suppose we are given x1, x2, ..., xn d x 1 vectors
+
+
+Step 1: compute sample mean
+                        𝑛
+                  1
+                ǉ𝐱= 𝑛෍ 𝐱𝑖
+                          𝑖=1
+Step 2: subtract sample mean (i.e., center data at zero)
+
+               Φi = x i − x
+
+Step 3: compute the sample covariance matrix Σx
+            𝑛
+         1            1
+                    𝑇  = 𝑛𝐴𝐴𝑇         , where A=[Φ1 Φ2 ... Φn] (d x n matrix)    Σ𝐱= 𝑛෍ Φ𝑖Φ𝑖
+             𝑖=1
+
+                                          CS4602                                        24
+
+=== PAGE 25 ===
+ PCA - Steps
+
+Step 4: compute the eigenvalues/eigenvectors of Σx
+
+                   u = u                                            x   i          i   i
+
+ we assume
+ eigenvalues 𝜆1 > 𝜆2 >. . . > 𝜆𝑑and 𝑢1, 𝑢2, . . . , 𝑢𝑑 are the corresponding eigenvectors
+
+Since Σx is symmetric, <u1,u2,…,ud> form an orthogonal basis in
+                                𝑑Rd, therefore:
+                 𝐱−ǉ𝐱= ෍ 𝒛𝑖𝒖𝑖= 𝒛1𝒖1 + 𝒛2𝒖2+. . . +𝒛𝑑𝒖𝑑
+                                   𝑖=1
+
+                        (𝐱−𝐱)T𝒖𝑖
+                  𝒛𝑖=       = (𝐱−𝐱)𝑇𝒖𝑖if ||𝒖𝑖|| = 1
+                                𝒖𝑖T𝒖𝑖
+
+   Note : most software packages normalize ui to unit length to simplify calculations
+                                          CS4602                                        25
+
+=== PAGE 26 ===
+ PCA - Steps
+
+Step 5: dimensionality reduction step – approximate x using
+only the first K eigenvectors (K<d) (i.e., corresponding to the
+K largest eigenvalues where K is a parameter):
+
+                             𝑑
+               𝐱−ǉ𝐱= ෍ 𝒛𝑖𝒖𝑖= 𝒛1𝒖1 + 𝒛2𝒖2+. . . +𝒛𝑑𝒖𝑑
+                                𝑖=1
+                                   approximate using first K terms
+
+                          𝐾
+                  ො𝐱−ǉ𝐱= ෍ 𝒛𝑖𝒖𝑖= 𝒛1𝒖1 + 𝒛2𝒖2+. . . +𝒛𝑲𝒖𝐾
+                                𝑖=1
+
+                                    𝒛1
+                                   𝒛2
+            or      (ො𝐱−ǉ𝐱) = U     .         where U = 𝒖1𝒖2. . . 𝒖𝐾
+                                                                                  .
+                                𝒛𝐾           i.e., the columns of U are the
+                                             the first K eigenvectors of Σx
+
+                                          CS4602                                        26
+
+=== PAGE 27 ===
+PCA – Linear Transformation
+
+• The linear transformation Rd RK which performs the
+  dimensionality reduction is:
+
+               y = UTx ϵ RK where K<d
+
+
+          𝒛1               𝒖1𝐓
+          𝒛2                 𝐓                         𝒖2
+                         . = UT(ො𝐱−ǉ𝐱) =      .  (ො𝐱−ǉ𝐱)          i.e., the rows of UT are
+                         .                                                                    .                the first K eigenvectors of Σx
+         𝒛𝐾                 𝐓                       𝒖𝐾
+
+
+
+
+
+                                         CS4602                                        27
+
+=== PAGE 28 ===
+                                                              10
+
+
+                                                               8
+Example                             x2
+                                                               6
+• Compute the PCA for dataset
+                                                               4
+
+     (1,2),(3,3),(3,5),(5,4),(5,6),(6,5),(8,7),(9,8)  2
+• Compute the sample covariance matrix is:     0
+                                                                 0      2     4     6      8     10
+                                                                     x1
+              𝑛                                What do they look like?
+          1
+    Σ𝑥= 𝑛෍(𝐱𝑖−ෝ𝛍)(𝐱𝑖−ෝ𝛍)T
+               𝑖=1
+
+• The eigenvalues can be computed by finding the roots of the
+  characteristic polynomial:
+
+
+
+
+
+                                       CS4602                                        28
+
+=== PAGE 29 ===
+Example (cont’d)
+
+• The eigenvectors are the solutions of the systems:
+
+                                                            10
+               𝚺𝐱𝒖𝑖= 𝜆𝑖𝒖𝑖
+        6.25  4.25  𝑢11         𝑢11           x2 8                = 9.34
+        4.25   3.5   𝑢12         𝑢12
+                                                          u2
+        6.25  4.25  𝑢21         𝑢21                6                = 0.41                                   u1
+        4.25   3.5   𝑢22         𝑢22
+
+                                                             4
+              𝑢11     0.81
+       𝒖1 =    =              𝑢12     0.59
+                                                             2
+              𝑢21    −0.59
+       𝒖2 =    =              𝑢22     0.81                            0
+                                                              0      2     4     6      8    10
+                                                                      x1• Normalize the eigenvectors to unit-length.
+Note: if ui is a solution, then (cui) is also a solution where c is any
+constant.
+
+
+
+                                       CS4602                                        29
+
+=== PAGE 30 ===
+Geometric interpretation
+
+    • PCA chooses the eigenvectors of the covariance
+     matrix corresponding to the largest eigenvalues.
+    • The eigenvalues correspond to the variance of the
+     data along the eigenvector directions.
+    • Therefore, PCA projects the data along the
+      directions where the data varies most!
+
+           10
+
+       x2 8
+                    u2
+           6                                              u1: direction of max variance                           u1
+                                              u2: orthogonal to u1
+           4
+
+
+           2
+
+
+                                          CS4602                                        30           0
+             0      2     4     6      8    10
+
+=== PAGE 31 ===
+ How do we choose K
+
+• Similar to question of “How many clusters?”
+• K is typically chosen based on how much information
+  (variance) we want to preserve:
+                    K
+                                                                  i       
+                                               i =1    T   where T is a threshold (e. g .,0.9)                    N
+                                                                  i       
+                                               i =1
+•  If T=0.9, for example, we say that we “preserve” 90% of the
+  information (variance) in the data.
+
+
+•  If K=N, then we “preserve” 100% of the information in the
+  data (i.e., just a change of basis)
+
+
+                                          CS4602                                        31
+
+=== PAGE 32 ===
+ How do we choose K
+
+• Check the distribution of eigenvalues
+• Take enough eigenvectors to cover 80-90% of the variance
+
+
+
+
+
+                                          CS4602                                        32
+
+=== PAGE 33 ===
+PCA_Iris_Demo
+
+
+
+
+
+             https://colab.research.google.com/drive/13
+          46N_X36upFC7N1QjfGLHPJlbA60ISqz
+
+
+
+                                       CS4602                                        33
+
+=== PAGE 34 ===
+ Limitations
+
+• PCA is not always an optimal dimensionality reduction
+  technique for classification purposes.
+• PCA vs LDA (Will be covered in Lecture 7)
+
+
+
+
+
+                                          CS4602                                        34
+
+=== PAGE 35 ===
+From Linear to Nonlinear
+
+• Is projection always good?
+    • Not really! Example: S-shaped dataset
+    • Nonlinear methods should be considered
+          • MDS
+          • ISOMAP
+          • LLE
+          • t-SNE
+
+
+
+
+
+                                       CS4602                                        35
+
+=== PAGE 36 ===
+Questions?
+
+
+
+
+
+                                       CS4602                                        36

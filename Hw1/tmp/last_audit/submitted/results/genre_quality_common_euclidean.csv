@@ -1,0 +1,5 @@
+﻿,euclidean_silhouette
+euclidean_average,0.2633907536837793
+euclidean_complete,0.20791264667112314
+cityblock_average,0.2387061065062919
+cityblock_complete,0.20316305724653083

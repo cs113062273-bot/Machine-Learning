@@ -1,0 +1,41 @@
+CELL 0 (markdown)
+# HW1 starter notebook
+
+This notebook handles data loading for `tracks.csv`. You will implement the rest of the pipeline following the assignment instructions.
+
+Data Source: *Spotify Tracks Dataset* ([Hugging Face Source Link](https://huggingface.co/datasets/maharshipandya/spotify-tracks-dataset)).
+
+Note: The dataset provided for this assignment has the index column dropped; all other features remain unchanged.
+
+CELL 1 (code)
+%pip install -q numpy pandas scipy matplotlib scikit-learn
+
+
+[33mWARNING: You are using pip version 21.2.4; however, version 26.0.1 is available.
+You should consider upgrading via the '/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip' command.[0m
+Note: you may need to restart the kernel to use updated packages.
+
+
+CELL 2 (code)
+import numpy as np
+import pandas as pd
+import scipy
+import matplotlib.pyplot as plt
+import sklearn
+
+SEED = 123456789  # replace with your student ID; pass it as random seed for every operation that involves randomness
+
+import os
+import urllib.request
+
+DATA_URL = 'https://github.com/nthu-cs-hmilab/I2ML-2026/releases/download/data/tracks.csv'
+LOCAL_PATH = 'tracks.csv'  # if you downloaded the file from eeclass, put it here or change this path
+
+if not os.path.exists(LOCAL_PATH):
+    urllib.request.urlretrieve(DATA_URL, LOCAL_PATH)
+
+df = pd.read_csv(LOCAL_PATH)
+df.shape
+
+
+(114000, 20)

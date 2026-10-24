@@ -1,0 +1,13 @@
+{
+  "source_verified_questions_and_instructions": 13,
+  "report_pdf_pages": 7,
+  "regression_Q1_to_Q4_spec_page": 9,
+  "notebook_executed_code_cells": 19,
+  "source_data_pre_report_and_AI_log_unchanged": true,
+  "english_original_questions_and_report_numbers_verified": true,
+  "no_data_description_or_pre_registration_chapter": true,
+  "numeric_report_consistency": "passed",
+  "original_input_audit_before_full_model": "passed",
+  "small_setting_mutually_correlated_basis": "passed",
+  "original_input_correlation_limitation_disclosed": true
+}

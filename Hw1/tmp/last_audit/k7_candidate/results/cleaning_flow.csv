@@ -1,0 +1,6 @@
+﻿stage,rows
+raw listings,114000
+remove exact duplicate listings,113550
+remove invalid/sentinel listings,113386
+remove conflicting audio/target IDs,111458
+one row per track,88858

@@ -1,0 +1,24 @@
+{
+  "changed_package_parts": [
+    "word/document.xml",
+    "word/media/image1.png",
+    "word/media/image2.png"
+  ],
+  "outside_3_2_3_3_xml_identical": true,
+  "original_sha256": "f1e8d22760786121144dee0368af695ac016fc7ec3ca3ef8d33a23069bf187cf",
+  "candidate_sha256": "ce2b0dd578353146fbf4a68073aaa62d2245977f52868751d3e21c14ce20be01",
+  "cluster_count": 7,
+  "track_count": 88858,
+  "stability": [
+    {
+      "fit_rows": 20000.0,
+      "ARI": 0.9581630080719205,
+      "matched_changed_fraction": 0.0150577325620653
+    },
+    {
+      "fit_rows": 20000.0,
+      "ARI": 0.9791188587681418,
+      "matched_changed_fraction": 0.0079114992459879
+    }
+  ]
+}

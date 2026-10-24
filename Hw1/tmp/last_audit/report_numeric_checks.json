@@ -1,0 +1,12 @@
+{
+  "seven_cluster_table_all_63_feature_means_and_counts_match": true,
+  "regression_table_all_six_values_match": true,
+  "artists_table_all_values_match": true,
+  "seven_cluster_stability_matches": true,
+  "all_reported_rmse_improvement_percentages_match": true,
+  "all_stated_genre_group_changes_match": true,
+  "raw_audit_counts_independently_match": true,
+  "no_recording_group_or_track_id_crosses_regression_split": true,
+  "seven_cluster_replacement_notebook_prepared_and_executed": true,
+  "user_original_files_unchanged": true
+}

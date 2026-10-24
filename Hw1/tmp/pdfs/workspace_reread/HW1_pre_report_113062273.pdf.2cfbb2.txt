@@ -1,0 +1,57 @@
+=== PAGE 1 ===
+                   Homework 1 Pre-Registration Report
+
+                                  113062273 許晉豪
+
+  1. Two testable expectations
+
+  一：我預期energy 較高的歌曲通常會有較高的loudness，且acousticness 較低。
+
+    a.What you expect to observe?
+
+    energy 與loudness 呈現正相關，而energy 和acousticness 呈負相關。能量較高的歌曲
+   可能會比較大聲，且acousticness 較低。
+
+
+    b.What result would show that your expectation was not supported by the data?
+
+   如果energy 與loudness、acousticness 幾乎是0 相關，或是結果和預期完全相反(energy
+   與loudness 反而呈現負相關…)
+
+
+
+ 二： 我預期不同track_genre 的歌曲在音訊特徵上會有差異。
+
+    a. What you expect to observe?
+   不同track_genre 在 danceability、energy、acousticness、instrumentalness、
+    valence、loudness、tempo 等特徵的組合上會有所不同，而音樂性質相近的曲風應該會
+  比較接近。
+
+
+    b. What result would show that your expectation was not supported by the data?
+  如果各曲風的音訊特徵分布非常接近，或不同曲風彼此高度混合，則代表這個預期不成立。
+
+  2.One data-quality problem you think might be in the dataset.
+
+  同一首歌可能因為被分到不同的 track_genre 而出現多筆紀錄，這可能會影響分析，也
+
+  可能讓同一首歌同時出現在訓練集和測試集。
+
+  3.Predicted held-out error for two regression tasks.
+
+預測目標   預測 RMSE  理由
+                          energy 本身是音訊特徵，我預期loudness、acousticness 等其
+energy       0.12      他音訊特徵和energy 之間可能有關聯，能提供一些預測資訊，
+             因此我預期誤差較小。
+                          popularity 可能受到歌手知名度、宣傳等在資料集之外的干擾影
+popularity   18
+             響，如果只用現在可用的資料，我預期預測誤差會比較大。
+
+
+  4.One question about the dataset, labels, or data-collection process
+
+   popularity 是怎麼算的？我想知道它是否有考慮發行時間、歌手知名度、宣傳等因素，以
+
+ 及這個分數反映的是長期累積的熱門程度，還是最高點的熱度。另外，同一首歌若出現在
+
+  不同genre 的紀錄中，popularity 是否一定相同？

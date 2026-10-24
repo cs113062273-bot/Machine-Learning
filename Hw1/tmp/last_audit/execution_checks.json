@@ -1,0 +1,18 @@
+{
+  "submitted": {
+    "elapsed_seconds": 35.56,
+    "code_cells": 16,
+    "errors": 0,
+    "chosen_k": 2,
+    "clean_rows": 88858
+  },
+  "k7_candidate": {
+    "elapsed_seconds": 24.43,
+    "code_cells": 16,
+    "errors": 0,
+    "chosen_k": 7,
+    "clean_rows": 88858
+  },
+  "unrelated_results_same_after_k7": true,
+  "original_files_unchanged": true
+}

@@ -1,0 +1,610 @@
+=== PAGE 1 ===
+   CS 460200
+
+ Introduction to
+Machine Learning
+
+     Introduction and Basic Concepts
+
+
+           Instructor: Po-Chih Kuo
+
+
+
+
+
+                        CS 460200                                        1
+
+=== PAGE 2 ===
+Roadmap
+
+• Introduction and Basic Concepts
+• Regression
+• Dimensionality Reduction
+• Clustering
+• KNN
+• Bayesian Classifiers
+• Decision Trees
+• Linear Classifier
+• Neural Networks
+• Deep Learning
+• Transformer
+• Generative AI
+• Reinforcement Learning
+
+=== PAGE 3 ===
+  Scope of AI
+
+
+                                                         AI-ML=?
+                                         Artificial intelligence (AI)                                                                     Othello
+
+
+                            Machine learning (ML)
+
+
+
+                             Deep learning (DL)
+     What about?
+
+       Go
+
+
+
+
+
+                                                            Classic ML
+Can a computer learn by itself?
+
+                                       CS 460200                                        3
+
+=== PAGE 4 ===
+  Scope of AI in 2026
+                                         Artificial intelligence (AI)
+
+                                         ArtificialMachineintelligencelearning (ML)(AI)                                                                     Othello
+
+
+                            Machine learning (ML)
+
+
+
+                             DeepDeep learninglearning (DL)(DL)
+     What about?
+
+       Go
+
+
+
+
+
+Can a computer learn by itself?
+
+                                       CS 460200                                        4
+
+=== PAGE 5 ===
+What is Learning?
+
+• “Learning denotes changes in a system
+  that enable a system to do the same
+ task more efficiently the next time.”  -
+ Herbert Simon
+• “Learning is constructing or modifying
+ representations of what is being
+ experienced.” - Ryszard Michalski
+• “Learning is making useful changes in
+ our minds.” - Marvin Minsky
+
+
+
+
+
+                                 CS 460200                                        5
+
+=== PAGE 6 ===
+What is Machine Learning?
+
+
+                  Write programs that recognize a face
+
+
+
+
+
+• It is very hard to write programs that solve problems
+  like recognizing a face
+     • We don’t know what program to write because we don’t
+    know how it is done in our brain.
+     • Even if we had a good idea about how to do it, the
+     program might be very complicated.
+
+                                 CS 460200                                        6
+
+=== PAGE 7 ===
+What is Machine Learning?
+
+
+• Instead of writing a program by hand for each specific
+  task, we collect lots of examples that specify the
+  correct output for a given input.
+• A machine learning algorithm then takes these
+ examples and produces a program that does the job.
+
+
+
+
+       Getting computers to program themselves
+
+
+
+
+
+                                 CS 460200                                        7
+
+=== PAGE 8 ===
+MAGIC?
+
+
+
+No, more like gardening
+
+• Seeds = Algorithms
+• Nutrients = Data
+• Gardener = You
+• Plants = Programs
+
+
+
+
+
+                                 CS 460200                                        8
+
+=== PAGE 9 ===
+Role of computers is changing
+
+                           Traditional
+            Data
+
+                                                       Output
+
+                              Computer
+          Program                  (Local)
+
+            Code
+
+       *Specific code with fix rules
+
+                   Machine learning
+         Big Data
+
+
+
+                                      Code*                                                  Program                                                                             Training
+
+                              Computer                model
+                                                                          Testing/Inference
+     Many Outputs             (Local or cloud)
+
+
+                              *ML algorithms                                                                                          9
+
+=== PAGE 10 ===
+Human
+MachineMachine learning
+
+
+
+
+
+                               low-dimensional nonlinear manifold
+
+
+
+
+
+                                                                                                     (DiCarlo et al., 2012)
+
+
+
+
+
+             (Seung and Lee., 2000)
+
+
+                                  CS 460200                                       10
+
+=== PAGE 11 ===
+ Machine Learning
+                                New image (for inference)
+ Image example
+
+
+           Input (for training)                           ?
+pixel 1                  pixel 1               pixel 1                            ?
+                                                                   Learning
+                                                                       algorithm
+                                                                     pixel 2
+                    pixel 2                 pixel 2
+
+
+                               Obama
+                Input space      Trump
+
+
+
+
+       2
+                                   pixel
+
+
+
+                                      Obama!
+                              pixel 1
+                                    CS 460200                                          11
+
+=== PAGE 12 ===
+Feature representations
+                                      New image
+
+
+       Input
+
+                                 eyes
+                                         Feature                  Learning
+                                          representation                algorithm
+                             mouth
+
+             Input space                             Obama       Feature space
+                                  Trump
+     2                                                                                                 “eyes”                          pixel
+
+
+
+                                                                                         Trump!
+
+                                  pixel 1                                                                   “mouth”
+
+                                 CS 460200                                       12
+
+=== PAGE 13 ===
+Two approaches in ML
+
+   (1) Find a decision boundary
+
+
+                              Decision boundary
+   2
+                pixel
+
+
+
+                    pixel 1
+
+   (2) Find a transformation
+
+                                              Feature space
+
+   2                  Transformation
+                                                                                                                                  “eyes”                 pixel
+
+
+
+                            pixel 1            CS 460200                                       13                                                                 “mouth”
+
+=== PAGE 14 ===
+Machine learning?
+
+
+
+                                     Artificial intelligence (AI)
+
+
+                            Machine learning
+
+
+
+                           Deep learning
+
+
+
+    A newLearnrepresentation!what?
+                                 CS 460200                                       14
+
+=== PAGE 15 ===
+Examples of tasks best solved
+
+  • Recognizing patterns:
+       • Objects in real scenes
+       • Facial identities or facial expressions
+       • Spoken words
+  • Recognizing anomalies:
+       • Unusual sequences of credit card transactions
+       • Unusual patterns in X-ray image
+  • Prediction:
+       • Future stock prices or currency exchange rates
+       • Which movies will a person like?
+
+=== PAGE 16 ===
+ Types of Learning
+
+• Supervised (inductive) learning
+     • Training data includes desired outputs
+• Unsupervised learning
+     • Training data does not include desired outputs
+• Semi-supervised learning
+     • Training data includes a few desired outputs
+• Self-supervised Learning
+     • Training data does not include desired but alternative outputs
+• Reinforcement learning
+     • Rewards from a sequence of actions
+
+=== PAGE 17 ===
+ML in Practice
+
+
+          Understanding domain, prior knowledge, and goals
+
+
+          Data integration, selection, cleaning, pre-processing
+
+
+
+                           Learning models
+
+
+                              Interpreting results
+
+
+            Consolidating and deploying discovered knowledge
+
+=== PAGE 18 ===
+Training Testing Validation
+
+• Suppose we want unbiased estimates of
+ accuracy during the learning process.
+    • Partition training data into separate
+      training/validation sets
+
+
+
+
+
+                                 CS 460200                                       18
+
+=== PAGE 19 ===
+Scope of AI
+
+
+
+                                 Artificial intelligence (AI)
+
+
+                         Machine learning
+
+
+
+                         Deep learning
+
+
+
+
+
+                                 CS 460200                                       19
+
+=== PAGE 20 ===
+Deep learning
+
+
+                                     In “Nature” 27 January 2016:
+                                            • “DeepMind’s program AlphaGo beat
+                            Fan Hui, the European Go
+                                champion, five times out of five in
+                                tournament conditions...”
+                                            • “AlphaGo was not preprogrammed
+                                       to play Go: rather, it learned using a
+                                  general-purpose algorithm that
+                                  allowed it to interpret the game’s
+                                       patterns.”
+                                            • “…AlphaGo program applied deep
+                                  learning in neural networks
+                                     (convolutional NN) — brain-inspired
+                               programs in which connections
+                              between layers of simulated
+                                neurons are strengthened through
+                               examples and experience.”
+
+
+
+
+                                 CS 460200                                       20
+
+=== PAGE 21 ===
+             Deep CNN for Image Classification
+
+
+
+
+
+https://codesandbox.io/s/image-classification-demo-with-tensorflowjs-ch2g5
+
+
+                                CS 460200                                       21
+
+=== PAGE 22 ===
+Pixel Restoration (Google Brain)
+
+
+
+
+
+          CS 460200                                       22
+
+=== PAGE 23 ===
+However,
+
+
+
+
+
+                        https://github.com/tg-bomze/Face-Depixelizer?fbclid=IwAR2T0XRJMFMS-
+                       FjofeSVxz8zguoKj_j2Wy2KXCzljuv80c1YjzuJBe4eesA
+
+
+
+
+
+                                 CS 460200                                       23
+
+=== PAGE 24 ===
+Fake video
+
+
+
+
+
+                                ( E Zakharov ·2019 )
+ CS 460200                                       24
+
+=== PAGE 25 ===
+          Style Transfer
+
+
+
+
+
+(Gatys et al., 2015)
+
+
+
+
+
+                              ChatGPT 2025
+
+
+
+                     CS 460200                                       25
+
+=== PAGE 26 ===
+CS 460200                                       26
+
+=== PAGE 27 ===
+Give me a thesis
+
+
+
+
+
+                                                                            27
+
+=== PAGE 28 ===
+AI is smart?
+
+                                • Clever Hans
+                                          • Clever Hans was a
+                               horse that was
+                               claimed to have
+                              performed arithmetic
+                            and other intellectual
+                                   tasks.
+
+
+
+
+
+                                 CS 460200                                       28
+
+=== PAGE 29 ===
+Model finds shortcut
+
+Shortcuts are decision rules that perform well on standard benchmarks but
+fail to transfer to more challenging testing conditions, such as real-world
+scenarios.
+
+
+
+
+
+                                                                          (Geirhos et al., 2020)
+
+
+
+
+                                                                                           29
+
+=== PAGE 30 ===
+Turing Test
+
+
+
+
+
+                                      Alan Mathison Turing
+
+
+   A
+
+   B
+
+
+
+                                 CS 460200                                       30
+
+=== PAGE 31 ===
+Turing Test (2026)
+
+A woman in a kitchen preparing food.
+
+
+       A               B
+
+
+
+
+
+                                 CS 460200                                       31
+
+=== PAGE 32 ===
+Takeaway
+
+• AI vs ML vs DL
+• What is representation?
+• Supervised vs Unsupervised learning
+• What is shortcut learning?
+• What is Turing test?
+
+
+
+
+
+                                 CS 460200                                       32
+
+=== PAGE 33 ===
+                                                          Model / AIQuestions?                                 Company         Country
+                                                                Product
+
+                                                    ChatGPT / GPT   OpenAI           🇺🇸
+     AI models these days.                                                         Claude          Anthropic        🇺🇸
+
+                                                        Gemini         Google           🇺🇸
+
+                                                      Grok           SpaceXAI / xAI    🇺🇸
+
+
+                                                                  Perplexity        Perplexity AI      🇺🇸
+
+
+                                                          Kimi           Moonshot AI     🇨🇳
+
+
+                                           GLM / Z.ai       Zhipu AI         🇨🇳
+
+
+                                                     DeepSeek      DeepSeek       🇨🇳
+
+
+                                                 Qwen             Alibaba Cloud   CN
+
+
+
+
+                               CS 460200                                       33
