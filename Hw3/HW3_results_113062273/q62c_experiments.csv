@@ -1,0 +1,5 @@
+input,accuracy,correct,predictions changed vs mine,channel spread
+my conversion (steps 1-5),0.8666666666666667,26/30,0,0.0
+without step 1 (no channel average),0.8666666666666667,26/30,0,0.0
+"blue ink, my conversion",0.8666666666666667,26/30,0,0.0
+"blue ink, without step 1",0.7333333333333333,22/30,4,25.22223639455782

@@ -1,0 +1,143 @@
+{
+  "seed": 113062273,
+  "n_train": 4240,
+  "n_test": 1060,
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scipy": "1.16.1",
+    "sklearn": "1.7.1"
+  },
+  "data_sha256": "40167d80edc8edc694232b41f8c82052cb93348ea6bc40ec02a1277f9e86bf89",
+  "baseline_theory": {
+    "majority_acc": 0.13372641509433963,
+    "majority_macro_f1": 0.011795298522987312,
+    "random_expected_acc": 0.07214745016019936,
+    "random_asymptotic_macro_f1": 0.05
+  },
+  "knn": {
+    "best_k_macro": 8,
+    "best_k_accuracy": 57
+  },
+  "gnb_prediction": {
+    "row": 3320,
+    "true": "reggae",
+    "A": "reggae",
+    "B": "hip-hop",
+    "p_A": 0.5791297050091851,
+    "p_B": 0.3792764967230498,
+    "log_ratio": 0.42326098614484886
+  },
+  "gnb_smoothing": 0.1,
+  "small_tree": {
+    "never_predict_first_fold": [
+      "black-metal",
+      "bluegrass",
+      "blues",
+      "classical",
+      "country",
+      "death-metal",
+      "grunge",
+      "heavy-metal",
+      "hip-hop",
+      "jazz",
+      "opera",
+      "punk",
+      "reggae",
+      "salsa",
+      "tango"
+    ],
+    "never_predict_oof": [
+      "black-metal",
+      "bluegrass",
+      "classical",
+      "country",
+      "death-metal",
+      "grunge",
+      "heavy-metal",
+      "hip-hop",
+      "jazz",
+      "opera",
+      "punk",
+      "reggae",
+      "salsa",
+      "tango"
+    ]
+  },
+  "best_ensembles": {
+    "bagging": 300,
+    "random_forest": 300
+  },
+  "svm": {
+    "C": 10.0,
+    "gamma": 0.1
+  },
+  "tree_family_winner": "RandomForest",
+  "multiclass_winner": "RandomForest",
+  "model_parameters": {
+    "kNN": "{'algorithm': 'brute', 'leaf_size': 30, 'metric': 'minkowski', 'metric_params': None, 'n_jobs': 1, 'n_neighbors': 8, 'p': 2, 'weights': 'uniform'}",
+    "GaussianNB": "{'priors': None, 'var_smoothing': 0.1}",
+    "DecisionTree": "{'ccp_alpha': 0.0, 'class_weight': None, 'criterion': 'gini', 'max_depth': 12, 'max_features': None, 'max_leaf_nodes': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'monotonic_cst': None, 'random_state': 113062273, 'splitter': 'best'}",
+    "Bagging": "{'bootstrap': True, 'bootstrap_features': False, 'estimator__ccp_alpha': 0.0, 'estimator__class_weight': None, 'estimator__criterion': 'gini', 'estimator__max_depth': None, 'estimator__max_features': None, 'estimator__max_leaf_nodes': None, 'estimator__min_impurity_decrease': 0.0, 'estimator__min_samples_leaf': 1, 'estimator__min_samples_split': 2, 'estimator__min_weight_fraction_leaf': 0.0, 'estimator__monotonic_cst': None, 'estimator__random_state': 113062273, 'estimator__splitter': 'best', 'estimator': DecisionTreeClassifier(random_state=113062273), 'max_features': 1.0, 'max_samples': 1.0, 'n_estimators': 300, 'n_jobs': 1, 'oob_score': False, 'random_state': 113062273, 'verbose': 0, 'warm_start': False}",
+    "RandomForest": "{'bootstrap': True, 'ccp_alpha': 0.0, 'class_weight': None, 'criterion': 'gini', 'max_depth': None, 'max_features': 'sqrt', 'max_leaf_nodes': None, 'max_samples': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'monotonic_cst': None, 'n_estimators': 300, 'n_jobs': 1, 'oob_score': False, 'random_state': 113062273, 'verbose': 0, 'warm_start': False}",
+    "SVM": "{'C': 10.0, 'break_ties': False, 'cache_size': 512, 'class_weight': None, 'coef0': 0.0, 'decision_function_shape': 'ovr', 'degree': 3, 'gamma': 0.1, 'kernel': 'rbf', 'max_iter': -1, 'probability': False, 'random_state': 113062273, 'shrinking': True, 'tol': 0.001, 'verbose': False}"
+  },
+  "binary": {
+    "best_by_family": {
+      "SVM": 8,
+      "RandomForest": 10
+    },
+    "threshold_family": "RandomForest",
+    "threshold_candidate": 10,
+    "threshold": 0.07541857749161833,
+    "oof_recall": 0.8008658008658008,
+    "oof_flagged": 872
+  },
+  "multiclass_test": {
+    "accuracy": 0.539622641509434,
+    "macro_f1": 0.4167158608569982,
+    "micro_f1": 0.539622641509434,
+    "death-metal_precision": 0.5,
+    "death-metal_recall": 0.4,
+    "tango_precision": 0.7142857142857143,
+    "tango_recall": 0.3125,
+    "opera_precision": 0.0,
+    "opera_recall": 0.0,
+    "black-metal_precision": 1.0,
+    "black-metal_recall": 0.08333333333333333,
+    "salsa_precision": 0.4,
+    "salsa_recall": 0.2,
+    "rare_precision": 0.5228571428571429,
+    "rare_recall": 0.19916666666666666
+  },
+  "binary_never_positive": {
+    "TN": 1002,
+    "FP": 0,
+    "FN": 58,
+    "TP": 0,
+    "accuracy": 0.9452830188679245,
+    "TPR": 0.0,
+    "TNR": 1.0,
+    "PPV": 0.0,
+    "NPV": 0.9452830188679245,
+    "F1": 0.0
+  },
+  "binary_curator": {
+    "TN": 839,
+    "FP": 163,
+    "FN": 9,
+    "TP": 49,
+    "accuracy": 0.8377358490566038,
+    "TPR": 0.8448275862068966,
+    "TNR": 0.8373253493013972,
+    "PPV": 0.23113207547169812,
+    "NPV": 0.9893867924528302,
+    "F1": 0.362962962962963,
+    "family": "RandomForest",
+    "threshold": 0.07541857749161833,
+    "listen_per_1000": 200.0,
+    "missed_hiphop_per_1000": 8.49056603773585,
+    "test_recall_at_least_80_percent": true
+  }
+}

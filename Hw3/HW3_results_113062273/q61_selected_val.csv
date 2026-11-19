@@ -1,0 +1,2 @@
+network,accuracy,macro-P,macro-R,macro-F1,arrow recall,time recall,wood recall,rare avg
+"λ=0.001, 164 epochs (validation)",0.7716346153846154,0.7444306304715229,0.6955852111753581,0.7123602782704967,0.486 (18/37),0.545 (12/22),0.538 (7/13),0.5234675234675233

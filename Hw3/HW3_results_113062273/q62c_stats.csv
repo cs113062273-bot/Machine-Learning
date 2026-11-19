@@ -1,0 +1,3 @@
+set,mean pixel,% pixels = 0,% pixels > 128,mean of pixels <= 64 (background),mean width of columns with a pixel > 64
+dataset training part,60.474895,38.29452634419152,17.559666895604394,15.094389,16.907692307692308
+my converted 30,29.212585,67.28741496598639,11.326530612244898,2.5183442,15.2

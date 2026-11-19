@@ -1,0 +1,3 @@
+training,correct
+with fake handwriting (final network),26/30
+without fake handwriting,20/30

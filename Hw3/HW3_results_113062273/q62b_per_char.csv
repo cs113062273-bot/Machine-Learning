@@ -1,0 +1,11 @@
+class,correct (of 3),predicted as
+big,3,"big, big, big"
+sun,3,"sun, sun, sun"
+moon,3,"moon, moon, moon"
+cattle,1,"cattle, time, wood"
+next,2,"next, next, field"
+field,3,"field, field, field"
+not,3,"not, not, not"
+arrow,3,"arrow, arrow, arrow"
+time,3,"time, time, time"
+wood,2,"time, wood, wood"
